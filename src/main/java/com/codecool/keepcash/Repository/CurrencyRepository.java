@@ -1,9 +1,15 @@
 package com.codecool.keepcash.Repository;
 
 import com.codecool.keepcash.Entity.Currency;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CurrencyRepository extends CrudRepository<Currency, Long> {
+
+    @Query(value = "SELECT currency FROM Currency currency WHERE currency.signature = ?1")
+    Currency getCurrencyBySignature(String signature);
 }

@@ -86,4 +86,6 @@ public class Operation {
     public void setCategory(Category category) {
         this.category = category;
     }
+
+
 }

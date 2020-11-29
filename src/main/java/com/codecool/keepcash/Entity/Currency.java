@@ -45,4 +45,5 @@ public class Currency {
     public void setSignature(String signature) {
         this.signature = signature;
     }
+
 }
