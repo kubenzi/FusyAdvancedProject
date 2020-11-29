@@ -7,10 +7,11 @@ import javax.persistence.OneToMany;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name="accounts")
 public class Account {
 
     @Id
+    @SequenceGenerator(name= "id_gen", initialValue = 10, allocationSize = 1)
     @GeneratedValue
     private Long id;
 

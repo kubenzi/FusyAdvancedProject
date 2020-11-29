@@ -2,10 +2,11 @@ package com.codecool.keepcash.Entity;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name="categories")
 public class Category {
 
     @Id
+    @SequenceGenerator(name= "id_gen", initialValue = 10, allocationSize = 1)
     @GeneratedValue
     private Long id;
 

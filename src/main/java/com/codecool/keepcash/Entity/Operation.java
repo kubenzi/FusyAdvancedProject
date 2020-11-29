@@ -4,10 +4,11 @@ import javax.persistence.*;
 import java.util.Date;
 
 
-@Entity
+@Entity(name="operations")
 public class Operation {
 
     @Id
+    @SequenceGenerator(name= "id_gen", initialValue = 10, allocationSize = 1)
     @GeneratedValue
     private Long id;
 

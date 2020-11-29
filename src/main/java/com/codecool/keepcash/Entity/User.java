@@ -4,10 +4,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+@Entity(name="users")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
 
     @Id
+    @SequenceGenerator(name= "id_gen", initialValue = 10, allocationSize = 1)
     @GeneratedValue
     private Long id;
 
