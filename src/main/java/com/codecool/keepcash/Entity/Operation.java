@@ -1,14 +1,14 @@
 package com.codecool.keepcash.Entity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.text.SimpleDateFormat;
 
 
-@Entity(name="operations")
+@Entity(name = "operations")
 public class Operation {
 
     @Id
-    @SequenceGenerator(name= "id_gen", initialValue = 10, allocationSize = 1)
+    @SequenceGenerator(name = "id_gen", initialValue = 10, allocationSize = 1)
     @GeneratedValue
     private Long id;
 
@@ -16,7 +16,7 @@ public class Operation {
 
     private Double value;
 
-    private Date date;
+    private SimpleDateFormat date;
 
     @OneToOne
     private OperationType operationType;
@@ -27,11 +27,7 @@ public class Operation {
     public Operation() {
     }
 
-    public Operation(String description,
-                     Double value,
-                     Date date,
-                     OperationType operationType,
-                     Category category) {
+    public Operation(String description, Double value, SimpleDateFormat date, OperationType operationType, Category category) {
         this.description = description;
         this.value = value;
         this.date = date;
@@ -63,11 +59,11 @@ public class Operation {
         this.value = value;
     }
 
-    public Date getDate() {
+    public SimpleDateFormat getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(SimpleDateFormat date) {
         this.date = date;
     }
 
