@@ -1,56 +1,51 @@
-package com.codecool.keepcash.Entity;
+package com.codecool.keepcash.Dto;
 
-import javax.persistence.*;
+import com.codecool.keepcash.Entity.Category;
+import com.codecool.keepcash.Entity.OperationType;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.util.Date;
 
+public class OperationDto {
 
-@Entity(name="operations")
-public class Operation {
-
-    @Id
-    @SequenceGenerator(name= "id_gen", initialValue = 10, allocationSize = 1)
-    @GeneratedValue
     private Long id;
-
     private String description;
-
     private Double value;
-
+//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    @JsonIgnore
     private Date date;
-
-    @OneToOne
+    @JsonIgnore
     private OperationType operationType;
-
-    @OneToOne
+    @JsonIgnore
     private Category category;
 
-    public Operation() {
+    public OperationDto() {
     }
 
-    public Operation(String description,
-                     Double value,
-                     Date date,
-                     OperationType operationType,
-                     Category category) {
-        this.description = description;
-        this.value = value;
-        this.date = date;
-        this.operationType = operationType;
-        this.category = category;
-    }
-
-    public Operation(Long id,
-                     String description,
-                     Double value,
-                     Date date,
-                     OperationType operationType,
-                     Category category) {
+    public OperationDto(Long id,
+                        String description,
+                        Double value,
+                        Date date,
+                        OperationType operationType,
+                        Category category) {
         this.id = id;
         this.description = description;
         this.value = value;
         this.date = date;
         this.operationType = operationType;
         this.category = category;
+    }
+
+    @JsonCreator
+    public OperationDto(@JsonProperty("id") Long id,
+                        @JsonProperty("description") String description,
+                        @JsonProperty("value") Double value) {
+        this.id = id;
+        this.description = description;
+        this.value = value;
     }
 
     public Long getId() {

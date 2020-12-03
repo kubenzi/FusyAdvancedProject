@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name="users")
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 public class User {
 
     @Id

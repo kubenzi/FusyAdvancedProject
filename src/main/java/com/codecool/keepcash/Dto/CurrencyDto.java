@@ -1,29 +1,23 @@
-package com.codecool.keepcash.Entity;
+package com.codecool.keepcash.Dto;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@Entity
-public class Currency {
+public class CurrencyDto {
 
-    @Id
-    @SequenceGenerator(name= "currency_id_generator", initialValue = 3, allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "currency_id_generator")
     private Long id;
-
     private String name;
-
     private String signature;
 
-    public Currency() {
+    public CurrencyDto() {
     }
 
-    public Currency(String name,
-                    String signature) {
-        this.name = name;
-        this.signature = signature;
-    }
 
-    public Currency(Long id, String name, String signature) {
+
+    @JsonCreator
+    public CurrencyDto(@JsonProperty("id") Long id,
+                       @JsonProperty("name") String name,
+                       @JsonProperty("signature") String signature) {
         this.id = id;
         this.name = name;
         this.signature = signature;
