@@ -5,23 +5,28 @@ import com.codecool.keepcash.Entity.AccountType;
 import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Repository.AccountTypeRepository;
 import com.codecool.keepcash.util.AccountTypeDtoToAccountTypeConverter;
+import com.codecool.keepcash.util.AccountTypeFields;
 import com.codecool.keepcash.util.AccountTypeToAccountTypeDtoConverter;
+import com.codecool.keepcash.util.NameComparator;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class AccountTypeServiceImpl implements AccountTypeService {
 
-    AccountTypeRepository accountTypeRepository;
-    AccountTypeToAccountTypeDtoConverter accountTypeToAccountTypeDtoConverter;
-    AccountTypeDtoToAccountTypeConverter accountTypeDtoToAccountTypeConverter;
+    private NameComparator nameComparator;
+    private AccountTypeRepository accountTypeRepository;
+    private AccountTypeToAccountTypeDtoConverter accountTypeToAccountTypeDtoConverter;
+    private AccountTypeDtoToAccountTypeConverter accountTypeDtoToAccountTypeConverter;
 
 
-    public AccountTypeServiceImpl(AccountTypeRepository accountTypeRepository,
+    public AccountTypeServiceImpl(NameComparator nameComparator, AccountTypeRepository accountTypeRepository,
                                   AccountTypeToAccountTypeDtoConverter accountTypeToAccountTypeDtoConverter,
                                   AccountTypeDtoToAccountTypeConverter accountTypeDtoToAccountTypeConverter) {
+        this.nameComparator = nameComparator;
         this.accountTypeRepository = accountTypeRepository;
         this.accountTypeToAccountTypeDtoConverter = accountTypeToAccountTypeDtoConverter;
         this.accountTypeDtoToAccountTypeConverter = accountTypeDtoToAccountTypeConverter;
@@ -61,6 +66,20 @@ public class AccountTypeServiceImpl implements AccountTypeService {
                 convertDtoToAccountType(accountTypeDto);
         accountType.setId(id);
         accountTypeRepository.save(accountType);
+    }
+
+    @Override
+    public List<AccountTypeDto> getAllAccountTypesSortByName(String sortByName) {
+        List<AccountTypeDto> allAccountTypes = getAllAccountTypes();
+
+        if (sortByName.equals(AccountTypeFields.NAME.name())) {
+            return allAccountTypes.stream()
+                    .sorted((c1, c2) -> nameComparator.compare(c1.getName(),
+                            c2.getName()))
+                    .collect(Collectors.toList());
+        }
+        return allAccountTypes;
+
     }
 }
 

@@ -47,11 +47,19 @@ public class TestController {
         currencyService.addNewCurrency(currencyDto);
     }
 
+//
+//    @GetMapping("/account-types")
+//    public List<AccountTypeDto> getAccountTypes(){ return accountTypeService.getAllAccountTypes();}
 
     @GetMapping("/account-types")
-    public List<AccountTypeDto> getAccountTypes(){ return accountTypeService.getAllAccountTypes();}
+    public List<AccountTypeDto> getAccountTypes(@RequestParam(required = false) String sortBy){
+        return sortBy!= null ?
+                accountTypeService.getAllAccountTypesSortByName(sortBy) :
+                accountTypeService.getAllAccountTypes();
+    }
 
     @PostMapping("/account-types")
+    @ResponseStatus(CREATED)
     public void  addAccountType(@RequestBody AccountTypeDto accountTypeDto) {
         accountTypeService.addAccountType(accountTypeDto);
     }
@@ -75,7 +83,7 @@ public class TestController {
     }
 
     @ExceptionHandler({IdNotFoundException.class})
-    public ResponseEntity<String> handleNotFoundExceptions(Exception exception) {
+    public ResponseEntity<String> handleNotFoundExceptions(IdNotFoundException exception) {
         return new ResponseEntity<>(exception.getMessage(), NOT_FOUND);
     }
 }

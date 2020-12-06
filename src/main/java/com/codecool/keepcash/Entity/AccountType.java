@@ -1,6 +1,7 @@
 package com.codecool.keepcash.Entity;
 
 import javax.persistence.*;
+import java.util.Comparator;
 
 @Entity(name="account_types")
 public class AccountType {
@@ -33,4 +34,6 @@ public class AccountType {
     public void setName(String name) {
         this.name = name;
     }
+
+
 }
