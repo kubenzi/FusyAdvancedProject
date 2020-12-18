@@ -3,7 +3,6 @@ package com.codecool.keepcash.Controller;
 import com.codecool.keepcash.Dto.AccountTypeDto;
 import com.codecool.keepcash.Dto.CurrencyDto;
 import com.codecool.keepcash.Dto.OperationDto;
-import com.codecool.keepcash.Entity.AccountType;
 import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Service.AccountTypeService;
 import com.codecool.keepcash.Service.CurrencyService;
@@ -76,14 +75,9 @@ public class TestController {
     }
 
     @PutMapping("/account-types/{id}")
-    @ResponseStatus
+    @ResponseStatus(CREATED)
     public void updateAccountType(@PathVariable String id,
-                                  AccountTypeDto accountTypeDto){
+                                   @RequestBody AccountTypeDto accountTypeDto){
         accountTypeService.updateAccountType(Long.valueOf(id), accountTypeDto);
-    }
-
-    @ExceptionHandler({IdNotFoundException.class})
-    public ResponseEntity<String> handleNotFoundExceptions(IdNotFoundException exception) {
-        return new ResponseEntity<>(exception.getMessage(), NOT_FOUND);
     }
 }
