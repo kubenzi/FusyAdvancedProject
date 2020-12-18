@@ -18,6 +18,6 @@ public class ExchangeRatesController {
 
     @GetMapping("/exchangeRates")
     public String getRates() throws InterruptedException, IOException, URISyntaxException {
-        return exchangeRatesClient.getCurrencies();
+        return exchangeRatesClient.getCurrencies().toString();
     }
 }

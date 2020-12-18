@@ -1,5 +1,8 @@
 package com.codecool.keepcash.ExternalApis.Client;
 
+import com.codecool.keepcash.ExternalApis.Dto.ExchangeRatesDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -21,7 +24,7 @@ public class ExchangeRatesClient {
             .build();
     }
 
-    public String getCurrencies() throws URISyntaxException, IOException, InterruptedException {
+    public ExchangeRatesDto getCurrencies() throws URISyntaxException, IOException, InterruptedException {
         HttpRequest getRequest = HttpRequest.newBuilder()
                 .uri(new URI(EXCHANGE_RATES_API_URL))
                 .GET()
@@ -29,6 +32,11 @@ public class ExchangeRatesClient {
 
         HttpResponse<String> response = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
 
-        return response.body();
+        return deserialize(response.body());
+    }
+
+    public ExchangeRatesDto deserialize(String body) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.readValue(body, ExchangeRatesDto.class);
     }
 }
