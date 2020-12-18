@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface AccountTypeRepository extends CrudRepository<AccountType, Long> {
-
+    AccountType findAccountTypeById(Long id);
 }

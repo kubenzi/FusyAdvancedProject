@@ -71,11 +71,9 @@ public class AccountTypeServiceImpl implements AccountTypeService {
     @Override
     public List<AccountTypeDto> getAllAccountTypesSortByName(String sortByName) {
         List<AccountTypeDto> allAccountTypes = getAllAccountTypes();
-
         if (sortByName.equals(AccountTypeFields.NAME.name())) {
             return allAccountTypes.stream()
-                    .sorted((c1, c2) -> nameComparator.compare(c1.getName(),
-                            c2.getName()))
+                    .sorted((account1, account2) -> account1.getName().compareTo(account2.getName()))
                     .collect(Collectors.toList());
         }
         return allAccountTypes;

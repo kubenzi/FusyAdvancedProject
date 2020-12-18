@@ -2,10 +2,12 @@ package com.codecool.keepcash.Dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSetter;
 
 public class AccountTypeDto {
 
     private Long id;
+    @JsonSetter
     private String name;
 
     public AccountTypeDto() {
