@@ -20,4 +20,9 @@ public class ExchangeRatesController {
     public String getRates() throws InterruptedException, IOException, URISyntaxException {
         return exchangeRatesClient.getCurrencies().toString();
     }
+
+    @GetMapping("/historicalExchangeRates")
+    public String getHistoricalRates() throws InterruptedException, IOException, URISyntaxException {
+        return exchangeRatesClient.getHistoricalCurrencies().toString();
+    }
 }

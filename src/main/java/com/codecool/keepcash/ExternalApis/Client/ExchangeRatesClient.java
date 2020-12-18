@@ -14,7 +14,9 @@ import java.net.http.HttpResponse;
 
 @Service
 public class ExchangeRatesClient {
-    private static final String EXCHANGE_RATES_API_URL = "https://api.exchangeratesapi.io/latest";
+    private static final String EXCHANGE_RATES_API_URL = "https://api.exchangeratesapi.io/latest?base=PLN";
+    private static final String EXCHANGE_RATES_API_URL_HISTORICAL = "https://api.exchangeratesapi.io/history?start_at=2018-01-01&end_at=2018-09-01";
+    private static final Integer HISTORICAL_PERIOD = 30;
 
     private HttpClient httpClient;
 
@@ -31,7 +33,16 @@ public class ExchangeRatesClient {
                 .build();
 
         HttpResponse<String> response = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
+        return deserialize(response.body());
+    }
 
+    public ExchangeRatesDto getHistoricalCurrencies() throws URISyntaxException, IOException, InterruptedException {
+        HttpRequest getRequest = HttpRequest.newBuilder()
+                .uri(new URI(EXCHANGE_RATES_API_URL_HISTORICAL))
+                .GET()
+                .build();
+
+        HttpResponse<String> response = httpClient.send(getRequest, HttpResponse.BodyHandlers.ofString());
         return deserialize(response.body());
     }
 
