@@ -8,8 +8,8 @@ INSERT INTO public.operation_types (id, name) VALUES (1, 'IN');
 INSERT INTO public.operation_types (id, name) VALUES (2, 'OUT');
 INSERT INTO public.operation_types (id, name) VALUES (3, 'TRANSFER');
 
-INSERT INTO public.users (id, email, first_name, last_name, login, password) VALUES (1, 'barjakimko@gmail.com', 'Bartosz', 'Jakimko', 'bj', 'dupa');
-INSERT INTO public.users (id, email, first_name, last_name, login, password) VALUES (2, 'kchorazyk.97@gmail.com', 'Jakub', 'Chorążyk', 'jch', 'okon');
+INSERT INTO public.users (id, email, enabled, first_name, last_name, locked, username, password) VALUES (1, 'barjakimko@gmail.com', true, 'Bartosz', 'Jakimko', false, 'bj', 'dupa');
+INSERT INTO public.users (id, email, enabled, first_name, last_name, locked, username, password) VALUES (2, 'kchorazyk.97@gmail.com', true, 'Jakub', 'Chorążyk', false, 'jch', 'okon');
 
 INSERT INTO public.categories (id, name, user_id) VALUES (1, 'Whores', 1);
 INSERT INTO public.categories (id, name, user_id) VALUES (2, 'Whores', 2);

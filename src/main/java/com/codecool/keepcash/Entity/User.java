@@ -1,11 +1,17 @@
 package com.codecool.keepcash.Entity;
 
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Entity(name="users")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @SequenceGenerator(name= "id_gen", initialValue = 10, allocationSize = 1)
@@ -20,7 +26,7 @@ public class User {
 
     private String password;
 
-    private String login;
+    private String username;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
@@ -30,6 +36,12 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Account> accounts = new ArrayList<>();
 
+    @Column(columnDefinition="BOOLEAN DEFAULT true")
+    private boolean enabled = true;
+
+    @Column(columnDefinition="BOOLEAN DEFAULT false")
+    private boolean locked = false;
+
     public User() {
     }
 
@@ -37,16 +49,34 @@ public class User {
                 String lastName,
                 String email,
                 String password,
-                String login,
+                String username) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.username = username;
+    }
+
+    public User(String firstName,
+                String lastName,
+                String email,
+                String password,
+                String username,
                 List<Category> categories,
                 List<Account> accounts) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.password = password;
-        this.login = login;
+        this.username = username;
         this.categories = categories;
         this.accounts = accounts;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        final SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("USER");
+        return Collections.singletonList(simpleGrantedAuthority);
     }
 
     public Long getId() {
@@ -89,12 +119,12 @@ public class User {
         this.password = password;
     }
 
-    public String getLogin() {
-        return login;
+    public String getUsername() {
+        return username;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public List<Category> getCategories() {
@@ -111,5 +141,25 @@ public class User {
 
     public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !locked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
     }
 }
