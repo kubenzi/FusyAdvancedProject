@@ -28,14 +28,18 @@ public class AuthenticationService implements UserDetailsService {
                 userDto.getEmail(),
                 bCryptPasswordEncoder.encode(userDto.getPassword()),
                 userDto.getUsername());
-        failUserIfAlreadyRegistered(userDto.getUsername());
+        failIfUserAlreadyRegistered(userDto.getUsername());
         userRepository.save(user);
     }
 
-    private void failUserIfAlreadyRegistered(String username) {
+    private void failIfUserAlreadyRegistered(String username) {
         Optional<User> maybeUser = userRepository.findByUsername(username);
         if (maybeUser.isPresent()) {
-            throw new ValidationException("User already exist: " + maybeUser.get().getUsername());
+            try {
+                throw new ValidationException("User already exist: " + maybeUser.get().getUsername());
+            } catch (ValidationException e) {
+                e.printStackTrace();
+            }
         }
     }
 
