@@ -3,7 +3,8 @@ package com.codecool.keepcash.Controller;
 import com.codecool.keepcash.Dto.CredentialsDto;
 import com.codecool.keepcash.Dto.UserDto;
 import com.codecool.keepcash.Service.AuthenticationService;
-import com.codecool.keepcash.Service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.HttpStatus.CREATED;
@@ -12,12 +13,9 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @RestController
 public class AuthController {
-    private UserService userService;
     private AuthenticationService authenticationService;
 
-    public AuthController(UserService userService,
-                          AuthenticationService authenticationService) {
-        this.userService = userService;
+    public AuthController(AuthenticationService authenticationService) {
         this.authenticationService = authenticationService;
     }
 
@@ -30,6 +28,8 @@ public class AuthController {
     @PostMapping(value = "/login", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
     public void login(@RequestBody CredentialsDto credentialsDto) {
+        Authentication authentication = authenticationService.login(credentialsDto);
 
+        SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

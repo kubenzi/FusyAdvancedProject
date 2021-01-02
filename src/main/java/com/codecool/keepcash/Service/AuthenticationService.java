@@ -1,9 +1,13 @@
 package com.codecool.keepcash.Service;
 
+import com.codecool.keepcash.Dto.CredentialsDto;
 import com.codecool.keepcash.Dto.UserDto;
 import com.codecool.keepcash.Entity.User;
 import com.codecool.keepcash.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -22,6 +26,9 @@ public class AuthenticationService implements UserDetailsService {
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
 
+    @Autowired
+    private AuthenticationManager authenticationManager;
+
     public void register(UserDto userDto) {
         User user = new User(userDto.getFirstName(),
                 userDto.getLastName(),
@@ -30,6 +37,11 @@ public class AuthenticationService implements UserDetailsService {
                 userDto.getUsername());
         failIfUserAlreadyRegistered(userDto.getUsername());
         userRepository.save(user);
+    }
+
+    public Authentication login(CredentialsDto credentialsDto) {
+        return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(credentialsDto.getUsername(),
+                credentialsDto.getPassword()));
     }
 
     private void failIfUserAlreadyRegistered(String username) {
