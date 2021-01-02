@@ -8,8 +8,8 @@ import java.util.Date;
 public class Operation {
 
     @Id
-    @SequenceGenerator(name= "id_gen", initialValue = 10, allocationSize = 1)
-    @GeneratedValue
+    @SequenceGenerator(name= "operation_id_generator", initialValue = 10, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "operation_id_generator")
     private Long id;
 
     private String description;
@@ -21,36 +21,29 @@ public class Operation {
     @OneToOne
     private OperationType operationType;
 
-    @OneToOne
-    private Category category;
-
     public Operation() {
     }
 
     public Operation(String description,
                      Double value,
                      Date date,
-                     OperationType operationType,
-                     Category category) {
+                     OperationType operationType) {
         this.description = description;
         this.value = value;
         this.date = date;
         this.operationType = operationType;
-        this.category = category;
     }
 
     public Operation(Long id,
                      String description,
                      Double value,
                      Date date,
-                     OperationType operationType,
-                     Category category) {
+                     OperationType operationType) {
         this.id = id;
         this.description = description;
         this.value = value;
         this.date = date;
         this.operationType = operationType;
-        this.category = category;
     }
 
     public Long getId() {
@@ -91,13 +84,5 @@ public class Operation {
 
     public void setOperationType(OperationType operationType) {
         this.operationType = operationType;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
     }
 }

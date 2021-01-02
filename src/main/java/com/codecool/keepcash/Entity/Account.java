@@ -11,8 +11,8 @@ import java.util.List;
 public class Account {
 
     @Id
-    @SequenceGenerator(name= "id_gen", initialValue = 10, allocationSize = 1)
-    @GeneratedValue
+    @SequenceGenerator(name= "account_id_generator", initialValue = 10, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_id_generator")
     private Long id;
 
     private String name;
@@ -40,6 +40,22 @@ public class Account {
                    AccountType accountType,
                    Currency currency,
                    List<Operation> operations) {
+        this.name = name;
+        this.balance = balance;
+        this.accountNumber = accountNumber;
+        this.accountType = accountType;
+        this.currency = currency;
+        this.operations = operations;
+    }
+
+    public Account(Long id,
+                   String name,
+                   Double balance,
+                   String accountNumber,
+                   AccountType accountType,
+                   Currency currency,
+                   List<Operation> operations) {
+        this.id = id;
         this.name = name;
         this.balance = balance;
         this.accountNumber = accountNumber;

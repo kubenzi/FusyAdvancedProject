@@ -1,22 +1,35 @@
 package com.codecool.keepcash.Entity;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity(name="categories")
 public class Category {
 
     @Id
-    @SequenceGenerator(name= "id_gen", initialValue = 10, allocationSize = 1)
-    @GeneratedValue
+    @SequenceGenerator(name= "category_id_generator", initialValue = 10, allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_id_generator")
     private Long id;
 
     private String name;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "category_id")
+    List<Operation> operations = new ArrayList<>();
+
     public Category() {
     }
 
-    public Category(String name) {
+    public Category(String name, List<Operation> operations) {
         this.name = name;
+        this.operations = operations;
+    }
+
+    public Category(Long id, String name, List<Operation> operations) {
+        this.id = id;
+        this.name = name;
+        this.operations = operations;
     }
 
     public Long getId() {
@@ -33,5 +46,13 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Operation> getOperations() {
+        return operations;
+    }
+
+    public void setOperations(List<Operation> operations) {
+        this.operations = operations;
     }
 }

@@ -19,6 +19,11 @@ public class AccountType {
         this.name = name;
     }
 
+    public AccountType(Long id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
