@@ -1,19 +1,32 @@
 
 body {
   max-width: 1440px;
-  background-color: bisque;
   display: flex;
+  margin: auto;
+  width: 1267px;
+  height: 669px;
+  background: #ffffff;
+  border-color: #ebebeb;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 30px 30px 30px 30px;
+  font-family: "Alata";
 }
 
 .category-container, .account-container {
   display: flex;
+  background: #ffffff;
+  border-color: #ebebeb;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 30px 30px 30px 30px;
 }
 
 .main-view {
-
+  flex: 3;
 }
 
-.category, .account, .hype-link {
+.category, .account {
   display: inline-block;
   font-size: small;
   color: white;
@@ -24,11 +37,42 @@ body {
   left: -1px;
   top: -4px;
   margin-right: .8em;
-  border-radius: 4px 0 0 4px;
+  border-radius: 8px 8px 8px 8px;
+  padding: 10px;
 }
 
 nav {
-  max-width: 600px;
-  
+  flex: 1;
+  text-align: center;
+  width: 1267px;
+  height: 669px;
+  background: #ffffff;
+  border-color: #ebebeb;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 30px 30px 30px 30px;
 }
 
+section {
+  flex: 1;
+  height: 669px;
+  background: #ffffff;
+  border-color: #ebebeb;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 30px 30px 30px 30px;
+}
+
+.hype-link {
+  width: 224px;
+  margin: 20px;
+  /*height: 50px;*/
+  /*padding: 0px 10px 0px 10px;*/
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.15);
+  /*background: #ffffff;*/
+  /*color: #232323;*/
+  /*font-weight: 400;*/
+  /*font-size: 14px;*/
+  /*text-align: center;*/
+
+}

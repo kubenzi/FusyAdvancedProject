@@ -1,21 +1,32 @@
 <body>
-  <nav>
-    <input type="hidden" #userId>
-    <button (click)="getUser(userId.value)">User id</button>
 
-    <a routerLink="/heroes" class="hype-link"> Dashboard </a>
-    <a routerLink="/heroes" class="hype-link"> Scheduled </a>
-    <a routerLink="/heroes" class="hype-link"> Savings </a>
-    <a routerLink="/heroes" class="hype-link"> Profile </a>
-    <a routerLink="/heroes" class="hype-link"> Settings </a>
-    <a routerLink="/heroes" class="hype-link"> Contact </a>
+    <nav>
 
+      <div class="logo">
 
-  </nav>
+        <input type="hidden" #userId>
+        <button (click)="getUser(userId.value)">User id</button>
+        <h1>Logo</h1>
+
+      </div>
+
+      <br>
+      <a routerLink="/heroes" class="hype-link"> Dashboard </a> <br>
+      <a routerLink="/heroes" class="hype-link"> Scheduled </a> <br>
+      <a routerLink="/heroes" class="hype-link"> Savings </a> <br>
+      <a routerLink="/heroes" class="hype-link"> Profile </a> <br>
+      <a routerLink="/heroes" class="hype-link"> Settings </a> <br>
+      <a routerLink="/heroes" class="hype-link"> Contact </a> <br>
+
+    </nav>
+
 
 
   <div class="main-view">
+    Categories:
+    <br>
     <div class="category-container">
+      <br>
       <li *ngFor="let category of user.categories" class="repo">
         <div class="category">
           <h3>Category id:</h3>
@@ -27,27 +38,11 @@
         <br><br>
       </li>
     </div>
-
-<h2>Mock version</h2>
-
-<input type="text" #userId>
-<button (click)="getUser(userId.value)">User id</button>
-
-<div *ngIf="user" class="user-data">
-
-  <h3>User id:</h3>
-  {{user.id}}
-  <br>
-
-  <h3>User firstname:</h3>
-  {{user.firstName}}
-  <br>
-
-  <h3>User lastname:</h3>
-  {{user.lastName}}
-  <br>
-
+    Accounts:
+    <br>
     <div class="account-container">
+
+      <br>
       <li *ngFor="let account of user.accounts" class="repo">
         <div class="account">
           <h3>Account type:</h3>
@@ -55,28 +50,7 @@
           {{account.accountNumber}}
           <br><br>
 
-  <!--        <h3>Account balance:</h3>-->
-  <!--        {{account.balance}}-->
-  <!--        <br><br>-->
-
-  <!--        <h3>Account name:</h3>-->
-  <!--        {{account.name}}-->
-  <!--        <br><br>-->
-
-  <!--        <h3>Account currency:</h3>-->
-  <!--        {{account.currency.name}}-->
-  <!--        <br><br>-->
-
-  <!--        <h3>Operations for account:</h3>-->
-  <!--        <div *ngFor="let operation of account.operations" class="repo">-->
-  <!--          {{operation.date}} <br>-->
-  <!--          {{operation.description}} <br>-->
-  <!--          {{operation.value}} <br>-->
-  <!--          {{operation.operationType.name}} <br>-->
-  <!--        </div>-->
         </div>
-
-        <br><br>
       </li>
     </div>
   </div>
@@ -100,7 +74,9 @@
       {{user.username}}
       <br>
 
-      <br>
     </div>
   </section>
+
+
+
 </body>
