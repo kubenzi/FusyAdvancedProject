@@ -1,0 +1,9 @@
+Parts of code blocked for disabling spring security:
+-SecurityConfiguration (entire file)
+-AuthController (entire file)
+-AuthenticationService (entire file)
+-pom.xml - only Spring Security dependencies
+-User:
+    -signature replaced with default (without interface impelentation)
+    -imports x 5
+    -interface's methods (@Override) x 5

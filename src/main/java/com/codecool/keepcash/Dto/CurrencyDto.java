@@ -12,8 +12,6 @@ public class CurrencyDto {
     public CurrencyDto() {
     }
 
-
-
     @JsonCreator
     public CurrencyDto(@JsonProperty("id") Long id,
                        @JsonProperty("name") String name,

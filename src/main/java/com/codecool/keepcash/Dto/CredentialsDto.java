@@ -7,7 +7,8 @@ public class CredentialsDto {
     public CredentialsDto() {
     }
 
-    public CredentialsDto(String username, String password) {
+    public CredentialsDto(String username,
+                          String password) {
         this.username = username;
         this.password = password;
     }

@@ -10,6 +10,14 @@ public class RegistrationUserDto {
     public RegistrationUserDto() {
     }
 
+    public RegistrationUserDto(String firstName, String lastName, String email, String password, String username) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.username = username;
+    }
+
     public String getFirstName() {
         return firstName;
     }

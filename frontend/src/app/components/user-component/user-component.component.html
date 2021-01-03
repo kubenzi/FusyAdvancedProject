@@ -28,6 +28,25 @@
       </li>
     </div>
 
+<h2>Mock version</h2>
+
+<input type="text" #userId>
+<button (click)="getUser(userId.value)">User id</button>
+
+<div *ngIf="user" class="user-data">
+
+  <h3>User id:</h3>
+  {{user.id}}
+  <br>
+
+  <h3>User firstname:</h3>
+  {{user.firstName}}
+  <br>
+
+  <h3>User lastname:</h3>
+  {{user.lastName}}
+  <br>
+
     <div class="account-container">
       <li *ngFor="let account of user.accounts" class="repo">
         <div class="account">
