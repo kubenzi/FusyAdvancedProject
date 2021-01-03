@@ -2,6 +2,7 @@ import { UserService, User, AccountType, Category, Currency, Operation, Operatio
 
 // @ts-ignore
 export const USER_MOCK: User = {
+  id: 19,
   firstName: 'Bartosz',
   lastName: 'Jakimko',
   email: 'barjakimko@gmail.com',

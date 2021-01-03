@@ -2,6 +2,8 @@ package com.codecool.keepcash.Dto;
 
 import com.codecool.keepcash.Entity.Account;
 import com.codecool.keepcash.Entity.Category;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
 import java.util.List;
@@ -10,36 +12,41 @@ public class UserDto {
 
     private Long id;
 
-    @JsonSetter
     private String firstName;
 
-    @JsonSetter
     private String lastName;
 
-    @JsonSetter
     private String email;
 
-    @JsonSetter
     private String username;
 
-    @JsonSetter
     private List<Category> categories;
 
-    @JsonSetter
     private List<Account> accounts;
 
-    public UserDto(String firstName,
-                   String lastName,
-                   String email,
-                   String username,
-                   List<Category> categories,
-                   List<Account> accounts) {
+    @JsonCreator
+    public UserDto(@JsonProperty ("id") Long id,
+                   @JsonProperty ("firstName") String firstName,
+                   @JsonProperty ("lastName") String lastName,
+                   @JsonProperty ("email") String email,
+                   @JsonProperty ("username") String username,
+                   @JsonProperty ("categories") List<Category> categories,
+                   @JsonProperty ("accounts") List<Account> accounts) {
+        this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.categories = categories;
         this.accounts = accounts;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getFirstName() {

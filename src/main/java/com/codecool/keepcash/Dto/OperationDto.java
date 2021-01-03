@@ -1,5 +1,6 @@
 package com.codecool.keepcash.Dto;
 
+import com.codecool.keepcash.Entity.Account;
 import com.codecool.keepcash.Entity.Category;
 import com.codecool.keepcash.Entity.OperationType;
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -21,6 +22,8 @@ public class OperationDto {
     private OperationType operationType;
     @JsonIgnore
     private Category category;
+    @JsonIgnore
+    private Account account;
 
     public OperationDto() {
     }
@@ -30,13 +33,15 @@ public class OperationDto {
                         Double value,
                         Date date,
                         OperationType operationType,
-                        Category category) {
+                        Category category,
+                        Account account) {
         this.id = id;
         this.description = description;
         this.value = value;
         this.date = date;
         this.operationType = operationType;
         this.category = category;
+        this.account = account;
     }
 
     @JsonCreator
@@ -94,5 +99,13 @@ public class OperationDto {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

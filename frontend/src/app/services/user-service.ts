@@ -61,6 +61,7 @@ export interface Account {
 }
 
 export interface User {
+  id: number;
   firstName: string;
   lastName: string;
   email: string;
