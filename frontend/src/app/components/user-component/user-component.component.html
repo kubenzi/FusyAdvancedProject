@@ -1,0 +1,78 @@
+<h2>Mock version</h2>
+
+<input type="text" #userId>
+<button (click)="getUser(userId.value)">User id</button>
+
+<div *ngIf="user" class="user-data">
+
+  <h3>User firstname:</h3>
+  {{user.firstName}}
+  <br>
+
+  <h3>User lastname:</h3>
+  {{user.lastName}}
+  <br>
+
+  <h3>User email:</h3>
+  {{user.email}}
+  <br>
+
+  <h3>Username:</h3>
+  {{user.username}}
+  <br>
+
+  <br>
+
+  <li *ngFor="let category of user.categories" class="repo">
+    <div class="badge">
+      <h3>Category id:</h3>
+      {{category.id}}
+      {{category.name}}
+
+      <div *ngFor="let operation of category.operations" class="repo">
+        {{operation.date}} <br>
+        {{operation.description}} <br>
+        {{operation.value}} <br>
+        {{operation.operationType.name}} <br>
+      </div>
+      -------------------------------------------------------------
+      <br><br>
+
+    </div>
+
+    <br><br>
+  </li>
+
+  <li *ngFor="let account of user.accounts" class="repo">
+    <div class="badge">
+      <h3>Account type:</h3>
+      {{account.accountType.name}}
+      <br><br>
+
+      <h3>Account balance:</h3>
+      {{account.balance}}
+      <br><br>
+
+      <h3>Account name:</h3>
+      {{account.name}}
+      <br><br>
+
+      <h3>Account currency:</h3>
+      {{account.currency.name}}
+      <br><br>
+
+      <h3>Operations for account:</h3>
+      <div *ngFor="let operation of account.operations" class="repo">
+        {{operation.date}} <br>
+        {{operation.description}} <br>
+        {{operation.value}} <br>
+        {{operation.operationType.name}} <br>
+      </div>
+      -----------------------------------------------------------------------
+    </div>
+
+    <br><br>
+  </li>
+
+</div>
+
