@@ -29,7 +29,7 @@ public class Account {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "account_id")
-    List<Operation> operations = new ArrayList<>();
+    private List<Operation> operations = new ArrayList<>();
 
     public Account() {
     }

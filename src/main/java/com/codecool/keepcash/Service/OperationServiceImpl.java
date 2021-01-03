@@ -3,7 +3,7 @@ package com.codecool.keepcash.Service;
 import com.codecool.keepcash.Dto.OperationDto;
 import com.codecool.keepcash.Entity.Operation;
 import com.codecool.keepcash.Repository.OperationRepository;
-import com.codecool.keepcash.util.OperationToOperationDtoConverter;
+import com.codecool.keepcash.util.converters.operation.OperationToOperationDtoConverter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

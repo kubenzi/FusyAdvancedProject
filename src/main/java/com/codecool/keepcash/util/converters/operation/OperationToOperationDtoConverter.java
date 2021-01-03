@@ -1,4 +1,4 @@
-package com.codecool.keepcash.util;
+package com.codecool.keepcash.util.converters.operation;
 
 import com.codecool.keepcash.Dto.OperationDto;
 import com.codecool.keepcash.Entity.Operation;
@@ -10,13 +10,18 @@ import java.util.stream.Collectors;
 @Component
 public class OperationToOperationDtoConverter {
 
-    public OperationToOperationDtoConverter() {
+    private OperationTypeToOperationTypeDtoConverter operationTypeToOperationTypeDtoConverter;
+
+    public OperationToOperationDtoConverter(OperationTypeToOperationTypeDtoConverter
+                                                    operationTypeToOperationTypeDtoConverter) {
+        this.operationTypeToOperationTypeDtoConverter = operationTypeToOperationTypeDtoConverter;
     }
 
     public OperationDto convertToDto(Operation operation) {
         return new OperationDto(operation.getId(),
                 operation.getDescription(),
-                operation.getValue());
+                operation.getValue(),
+                operationTypeToOperationTypeDtoConverter.convertToDto(operation.getOperationType()));
     }
 
     public List<OperationDto> convertListToDto(List<Operation> operations) {

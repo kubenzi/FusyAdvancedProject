@@ -4,7 +4,7 @@ import com.codecool.keepcash.Dto.UserDto;
 import com.codecool.keepcash.Entity.User;
 import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Repository.UserRepository;
-import com.codecool.keepcash.util.UserToUserDtoConverter;
+import com.codecool.keepcash.util.converters.user.UserToUserDtoConverter;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +21,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(Long id) {
-        return userToUserDtoConverter.convertUserToUserDto(
+        return userToUserDtoConverter.convertToDto(
                 userRepository.findById(id).
                         orElseThrow(() -> new IdNotFoundException(id, User.class.getSimpleName()))
         );

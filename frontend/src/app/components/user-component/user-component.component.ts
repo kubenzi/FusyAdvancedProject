@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService, User, AccountType, Category, Currency, Operation, OperationType}
+import { UserService, User, AccountType, Currency, Operation, OperationType}
 from '../../services/user-service';
 
 @Component({
@@ -16,13 +16,13 @@ export class UserComponentComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  // getUser(userId: string): void {
-  //   this.userService.getUser(userId)
-  //     .subscribe(value => this.user = value);
-  // }
-
   getUser(userId: string): void {
-    this.user = this.userService.getUser(userId);
+    this.userService.getUser(userId)
+      .subscribe(value => this.user = value);
   }
+
+  // getUser(userId: string): void {
+  //   this.user = this.userService.getUser(userId);
+  // }
 
 }

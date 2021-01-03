@@ -1,4 +1,4 @@
-package com.codecool.keepcash.util;
+package com.codecool.keepcash.util.converters.currency;
 
 import com.codecool.keepcash.Dto.CurrencyDto;
 import com.codecool.keepcash.Entity.Currency;

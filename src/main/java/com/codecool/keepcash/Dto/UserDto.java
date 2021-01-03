@@ -3,6 +3,7 @@ package com.codecool.keepcash.Dto;
 import com.codecool.keepcash.Entity.Account;
 import com.codecool.keepcash.Entity.Category;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
@@ -11,18 +12,12 @@ import java.util.List;
 public class UserDto {
 
     private Long id;
-
     private String firstName;
-
     private String lastName;
-
     private String email;
-
     private String username;
-
-    private List<Category> categories;
-
-    private List<Account> accounts;
+    private List<CategoryDto> categories;
+    private List<AccountDto> accounts;
 
     @JsonCreator
     public UserDto(@JsonProperty ("id") Long id,
@@ -30,8 +25,8 @@ public class UserDto {
                    @JsonProperty ("lastName") String lastName,
                    @JsonProperty ("email") String email,
                    @JsonProperty ("username") String username,
-                   @JsonProperty ("categories") List<Category> categories,
-                   @JsonProperty ("accounts") List<Account> accounts) {
+                   @JsonProperty ("categories") List<CategoryDto> categories,
+                   @JsonProperty ("accounts") List<AccountDto> accounts) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -81,19 +76,19 @@ public class UserDto {
         this.username = username;
     }
 
-    public List<Category> getCategories() {
+    public List<CategoryDto> getCategories() {
         return categories;
     }
 
-    public void setCategories(List<Category> categories) {
+    public void setCategories(List<CategoryDto> categories) {
         this.categories = categories;
     }
 
-    public List<Account> getAccounts() {
+    public List<AccountDto> getAccounts() {
         return accounts;
     }
 
-    public void setAccounts(List<Account> accounts) {
+    public void setAccounts(List<AccountDto> accounts) {
         this.accounts = accounts;
     }
 }

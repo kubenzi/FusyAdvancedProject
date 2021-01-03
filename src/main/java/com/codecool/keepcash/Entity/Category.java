@@ -16,7 +16,7 @@ public class Category {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "category_id")
-    List<Operation> operations = new ArrayList<>();
+    private List<Operation> operations = new ArrayList<>();
 
     public Category() {
     }

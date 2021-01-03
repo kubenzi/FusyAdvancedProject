@@ -3,17 +3,17 @@ package com.codecool.keepcash.Dto;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class AccountTypeDto {
+public class OperationTypeDto {
 
     private Long id;
     private String name;
 
-    public AccountTypeDto() {
+    public OperationTypeDto() {
     }
 
     @JsonCreator
-    public AccountTypeDto(@JsonProperty ("id") Long id,
-                          @JsonProperty ("name") String name) {
+    public OperationTypeDto(@JsonProperty("id") Long id,
+                            @JsonProperty("name") String name) {
         this.id = id;
         this.name = name;
     }

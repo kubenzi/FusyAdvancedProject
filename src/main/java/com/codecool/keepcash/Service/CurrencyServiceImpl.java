@@ -3,8 +3,8 @@ package com.codecool.keepcash.Service;
 import com.codecool.keepcash.Dto.CurrencyDto;
 import com.codecool.keepcash.Entity.Currency;
 import com.codecool.keepcash.Repository.CurrencyRepository;
-import com.codecool.keepcash.util.CurrencyDtoToCurrencyConverter;
-import com.codecool.keepcash.util.CurrencyToCurrencyDtoConverter;
+import com.codecool.keepcash.util.converters.currency.CurrencyDtoToCurrencyConverter;
+import com.codecool.keepcash.util.converters.currency.CurrencyToCurrencyDtoConverter;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

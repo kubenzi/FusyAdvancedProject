@@ -1,8 +1,5 @@
 package com.codecool.keepcash.Dto;
 
-import com.codecool.keepcash.Entity.Account;
-import com.codecool.keepcash.Entity.Category;
-import com.codecool.keepcash.Entity.OperationType;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -18,12 +15,7 @@ public class OperationDto {
 //    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     @JsonIgnore
     private Date date;
-    @JsonIgnore
-    private OperationType operationType;
-    @JsonIgnore
-    private Category category;
-    @JsonIgnore
-    private Account account;
+    private OperationTypeDto operationType;
 
     public OperationDto() {
     }
@@ -32,25 +24,23 @@ public class OperationDto {
                         String description,
                         Double value,
                         Date date,
-                        OperationType operationType,
-                        Category category,
-                        Account account) {
+                        OperationTypeDto operationType) {
         this.id = id;
         this.description = description;
         this.value = value;
         this.date = date;
         this.operationType = operationType;
-        this.category = category;
-        this.account = account;
     }
 
     @JsonCreator
     public OperationDto(@JsonProperty("id") Long id,
                         @JsonProperty("description") String description,
-                        @JsonProperty("value") Double value) {
+                        @JsonProperty("value") Double value,
+                        @JsonProperty("operationType") OperationTypeDto operationType) {
         this.id = id;
         this.description = description;
         this.value = value;
+        this.operationType = operationType;
     }
 
     public Long getId() {
@@ -85,27 +75,11 @@ public class OperationDto {
         this.date = date;
     }
 
-    public OperationType getOperationType() {
+    public OperationTypeDto getOperationType() {
         return operationType;
     }
 
-    public void setOperationType(OperationType operationType) {
+    public void setOperationType(OperationTypeDto operationType) {
         this.operationType = operationType;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Account getAccount() {
-        return account;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 }

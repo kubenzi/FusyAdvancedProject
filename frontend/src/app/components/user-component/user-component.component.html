@@ -34,7 +34,6 @@
       {{category.name}}
 
       <div *ngFor="let operation of category.operations" class="repo">
-        {{operation.date}} <br>
         {{operation.description}} <br>
         {{operation.value}} <br>
         {{operation.operationType.name}} <br>
@@ -67,7 +66,6 @@
 
       <h3>Operations for account:</h3>
       <div *ngFor="let operation of account.operations" class="repo">
-        {{operation.date}} <br>
         {{operation.description}} <br>
         {{operation.value}} <br>
         {{operation.operationType.name}} <br>
