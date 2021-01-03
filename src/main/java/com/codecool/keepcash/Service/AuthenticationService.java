@@ -1,7 +1,7 @@
 package com.codecool.keepcash.Service;
 
 import com.codecool.keepcash.Dto.CredentialsDto;
-import com.codecool.keepcash.Dto.UserDto;
+import com.codecool.keepcash.Dto.RegistrationUserDto;
 import com.codecool.keepcash.Entity.User;
 import com.codecool.keepcash.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +29,13 @@ public class AuthenticationService implements UserDetailsService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    public void register(UserDto userDto) {
-        User user = new User(userDto.getFirstName(),
-                userDto.getLastName(),
-                userDto.getEmail(),
-                bCryptPasswordEncoder.encode(userDto.getPassword()),
-                userDto.getUsername());
-        failIfUserAlreadyRegistered(userDto.getUsername());
+    public void register(RegistrationUserDto registrationUserDto) {
+        User user = new User(registrationUserDto.getFirstName(),
+                registrationUserDto.getLastName(),
+                registrationUserDto.getEmail(),
+                bCryptPasswordEncoder.encode(registrationUserDto.getPassword()),
+                registrationUserDto.getUsername());
+        failIfUserAlreadyRegistered(registrationUserDto.getUsername());
         userRepository.save(user);
     }
 

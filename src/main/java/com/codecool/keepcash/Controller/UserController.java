@@ -1,5 +1,6 @@
 package com.codecool.keepcash.Controller;
 
+import com.codecool.keepcash.Dto.UserDto;
 import com.codecool.keepcash.Entity.User;
 import com.codecool.keepcash.Service.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -13,12 +14,13 @@ public class UserController {
 
     UserService userService;
 
+
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable Long id){
+    public UserDto getUser(@PathVariable Long id){
         return userService.getUserById(id);
     }
 
