@@ -31,6 +31,7 @@ export interface Operation {
   id: number;
   description: string;
   value: number;
+  date: string;
   operationType: OperationType;
 }
 

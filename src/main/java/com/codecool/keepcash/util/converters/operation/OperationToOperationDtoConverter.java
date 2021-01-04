@@ -21,6 +21,7 @@ public class OperationToOperationDtoConverter {
         return new OperationDto(operation.getId(),
                 operation.getDescription(),
                 operation.getValue(),
+                operation.getDate(),
                 operationTypeToOperationTypeDtoConverter.convertToDto(operation.getOperationType()));
     }
 

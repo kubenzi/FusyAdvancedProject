@@ -12,34 +12,35 @@ public class OperationDto {
     private Long id;
     private String description;
     private Double value;
-//    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-    @JsonIgnore
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date;
     private OperationTypeDto operationType;
 
     public OperationDto() {
     }
 
-    public OperationDto(Long id,
-                        String description,
-                        Double value,
-                        Date date,
-                        OperationTypeDto operationType) {
-        this.id = id;
-        this.description = description;
-        this.value = value;
-        this.date = date;
-        this.operationType = operationType;
-    }
+//    public OperationDto(Long id,
+//                        String description,
+//                        Double value,
+//                        Date date,
+//                        OperationTypeDto operationType) {
+//        this.id = id;
+//        this.description = description;
+//        this.value = value;
+//        this.date = date;
+//        this.operationType = operationType;
+//    }
 
     @JsonCreator
     public OperationDto(@JsonProperty("id") Long id,
                         @JsonProperty("description") String description,
                         @JsonProperty("value") Double value,
+                        @JsonProperty("date") Date date,
                         @JsonProperty("operationType") OperationTypeDto operationType) {
         this.id = id;
         this.description = description;
         this.value = value;
+        this.date = date;
         this.operationType = operationType;
     }
 
