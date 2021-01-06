@@ -21,6 +21,10 @@ public class Category {
     public Category() {
     }
 
+    public Category(String name) {
+        this.name = name;
+    }
+
     public Category(String name, List<Operation> operations) {
         this.name = name;
         this.operations = operations;

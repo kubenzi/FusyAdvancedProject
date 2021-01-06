@@ -5,10 +5,8 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
 
 @Entity(name="users")
 public class User implements UserDetails {
@@ -19,23 +17,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_id_generator")
     private Long id;
 
-    private String firstName;
-
-    private String lastName;
-
-    private String email;
-
     private String password;
 
     private String username;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private List<Category> categories = new ArrayList<>();
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "user_id")
-    private List<Account> accounts = new ArrayList<>();
 
     @Column(columnDefinition="BOOLEAN DEFAULT true")
     private boolean enabled = true;
@@ -46,32 +30,10 @@ public class User implements UserDetails {
     public User() {
     }
 
-    public User(String firstName,
-                String lastName,
-                String email,
-                String password,
+    public User(String password,
                 String username) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
         this.password = password;
         this.username = username;
-    }
-
-    public User(String firstName,
-                String lastName,
-                String email,
-                String password,
-                String username,
-                List<Category> categories,
-                List<Account> accounts) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.username = username;
-        this.categories = categories;
-        this.accounts = accounts;
     }
 
     @Override
@@ -88,30 +50,6 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -126,22 +64,6 @@ public class User implements UserDetails {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public List<Category> getCategories() {
-        return categories;
-    }
-
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
-
-    public List<Account> getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(List<Account> accounts) {
-        this.accounts = accounts;
     }
 
     @Override

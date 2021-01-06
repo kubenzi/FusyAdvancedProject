@@ -1,8 +1,8 @@
 package com.codecool.keepcash.Controller;
 
-import com.codecool.keepcash.Service.AccountTypeService;
-import com.codecool.keepcash.Service.CurrencyService;
-import com.codecool.keepcash.Service.OperationService;
+import com.codecool.keepcash.Service.Account.AccountTypeService;
+import com.codecool.keepcash.Service.Currency.CurrencyService;
+import com.codecool.keepcash.Service.Operation.OperationService;
 import org.mockito.Mockito;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

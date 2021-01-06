@@ -1,7 +1,7 @@
 package com.codecool.keepcash.Controller;
 
-import com.codecool.keepcash.Dto.AccountTypeDto;
-import com.codecool.keepcash.Service.AccountTypeService;
+import com.codecool.keepcash.Dto.Account.AccountTypeDto;
+import com.codecool.keepcash.Service.Account.AccountTypeService;
 import com.codecool.keepcash.util.converters.account.AccountTypeToAccountTypeDtoConverter;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;

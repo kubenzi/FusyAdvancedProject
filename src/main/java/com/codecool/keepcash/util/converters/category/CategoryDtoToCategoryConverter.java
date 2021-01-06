@@ -1,6 +1,7 @@
 package com.codecool.keepcash.util.converters.category;
 
-import com.codecool.keepcash.Dto.CategoryDto;
+import com.codecool.keepcash.Dto.Category.CategoryDto;
+import com.codecool.keepcash.Dto.Category.NewCategoryDto;
 import com.codecool.keepcash.Entity.Category;
 import com.codecool.keepcash.util.converters.operation.OperationDtoToOperationConverter;
 import org.springframework.stereotype.Component;
@@ -21,6 +22,10 @@ public class CategoryDtoToCategoryConverter {
         return new Category(categoryDto.getName(),
                 operationDtoToOperationConverter.convertDtoListToOperationList(categoryDto.getOperations()
                 ));
+    }
+
+    public Category convertNewCategoryDtoToCategory(NewCategoryDto newCategoryDto) {
+        return new Category(newCategoryDto.getName());
     }
 
     public List<Category> convertDtoToList(List<CategoryDto> categories) {

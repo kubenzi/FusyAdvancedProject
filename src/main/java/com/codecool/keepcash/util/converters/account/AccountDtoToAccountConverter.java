@@ -1,6 +1,6 @@
 package com.codecool.keepcash.util.converters.account;
 
-import com.codecool.keepcash.Dto.AccountDto;
+import com.codecool.keepcash.Dto.Account.AccountDto;
 import com.codecool.keepcash.Entity.Account;
 import com.codecool.keepcash.util.converters.currency.CurrencyDtoToCurrencyConverter;
 import com.codecool.keepcash.util.converters.operation.OperationDtoToOperationConverter;

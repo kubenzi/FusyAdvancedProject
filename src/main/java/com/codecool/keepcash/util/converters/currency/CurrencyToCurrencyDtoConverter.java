@@ -1,6 +1,6 @@
 package com.codecool.keepcash.util.converters.currency;
 
-import com.codecool.keepcash.Dto.CurrencyDto;
+import com.codecool.keepcash.Dto.Currency.CurrencyDto;
 import com.codecool.keepcash.Entity.Currency;
 import org.springframework.stereotype.Component;
 

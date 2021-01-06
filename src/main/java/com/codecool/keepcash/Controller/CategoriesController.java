@@ -1,13 +1,13 @@
 package com.codecool.keepcash.Controller;
 
-import com.codecool.keepcash.Dto.CategoryDto;
+import com.codecool.keepcash.Dto.Category.CategoryDto;
+import com.codecool.keepcash.Dto.Category.NewCategoryDto;
 import org.springframework.web.bind.annotation.*;
-import com.codecool.keepcash.Service.CategoryService;
+import com.codecool.keepcash.Service.Category.CategoryService;
 
 import java.util.List;
 
-import static org.springframework.http.HttpStatus.CREATED;
-import static org.springframework.http.HttpStatus.NO_CONTENT;
+import static org.springframework.http.HttpStatus.*;
 
 
 @RestController
@@ -20,26 +20,29 @@ public class CategoriesController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/categories")
-    public List<CategoryDto> getCategories(){
-        return categoryService.getAllCategories();
+    @GetMapping("/user/{userId}/categories")
+    @ResponseStatus(OK)
+    public List<CategoryDto> getCategories(@PathVariable Long userId){
+        return categoryService.getCategoriesByUserId(userId);
     }
 
-    @GetMapping("/categories/{id}")
-    public CategoryDto getCategoryById(@PathVariable String id){
-        return categoryService.getCategoryById(Long.valueOf(id));
+    @GetMapping("/user/{userId}/categories/{categoryId}")
+    @ResponseStatus(OK)
+    public CategoryDto getCategoryById(@PathVariable String categoryId) {
+        return categoryService.getCategoryById(Long.valueOf(categoryId));
     }
 
-    @PostMapping("/categories")
+    @PostMapping("/user/{userId}/categories")
     @ResponseStatus(CREATED)
-    public void addCategory(@RequestBody CategoryDto categoryDto){
-        categoryService.addCategory(categoryDto);
+    public void addCategory(@PathVariable Long userId,
+                            @RequestBody NewCategoryDto newCategoryDto) {
+        categoryService.addCategory(userId, newCategoryDto);
     }
 
-    @DeleteMapping("/categories/{id}")
+    @DeleteMapping("/user/{userId}/categories/{categoryId}")
     @ResponseStatus(NO_CONTENT)
-    public void deleteCategory(@PathVariable String id){
-        categoryService.deleteCategoryById(Long.valueOf(id));
+    public void deleteCategory(@PathVariable String categoryId){
+        categoryService.deleteCategoryById(Long.valueOf(categoryId));
     }
 
 }

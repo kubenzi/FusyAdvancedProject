@@ -1,6 +1,6 @@
 package com.codecool.keepcash.util.converters.operation;
 
-import com.codecool.keepcash.Dto.OperationTypeDto;
+import com.codecool.keepcash.Dto.Operation.OperationTypeDto;
 import com.codecool.keepcash.Entity.OperationType;
 import org.springframework.stereotype.Component;
 

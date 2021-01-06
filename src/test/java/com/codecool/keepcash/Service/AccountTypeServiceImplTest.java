@@ -2,6 +2,7 @@ package com.codecool.keepcash.Service;
 
 import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Repository.AccountTypeRepository;
+import com.codecool.keepcash.Service.Account.AccountTypeServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;

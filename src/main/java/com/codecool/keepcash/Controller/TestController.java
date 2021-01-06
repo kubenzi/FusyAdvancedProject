@@ -1,11 +1,11 @@
 package com.codecool.keepcash.Controller;
 
-import com.codecool.keepcash.Dto.AccountTypeDto;
-import com.codecool.keepcash.Dto.CurrencyDto;
-import com.codecool.keepcash.Dto.OperationDto;
-import com.codecool.keepcash.Service.AccountTypeService;
-import com.codecool.keepcash.Service.CurrencyService;
-import com.codecool.keepcash.Service.OperationService;
+import com.codecool.keepcash.Dto.Account.AccountTypeDto;
+import com.codecool.keepcash.Dto.Currency.CurrencyDto;
+import com.codecool.keepcash.Dto.Operation.OperationDto;
+import com.codecool.keepcash.Service.Account.AccountTypeService;
+import com.codecool.keepcash.Service.Currency.CurrencyService;
+import com.codecool.keepcash.Service.Operation.OperationService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

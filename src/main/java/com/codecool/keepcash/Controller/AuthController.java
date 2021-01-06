@@ -1,8 +1,8 @@
 package com.codecool.keepcash.Controller;
 
-import com.codecool.keepcash.Dto.CredentialsDto;
-import com.codecool.keepcash.Dto.RegistrationUserDto;
-import com.codecool.keepcash.Service.AuthenticationService;
+import com.codecool.keepcash.Dto.Authentication.UserCredentialsDto;
+import com.codecool.keepcash.Dto.Authentication.UserRegistrationDto;
+import com.codecool.keepcash.Service.Authentication.AuthenticationService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -21,14 +21,14 @@ public class AuthController {
 
     @PostMapping(value = "/register", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(CREATED)
-    public void register(@RequestBody RegistrationUserDto registrationUserDto) {
-        authenticationService.register(registrationUserDto);
+    public void register(@RequestBody UserRegistrationDto userRegistrationDto) {
+        authenticationService.register(userRegistrationDto);
     }
 
     @PostMapping(value = "/login", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
-    public void login(@RequestBody CredentialsDto credentialsDto) {
-        Authentication authentication = authenticationService.login(credentialsDto);
+    public void login(@RequestBody UserCredentialsDto userCredentialsDto) {
+        Authentication authentication = authenticationService.login(userCredentialsDto);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }

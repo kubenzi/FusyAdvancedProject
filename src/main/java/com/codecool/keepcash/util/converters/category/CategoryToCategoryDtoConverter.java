@@ -1,8 +1,6 @@
 package com.codecool.keepcash.util.converters.category;
 
-import com.codecool.keepcash.Dto.AccountTypeDto;
-import com.codecool.keepcash.Dto.CategoryDto;
-import com.codecool.keepcash.Entity.AccountType;
+import com.codecool.keepcash.Dto.Category.CategoryDto;
 import com.codecool.keepcash.Entity.Category;
 import com.codecool.keepcash.util.converters.operation.OperationToOperationDtoConverter;
 import org.springframework.stereotype.Component;

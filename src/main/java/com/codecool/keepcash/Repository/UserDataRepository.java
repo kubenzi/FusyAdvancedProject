@@ -1,10 +1,9 @@
 package com.codecool.keepcash.Repository;
 
-import com.codecool.keepcash.Entity.Category;
+import com.codecool.keepcash.Entity.UserData;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CategoryRepository extends CrudRepository<Category, Long> {
-
+public interface UserDataRepository extends CrudRepository<UserData, Long> {
 }
