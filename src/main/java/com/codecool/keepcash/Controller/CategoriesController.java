@@ -28,8 +28,8 @@ public class CategoriesController {
 
     @GetMapping("/user/{userId}/categories/{categoryId}")
     @ResponseStatus(OK)
-    public CategoryDto getCategoryById(@PathVariable String categoryId) {
-        return categoryService.getCategoryById(Long.valueOf(categoryId));
+    public CategoryDto getCategoryById(@PathVariable Long categoryId) {
+        return categoryService.getCategoryById(categoryId);
     }
 
     @PostMapping("/user/{userId}/categories")
@@ -41,8 +41,8 @@ public class CategoriesController {
 
     @DeleteMapping("/user/{userId}/categories/{categoryId}")
     @ResponseStatus(NO_CONTENT)
-    public void deleteCategory(@PathVariable String categoryId){
-        categoryService.deleteCategoryById(Long.valueOf(categoryId));
+    public void deleteCategory(@PathVariable Long categoryId){
+        categoryService.deleteCategoryById(categoryId);
     }
 
 }

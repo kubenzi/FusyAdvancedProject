@@ -36,17 +36,6 @@ public class AccountDto {
         this.operations = operations;
     }
 
-    @JsonCreator
-    public AccountDto(@JsonProperty("name") String name,
-                      @JsonProperty("accountNumber") String accountNumber,
-                      @JsonProperty("accountType") AccountTypeDto accountType,
-                      @JsonProperty("currency") CurrencyDto currency) {
-        this.name = name;
-        this.accountNumber = accountNumber;
-        this.accountType = accountType;
-        this.currency = currency;
-    }
-
     public Long getId() {
         return id;
     }

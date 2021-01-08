@@ -1,7 +1,9 @@
 package com.codecool.keepcash.Service.User;
 
+import com.codecool.keepcash.Dto.User.NewEmailDto;
 import com.codecool.keepcash.Dto.User.UserDataDto;
 import com.codecool.keepcash.Entity.User;
+import com.codecool.keepcash.Entity.UserData;
 import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Repository.UserDataRepository;
 import com.codecool.keepcash.Repository.UserRepository;
@@ -26,18 +28,33 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDataDto getUserDataById(Long id) {
-        return userDataToUserDataDtoConverter.convertToDto(
-                userDataRepository.findById(id).
-                        orElseThrow(() -> new IdNotFoundException(id, User.class.getSimpleName()))
-        );
+        try {
+            return userDataToUserDataDtoConverter.convertToDto(
+                    userDataRepository.findById(id).
+                            orElseThrow(() -> new IdNotFoundException(id, User.class.getSimpleName()))
+            );
+        } catch (EmptyResultDataAccessException e) {
+            throw new IdNotFoundException(id, UserData.class.getSimpleName());
+        }
     }
 
     @Override
     public void deleteUserById(Long id) {
         try {
             userRepository.deleteById(id);
-        }catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e){
             throw new IdNotFoundException(id, User.class.getSimpleName());
+        }
+    }
+
+    @Override
+    public void updateUserEmail(Long userId, NewEmailDto newEmailDto) {
+        try {
+            if (!newEmailDto.getNewEmail().isEmpty()) {
+                userDataRepository.findById(userId).get().setEmail(newEmailDto.getNewEmail());
+            }
+        } catch (NullPointerException e) {
+            throw new IdNotFoundException(userId, User.class.getSimpleName());
         }
     }
 }

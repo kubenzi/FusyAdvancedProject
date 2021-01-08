@@ -55,7 +55,6 @@ public class CategoryServiceImpl implements CategoryService {
 
         UserData userData = userDataRepository.findById(userId).get();
         userData.getCategories().add(newCategory);
-
         userDataRepository.save(userData);
     }
 

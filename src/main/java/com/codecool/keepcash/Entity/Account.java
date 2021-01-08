@@ -38,6 +38,18 @@ public class Account {
                    Double balance,
                    String accountNumber,
                    AccountType accountType,
+                   Currency currency) {
+        this.name = name;
+        this.balance = balance;
+        this.accountNumber = accountNumber;
+        this.accountType = accountType;
+        this.currency = currency;
+    }
+
+    public Account(String name,
+                   Double balance,
+                   String accountNumber,
+                   AccountType accountType,
                    Currency currency,
                    List<Operation> operations) {
         this.name = name;
