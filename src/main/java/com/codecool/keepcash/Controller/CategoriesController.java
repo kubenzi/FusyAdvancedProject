@@ -20,28 +20,28 @@ public class CategoriesController {
         this.categoryService = categoryService;
     }
 
-    @GetMapping("/user/{userId}/categories")
+    @GetMapping("/users/{userId}/categories")
     @ResponseStatus(OK)
-    public List<CategoryDto> getCategories(@PathVariable Long userId){
+    public List<CategoryDto> getCategoriesByUserId(@PathVariable Long userId){
         return categoryService.getCategoriesByUserId(userId);
     }
 
-    @GetMapping("/user/{userId}/categories/{categoryId}")
+    @GetMapping("/users/{userId}/categories/{categoryId}")
     @ResponseStatus(OK)
     public CategoryDto getCategoryById(@PathVariable Long categoryId) {
         return categoryService.getCategoryById(categoryId);
     }
 
-    @PostMapping("/user/{userId}/categories")
+    @PostMapping("/users/{userId}/categories")
     @ResponseStatus(CREATED)
-    public void addCategory(@PathVariable Long userId,
+    public void addNewCategoryForUserId(@PathVariable Long userId,
                             @RequestBody NewCategoryDto newCategoryDto) {
         categoryService.addCategory(userId, newCategoryDto);
     }
 
-    @DeleteMapping("/user/{userId}/categories/{categoryId}")
+    @DeleteMapping("/users/{userId}/categories/{categoryId}")
     @ResponseStatus(NO_CONTENT)
-    public void deleteCategory(@PathVariable Long categoryId){
+    public void deleteCategoryById(@PathVariable Long categoryId){
         categoryService.deleteCategoryById(categoryId);
     }
 

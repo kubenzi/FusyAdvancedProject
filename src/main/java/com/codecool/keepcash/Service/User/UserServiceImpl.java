@@ -41,6 +41,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUserById(Long id) {
         try {
+            userDataRepository.deleteById(id);
             userRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e){
             throw new IdNotFoundException(id, User.class.getSimpleName());

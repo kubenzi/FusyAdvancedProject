@@ -45,10 +45,6 @@ public class TestController {
         currencyService.addNewCurrency(currencyDto);
     }
 
-//
-//    @GetMapping("/account-types")
-//    public List<AccountTypeDto> getAccountTypes(){ return accountTypeService.getAllAccountTypes();}
-
     @GetMapping("/account-types")
     public List<AccountTypeDto> getAccountTypes(@RequestParam(required = false) String sortBy){
         return sortBy!= null ?
