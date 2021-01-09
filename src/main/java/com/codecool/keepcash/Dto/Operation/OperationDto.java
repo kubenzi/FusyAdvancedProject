@@ -18,18 +18,6 @@ public class OperationDto {
     public OperationDto() {
     }
 
-//    public OperationDto(Long id,
-//                        String description,
-//                        Double value,
-//                        Date date,
-//                        OperationTypeDto operationType) {
-//        this.id = id;
-//        this.description = description;
-//        this.value = value;
-//        this.date = date;
-//        this.operationType = operationType;
-//    }
-
     @JsonCreator
     public OperationDto(@JsonProperty("id") Long id,
                         @JsonProperty("description") String description,
