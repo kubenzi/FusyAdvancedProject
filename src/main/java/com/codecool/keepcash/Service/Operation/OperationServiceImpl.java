@@ -23,7 +23,13 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public List<OperationDto> getAllOperations() {
         List<Operation> allOperations = (List<Operation>) operationRepository.findAll();
-
         return operationToOperationDtoConverter.convertListToDto(allOperations);
-    };
+    }
+
+    @Override
+    public List<Operation> getAllOperationsById(Long categoryId) {
+        return operationRepository.findByCategoryId(categoryId);
+    }
+
+    ;
 }
