@@ -152,7 +152,7 @@
 			<optional>true</optional>
 		</dependency>
 
-<!--		below dependencies copied from s_security project-->
+		<!--		below dependencies copied from s_security project-->
 
 		<dependency>
 			<groupId>io.projectreactor</groupId>
@@ -203,3 +203,4 @@
 	</build>
 
 </project>
+

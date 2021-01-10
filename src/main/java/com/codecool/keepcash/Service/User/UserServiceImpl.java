@@ -10,6 +10,7 @@ import com.codecool.keepcash.Repository.UserRepository;
 import com.codecool.keepcash.util.converters.user.UserDataToUserDataDtoConverter;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -39,6 +40,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+//    @Transactional
     public void deleteUserById(Long id) {
         try {
             userDataRepository.deleteById(id);
