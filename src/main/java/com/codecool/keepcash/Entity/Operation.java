@@ -18,8 +18,10 @@ public class Operation {
 
     private Date date;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private OperationType operationType;
+
+
 
     public Operation() {
     }

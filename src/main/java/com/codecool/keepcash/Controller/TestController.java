@@ -29,11 +29,6 @@ public class TestController {
         this.accountTypeService = accountTypeService;
     }
 
-    @GetMapping("/transactions")
-    public List<OperationDto> getOperations() {
-        return operationService.getAllOperations();
-    }
-
     @GetMapping("/currencies")
     public List<CurrencyDto> getCurrencies() {
         return currencyService.getAllCurrencies();

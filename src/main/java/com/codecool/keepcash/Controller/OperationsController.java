@@ -1,14 +1,16 @@
 package com.codecool.keepcash.Controller;
 
 import com.codecool.keepcash.Dto.Account.AccountTypeDto;
-import com.codecool.keepcash.Entity.Operation;
+import com.codecool.keepcash.Dto.Operation.NewOperationDto;
+import com.codecool.keepcash.Dto.Operation.OperationDto;
 import com.codecool.keepcash.Service.Operation.OperationService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+
+import static org.springframework.http.HttpStatus.CREATED;
+import static org.springframework.http.HttpStatus.NO_CONTENT;
+
 @RestController
 @RequestMapping("/api/v1")
 public class OperationsController {
@@ -19,18 +21,31 @@ public class OperationsController {
         this.operationService = operationService;
     }
 
-    @GetMapping("/operations")
-    public List<Operation> getOperationsByCategory(@RequestParam Long categoryId) {
-        return operationService.getAllOperationsById(categoryId);
+    @GetMapping("/users/{userId}/operations")
+    public List<OperationDto> getOperationsByCategory(@PathVariable Long userId,
+                                                      @RequestParam(required = false) Long categoryId,
+                                                      @RequestParam(required = false) Long accountId) {
+        if (categoryId == null && accountId == null) {
+            return operationService.getAllOperationsByUserId(userId);
+        }
+        return categoryId != null ?
+                operationService.getAllOperationByCategoryId(categoryId) :
+                operationService.getAllOperationByAccountId(accountId);
+
+    }
+
+    @DeleteMapping("/users/{userId}/operations/{operationId}")
+    @ResponseStatus(NO_CONTENT)
+    public void deleteOperations(@PathVariable Long operationId){
+        operationService.deleteOperationsById(operationId);
+    }
+
+    @PostMapping("/users/{userId}/operations")
+    @ResponseStatus(CREATED)
+    public void createNewOperation(@RequestBody NewOperationDto operationDto){
+        operationService.addTransaction(operationDto);
     }
 
 }
 
 
-//    @GetMapping("/account-types")
-//    public List<AccountTypeDto> getAccountTypes(@RequestParam(required = false) String sortBy){
-//        return sortBy!= null ?
-//                accountTypeService.getAllAccountTypesSortByName(sortBy) :
-//                accountTypeService.getAllAccountTypes();
-//    }
-//    http://localhost:8080/api/v1/operations?categoryId=10
