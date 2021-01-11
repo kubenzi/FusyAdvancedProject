@@ -7,22 +7,16 @@ import com.codecool.keepcash.util.converters.category.CategoryDtoToCategoryConve
 
 public class UserDataDtoToUserConverter {
 
-    private CategoryDtoToCategoryConverter categoryDtoToCategoryConverter;
-    private AccountDtoToAccountConverter accountDtoToAccountConverter;
-
-    public UserDataDtoToUserConverter(CategoryDtoToCategoryConverter categoryDtoToCategoryConverter,
-                                      AccountDtoToAccountConverter accountDtoToAccountConverter) {
-        this.categoryDtoToCategoryConverter = categoryDtoToCategoryConverter;
-        this.accountDtoToAccountConverter = accountDtoToAccountConverter;
+    public UserDataDtoToUserConverter() {
     }
 
-    public UserData convertDtoToUserData(UserDataDto userDataDto) {
+    public static UserData convertDtoToUserData(UserDataDto userDataDto) {
         return new UserData(userDataDto.getId(),
                 userDataDto.getFirstName(),
                 userDataDto.getFirstName(),
                 userDataDto.getEmail(),
-                categoryDtoToCategoryConverter.convertDtoToList(userDataDto.getCategories()),
-                accountDtoToAccountConverter.convertDtoToList(userDataDto.getAccounts())
+                CategoryDtoToCategoryConverter.convertDtoToList(userDataDto.getCategories()),
+                AccountDtoToAccountConverter.convertDtoToList(userDataDto.getAccounts())
         );
     }
 }

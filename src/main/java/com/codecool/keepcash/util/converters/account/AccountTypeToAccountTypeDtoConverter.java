@@ -13,14 +13,14 @@ public class AccountTypeToAccountTypeDtoConverter {
     public AccountTypeToAccountTypeDtoConverter() {
     }
 
-    public AccountTypeDto convertToDto(AccountType accountType) {
+    public static AccountTypeDto convertToDto(AccountType accountType) {
         return new AccountTypeDto(accountType.getId(),
                 accountType.getName());
     }
 
-    public List<AccountTypeDto> convertListToDto(List<AccountType> accountTypeList) {
+    public static List<AccountTypeDto> convertListToDto(List<AccountType> accountTypeList) {
         return accountTypeList.stream().
-                map(this::convertToDto).
+                map(accountType -> convertToDto(accountType)).
                 collect(Collectors.toList());
     }
 }

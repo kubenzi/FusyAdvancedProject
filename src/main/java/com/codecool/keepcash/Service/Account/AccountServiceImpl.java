@@ -6,6 +6,8 @@ import com.codecool.keepcash.Entity.Account;
 import com.codecool.keepcash.Entity.UserData;
 import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Repository.AccountRepository;
+import com.codecool.keepcash.Repository.AccountTypeRepository;
+import com.codecool.keepcash.Repository.CurrencyRepository;
 import com.codecool.keepcash.Repository.UserDataRepository;
 import com.codecool.keepcash.util.converters.account.AccountDtoToAccountConverter;
 import com.codecool.keepcash.util.converters.account.AccountToAccountDtoConverter;
@@ -17,25 +19,26 @@ import java.util.List;
 @Service
 public class AccountServiceImpl implements AccountService {
 
-    private AccountDtoToAccountConverter accountDtoToAccountConverter;
-    private AccountToAccountDtoConverter accountToAccountDtoConverter;
     private AccountRepository accountRepository;
     private UserDataRepository userDataRepository;
+    private AccountTypeRepository accountTypeRepository;
+    private CurrencyRepository currencyRepository;
 
 
-    public AccountServiceImpl(AccountDtoToAccountConverter accountDtoToAccountConverter,
-                              AccountToAccountDtoConverter accountToAccountDtoConverter,
-                              AccountRepository accountRepository,
-                              UserDataRepository userDataRepository) {
-        this.accountDtoToAccountConverter = accountDtoToAccountConverter;
-        this.accountToAccountDtoConverter = accountToAccountDtoConverter;
+    public AccountServiceImpl(AccountRepository accountRepository,
+                              UserDataRepository userDataRepository,
+                              AccountTypeRepository accountTypeRepository,
+                              CurrencyRepository currencyRepository) {
         this.accountRepository = accountRepository;
         this.userDataRepository = userDataRepository;
+        this.accountTypeRepository = accountTypeRepository;
+        this.currencyRepository = currencyRepository;
     }
 
     @Override
     public void createNewAccount(NewAccountDto newAccountDto, Long userId) {
-        Account newAccount = accountDtoToAccountConverter.convertNewAccountToAccount(newAccountDto);
+        Account newAccount = AccountDtoToAccountConverter.convertNewAccountToAccount(
+                newAccountDto, accountTypeRepository, currencyRepository);
         accountRepository.save(newAccount);
 
         UserData userData = userDataRepository.findById(userId).get();
@@ -45,7 +48,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public AccountDto getAccountById(Long accountId) {
-        return accountToAccountDtoConverter.convertToDto(
+        return AccountToAccountDtoConverter.convertToDto(
                 accountRepository.findById(accountId)
                         .orElseThrow(() -> new IdNotFoundException(
                                 accountId, Account.class.getSimpleName()))
@@ -55,7 +58,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<AccountDto> getAccountsByUserId(Long userId) {
-        return accountToAccountDtoConverter.convertListToDto(
+        return AccountToAccountDtoConverter.convertListToDto(
                 userDataRepository.findById(userId).get().getAccounts()
         );
     }

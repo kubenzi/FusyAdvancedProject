@@ -13,13 +13,13 @@ public class CurrencyDtoToCurrencyConverter {
     public CurrencyDtoToCurrencyConverter() {
     }
 
-    public Currency convertDtoToCurrency(CurrencyDto currencyDto) {
+    public static Currency convertDtoToCurrency(CurrencyDto currencyDto) {
         return new Currency(currencyDto.getName(), currencyDto.getSignature());
     }
 
-    public List<Currency> convertDtoToList(List<CurrencyDto> currencies) {
+    public static List<Currency> convertDtoToList(List<CurrencyDto> currencies) {
         return currencies.stream()
-                .map(this::convertDtoToCurrency)
+                .map(currencyDto -> convertDtoToCurrency(currencyDto))
                 .collect(Collectors.toList());
     }
 }

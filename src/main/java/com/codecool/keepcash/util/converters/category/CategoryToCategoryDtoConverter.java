@@ -11,21 +11,18 @@ import java.util.stream.Collectors;
 @Component
 public class CategoryToCategoryDtoConverter {
 
-    private OperationToOperationDtoConverter operationToOperationDtoConverter;
-
-    public CategoryToCategoryDtoConverter(OperationToOperationDtoConverter operationToOperationDtoConverter) {
-        this.operationToOperationDtoConverter = operationToOperationDtoConverter;
+    public CategoryToCategoryDtoConverter() {
     }
 
-    public CategoryDto convertToDto(Category category) {
+    public static CategoryDto convertToDto(Category category) {
         return new CategoryDto(category.getId(),
                 category.getName(),
-                operationToOperationDtoConverter.convertListToDto(category.getOperations()));
+                OperationToOperationDtoConverter.convertListToDto(category.getOperations()));
     }
 
-    public List<CategoryDto> convertListToDto(List<Category> categoriesList) {
+    public static List<CategoryDto> convertListToDto(List<Category> categoriesList) {
         return categoriesList.stream().
-                map(this::convertToDto).
+                map(category -> convertToDto(category)).
                 collect(Collectors.toList());
     }
 }

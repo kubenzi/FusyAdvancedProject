@@ -12,31 +12,22 @@ import java.util.stream.Collectors;
 @Component
 public class AccountToAccountDtoConverter {
 
-    private AccountTypeToAccountTypeDtoConverter accountTypeToAccountTypeDtoConverter;
-    private CurrencyToCurrencyDtoConverter currencyToCurrencyDtoConverter;
-    private OperationToOperationDtoConverter operationToOperationDtoConverter;
-
-    public AccountToAccountDtoConverter(AccountTypeToAccountTypeDtoConverter accountTypeToAccountTypeDtoConverter,
-                                        CurrencyToCurrencyDtoConverter currencyToCurrencyDtoConverter,
-                                        OperationToOperationDtoConverter operationToOperationDtoConverter) {
-        this.accountTypeToAccountTypeDtoConverter = accountTypeToAccountTypeDtoConverter;
-        this.currencyToCurrencyDtoConverter = currencyToCurrencyDtoConverter;
-        this.operationToOperationDtoConverter = operationToOperationDtoConverter;
+    public AccountToAccountDtoConverter() {
     }
 
-    public AccountDto convertToDto(Account account) {
+    public static AccountDto convertToDto(Account account) {
         return new AccountDto(account.getId(),
                 account.getName(),
                 account.getBalance(),
                 account.getAccountNumber(),
-                accountTypeToAccountTypeDtoConverter.convertToDto(account.getAccountType()),
-                currencyToCurrencyDtoConverter.convertToDto(account.getCurrency()),
-                operationToOperationDtoConverter.convertListToDto(account.getOperations()));
+                AccountTypeToAccountTypeDtoConverter.convertToDto(account.getAccountType()),
+                CurrencyToCurrencyDtoConverter.convertToDto(account.getCurrency()),
+                OperationToOperationDtoConverter.convertListToDto(account.getOperations()));
     }
 
-    public List<AccountDto> convertListToDto(List<Account> accountsList) {
+    public static List<AccountDto> convertListToDto(List<Account> accountsList) {
         return accountsList.stream().
-                map(this::convertToDto).
+                map(account -> convertToDto(account)).
                 collect(Collectors.toList());
     }
 }

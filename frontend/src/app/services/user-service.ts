@@ -17,9 +17,6 @@ export class UserService {
     return this.http.get<User>(url);
   }
 
-  // public getUser(userId): User {
-  //   return USER_MOCK;
-  // }
 }
 
 export interface OperationType {
@@ -67,7 +64,6 @@ export interface User {
   firstName: string;
   lastName: string;
   email: string;
-  username: string;
   categories: Category[];
   accounts: Account[];
 }

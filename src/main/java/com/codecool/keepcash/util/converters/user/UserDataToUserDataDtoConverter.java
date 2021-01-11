@@ -9,22 +9,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserDataToUserDataDtoConverter {
 
-    private CategoryToCategoryDtoConverter categoryToCategoryDtoConverter;
-    private AccountToAccountDtoConverter accountToAccountDtoConverter;
-
-    public UserDataToUserDataDtoConverter(CategoryToCategoryDtoConverter categoryToCategoryDtoConverter,
-                                          AccountToAccountDtoConverter accountToAccountDtoConverter) {
-        this.categoryToCategoryDtoConverter = categoryToCategoryDtoConverter;
-        this.accountToAccountDtoConverter = accountToAccountDtoConverter;
+    public UserDataToUserDataDtoConverter() {
     }
 
-    public UserDataDto convertToDto(UserData userData) {
+    public static UserDataDto convertToDto(UserData userData) {
         return new UserDataDto(userData.getId(),
                 userData.getFirstName(),
                 userData.getFirstName(),
                 userData.getEmail(),
-                categoryToCategoryDtoConverter.convertListToDto(userData.getCategories()),
-                accountToAccountDtoConverter.convertListToDto(userData.getAccounts())
+                CategoryToCategoryDtoConverter.convertListToDto(userData.getCategories()),
+                AccountToAccountDtoConverter.convertListToDto(userData.getAccounts())
         );
     }
 }

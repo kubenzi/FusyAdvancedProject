@@ -17,40 +17,28 @@ import java.util.stream.Collectors;
 @Component
 public class AccountDtoToAccountConverter {
 
-    AccountTypeRepository accountTypeRepository;
-    AccountTypeDtoToAccountTypeConverter accountTypeDtoToAccountTypeConverter;
-    CurrencyRepository currencyRepository;
-    CurrencyDtoToCurrencyConverter currencyDtoToCurrencyConverter;
-    OperationDtoToOperationConverter operationDtoToOperationConverter;
-
-    public AccountDtoToAccountConverter(AccountTypeRepository accountTypeRepository,
-                                        AccountTypeDtoToAccountTypeConverter accountTypeDtoToAccountTypeConverter,
-                                        CurrencyRepository currencyRepository,
-                                        CurrencyDtoToCurrencyConverter currencyDtoToCurrencyConverter,
-                                        OperationDtoToOperationConverter operationDtoToOperationConverter) {
-        this.accountTypeRepository = accountTypeRepository;
-        this.accountTypeDtoToAccountTypeConverter = accountTypeDtoToAccountTypeConverter;
-        this.currencyRepository = currencyRepository;
-        this.currencyDtoToCurrencyConverter = currencyDtoToCurrencyConverter;
-        this.operationDtoToOperationConverter = operationDtoToOperationConverter;
+    public AccountDtoToAccountConverter() {
     }
 
-    public Account convertDtoToAccount(AccountDto accountDto) {
+    public static Account convertDtoToAccount(AccountDto accountDto) {
         return new Account(accountDto.getName(),
                 accountDto.getBalance(),
                 accountDto.getAccountNumber(),
-                accountTypeDtoToAccountTypeConverter.convertDtoToAccountType(accountDto.getAccountType()),
-                currencyDtoToCurrencyConverter.convertDtoToCurrency(accountDto.getCurrency()),
-                operationDtoToOperationConverter.convertDtoListToOperationList(accountDto.getOperations()));
+                AccountTypeDtoToAccountTypeConverter.convertDtoToAccountType(accountDto.getAccountType()),
+                CurrencyDtoToCurrencyConverter.convertDtoToCurrency(accountDto.getCurrency()),
+                OperationDtoToOperationConverter.convertDtoListToOperationList(accountDto.getOperations()));
     }
 
-    public List<Account> convertDtoToList(List<AccountDto> accounts) {
+    public static List<Account> convertDtoToList(List<AccountDto> accounts) {
         return accounts.stream().
-                map(this::convertDtoToAccount).
+                map(accountDto -> convertDtoToAccount(accountDto)).
                 collect(Collectors.toList());
     }
 
-    public Account convertNewAccountToAccount(NewAccountDto newAccountDto) {
+    public static Account convertNewAccountToAccount(NewAccountDto newAccountDto,
+                                              AccountTypeRepository accountTypeRepository,
+                                              CurrencyRepository currencyRepository
+                                              ) {
         try {
             return new Account(newAccountDto.getName(),
                     newAccountDto.getBalance(),
