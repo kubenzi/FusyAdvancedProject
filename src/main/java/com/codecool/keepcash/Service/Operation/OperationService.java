@@ -1,6 +1,5 @@
 package com.codecool.keepcash.Service.Operation;
 
-import com.codecool.keepcash.Dto.Account.AccountTypeDto;
 import com.codecool.keepcash.Dto.Operation.NewOperationDto;
 import com.codecool.keepcash.Dto.Operation.OperationDto;
 

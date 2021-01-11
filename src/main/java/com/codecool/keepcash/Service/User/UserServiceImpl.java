@@ -14,9 +14,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserServiceImpl implements UserService {
 
-    UserRepository userRepository;
-    UserDataRepository userDataRepository;
-    UserDataToUserDataDtoConverter userDataToUserDataDtoConverter;
+    private UserRepository userRepository;
+    private UserDataRepository userDataRepository;
+    private UserDataToUserDataDtoConverter userDataToUserDataDtoConverter;
 
     public UserServiceImpl(UserRepository userRepository,
                            UserDataRepository userDataRepository,
@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
         try {
             userDataRepository.deleteById(id);
             userRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new IdNotFoundException(id, User.class.getSimpleName());
         }
     }

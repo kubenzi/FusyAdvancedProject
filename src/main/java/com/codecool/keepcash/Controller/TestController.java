@@ -17,9 +17,9 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 @RequestMapping("/api/v1")
 public class TestController {
 
-    public OperationService operationService;
-    public CurrencyService currencyService;
-    public AccountTypeService accountTypeService;
+    private OperationService operationService;
+    private CurrencyService currencyService;
+    private AccountTypeService accountTypeService;
 
 
     public TestController(OperationService operationService,

@@ -18,9 +18,8 @@ public class Operation {
 
     private Date date;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     private OperationType operationType;
-
 
 
     public Operation() {

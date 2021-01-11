@@ -8,18 +8,18 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class OperationTypeDtoToOperationConverter {
+public final class OperationTypeDtoToOperationConverter {
 
     public OperationTypeDtoToOperationConverter() {
     }
 
-    public OperationType convertDtoToOperationType(OperationTypeDto operationTypeDto){
+    public static OperationType convertDtoToOperationType(OperationTypeDto operationTypeDto) {
         return new OperationType(operationTypeDto.getName());
     }
 
-    public List<OperationType> convertDtoToList(List<OperationTypeDto> operationTypes) {
+    public static List<OperationType> convertDtoToList(List<OperationTypeDto> operationTypes) {
         return operationTypes.stream()
-                .map(this::convertDtoToOperationType)
+                .map(operationTypeDto -> convertDtoToOperationType(operationTypeDto))
                 .collect(Collectors.toList());
     }
 }

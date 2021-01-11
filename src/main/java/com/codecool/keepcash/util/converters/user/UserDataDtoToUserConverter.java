@@ -11,12 +11,12 @@ public class UserDataDtoToUserConverter {
     private AccountDtoToAccountConverter accountDtoToAccountConverter;
 
     public UserDataDtoToUserConverter(CategoryDtoToCategoryConverter categoryDtoToCategoryConverter,
-                                  AccountDtoToAccountConverter accountDtoToAccountConverter) {
+                                      AccountDtoToAccountConverter accountDtoToAccountConverter) {
         this.categoryDtoToCategoryConverter = categoryDtoToCategoryConverter;
         this.accountDtoToAccountConverter = accountDtoToAccountConverter;
     }
 
-    public UserData convertDtoToUserData(UserDataDto userDataDto){
+    public UserData convertDtoToUserData(UserDataDto userDataDto) {
         return new UserData(userDataDto.getId(),
                 userDataDto.getFirstName(),
                 userDataDto.getFirstName(),

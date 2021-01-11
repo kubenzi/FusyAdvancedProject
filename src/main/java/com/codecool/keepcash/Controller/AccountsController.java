@@ -17,9 +17,9 @@ import static org.springframework.http.HttpStatus.*;
 @RequestMapping("/api/v1")
 public class AccountsController {
 
-    public AccountService accountService;
-    public CurrencyService currencyService;
-    public AccountTypeService accountTypeService;
+    private AccountService accountService;
+    private CurrencyService currencyService;
+    private AccountTypeService accountTypeService;
 
     public AccountsController(AccountService accountService,
                               CurrencyService currencyService,

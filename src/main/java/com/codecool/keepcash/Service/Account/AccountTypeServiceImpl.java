@@ -4,10 +4,10 @@ import com.codecool.keepcash.Dto.Account.AccountTypeDto;
 import com.codecool.keepcash.Entity.AccountType;
 import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Repository.AccountTypeRepository;
-import com.codecool.keepcash.util.converters.account.AccountTypeDtoToAccountTypeConverter;
 import com.codecool.keepcash.util.AccountTypeFields;
-import com.codecool.keepcash.util.converters.account.AccountTypeToAccountTypeDtoConverter;
 import com.codecool.keepcash.util.NameComparator;
+import com.codecool.keepcash.util.converters.account.AccountTypeDtoToAccountTypeConverter;
+import com.codecool.keepcash.util.converters.account.AccountTypeToAccountTypeDtoConverter;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 

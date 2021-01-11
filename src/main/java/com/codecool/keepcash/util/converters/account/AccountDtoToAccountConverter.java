@@ -3,9 +3,7 @@ package com.codecool.keepcash.util.converters.account;
 import com.codecool.keepcash.Dto.Account.AccountDto;
 import com.codecool.keepcash.Dto.Account.NewAccountDto;
 import com.codecool.keepcash.Entity.Account;
-import com.codecool.keepcash.Entity.AccountType;
 import com.codecool.keepcash.Exception.IdNotFoundException;
-import com.codecool.keepcash.Repository.AccountRepository;
 import com.codecool.keepcash.Repository.AccountTypeRepository;
 import com.codecool.keepcash.Repository.CurrencyRepository;
 import com.codecool.keepcash.util.converters.currency.CurrencyDtoToCurrencyConverter;
@@ -37,7 +35,7 @@ public class AccountDtoToAccountConverter {
         this.operationDtoToOperationConverter = operationDtoToOperationConverter;
     }
 
-    public Account convertDtoToAccount(AccountDto accountDto){
+    public Account convertDtoToAccount(AccountDto accountDto) {
         return new Account(accountDto.getName(),
                 accountDto.getBalance(),
                 accountDto.getAccountNumber(),

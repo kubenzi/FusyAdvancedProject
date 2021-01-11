@@ -33,6 +33,7 @@ public class AccountServiceImpl implements AccountService {
         this.userDataRepository = userDataRepository;
     }
 
+    @Override
     public void createNewAccount(NewAccountDto newAccountDto, Long userId) {
         Account newAccount = accountDtoToAccountConverter.convertNewAccountToAccount(newAccountDto);
         accountRepository.save(newAccount);
@@ -42,6 +43,7 @@ public class AccountServiceImpl implements AccountService {
         userDataRepository.save(userData);
     }
 
+    @Override
     public AccountDto getAccountById(Long accountId) {
         return accountToAccountDtoConverter.convertToDto(
                 accountRepository.findById(accountId)
@@ -51,12 +53,14 @@ public class AccountServiceImpl implements AccountService {
         );
     }
 
+    @Override
     public List<AccountDto> getAccountsByUserId(Long userId) {
         return accountToAccountDtoConverter.convertListToDto(
                 userDataRepository.findById(userId).get().getAccounts()
         );
     }
 
+    @Override
     public void deleteAccountById(Long accountId) {
         try {
             accountRepository.deleteById(accountId);

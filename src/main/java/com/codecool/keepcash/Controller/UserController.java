@@ -11,7 +11,7 @@ import static org.springframework.http.HttpStatus.*;
 @RequestMapping("/api/v1")
 public class UserController {
 
-    UserService userService;
+    private UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;

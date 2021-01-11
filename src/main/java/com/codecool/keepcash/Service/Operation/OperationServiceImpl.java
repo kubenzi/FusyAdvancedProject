@@ -10,6 +10,7 @@ import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Repository.AccountRepository;
 import com.codecool.keepcash.Repository.CategoryRepository;
 import com.codecool.keepcash.Repository.OperationRepository;
+import com.codecool.keepcash.Repository.OperationTypeRepository;
 import com.codecool.keepcash.util.converters.operation.OperationDtoToOperationConverter;
 import com.codecool.keepcash.util.converters.operation.OperationToOperationDtoConverter;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -21,22 +22,19 @@ import java.util.List;
 public class OperationServiceImpl implements OperationService {
 
     private OperationRepository operationRepository;
-    private OperationToOperationDtoConverter operationToOperationDtoConverter;
-    private OperationDtoToOperationConverter operationDtoToOperationConverter;
     private AccountRepository accountRepository;
     private CategoryRepository categoryRepository;
+    private OperationTypeRepository operationTypeRepository;
 
 
     public OperationServiceImpl(OperationRepository operationRepository,
-                                OperationToOperationDtoConverter operationToOperationDtoConverter,
-                                OperationDtoToOperationConverter operationDtoToOperationConverter,
                                 AccountRepository accountRepository,
-                                CategoryRepository categoryRepository) {
+                                CategoryRepository categoryRepository,
+                                OperationTypeRepository operationTypeRepository) {
         this.operationRepository = operationRepository;
-        this.operationToOperationDtoConverter = operationToOperationDtoConverter;
-        this.operationDtoToOperationConverter = operationDtoToOperationConverter;
         this.accountRepository = accountRepository;
         this.categoryRepository = categoryRepository;
+        this.operationTypeRepository = operationTypeRepository;
     }
 
     @Override
@@ -52,7 +50,7 @@ public class OperationServiceImpl implements OperationService {
 //    @Transactional ??
     public void addTransaction(NewOperationDto newOperationDto) {
         Operation newOperation = operationRepository.save(
-                operationDtoToOperationConverter.convertNewDtoToOperation(newOperationDto)
+                OperationDtoToOperationConverter.convertNewDtoToOperation(newOperationDto, operationTypeRepository)
         );
         Account account = accountRepository.findById(newOperationDto.getAccountId())
                 .orElseThrow(() -> new IdNotFoundException(
@@ -74,16 +72,16 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public List<OperationDto> getAllOperationsByUserId(Long userId) {
         List<Operation> allOperations = (List<Operation>) operationRepository.findAllByUserId(userId);
-        return operationToOperationDtoConverter.convertListToDto(allOperations);
+        return OperationToOperationDtoConverter.convertListToDto(allOperations);
     }
 
     @Override
     public List<OperationDto> getAllOperationByCategoryId(Long categoryId) {
-        return operationToOperationDtoConverter.convertListToDto(operationRepository.findByCategoryId(categoryId));
+        return OperationToOperationDtoConverter.convertListToDto(operationRepository.findByCategoryId(categoryId));
     }
 
     @Override
     public List<OperationDto> getAllOperationByAccountId(Long accountId) {
-        return operationToOperationDtoConverter.convertListToDto(operationRepository.findByAccountId(accountId));
+        return OperationToOperationDtoConverter.convertListToDto(operationRepository.findByAccountId(accountId));
     }
 }

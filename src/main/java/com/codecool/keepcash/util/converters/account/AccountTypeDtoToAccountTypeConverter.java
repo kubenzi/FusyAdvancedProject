@@ -13,7 +13,7 @@ public class AccountTypeDtoToAccountTypeConverter {
     public AccountTypeDtoToAccountTypeConverter() {
     }
 
-    public AccountType convertDtoToAccountType(AccountTypeDto accountTypeDto){
+    public AccountType convertDtoToAccountType(AccountTypeDto accountTypeDto) {
         return new AccountType(accountTypeDto.getName());
     }
 

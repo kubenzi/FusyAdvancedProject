@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface CurrencyService {
     List<CurrencyDto> getAllCurrencies();
+
     void addNewCurrency(CurrencyDto currencyDto);
 }

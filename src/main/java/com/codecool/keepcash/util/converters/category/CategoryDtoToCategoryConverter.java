@@ -18,7 +18,7 @@ public class CategoryDtoToCategoryConverter {
         this.operationDtoToOperationConverter = operationDtoToOperationConverter;
     }
 
-    public Category convertDtoToCategory(CategoryDto categoryDto){
+    public Category convertDtoToCategory(CategoryDto categoryDto) {
         return new Category(categoryDto.getName(),
                 operationDtoToOperationConverter.convertDtoListToOperationList(categoryDto.getOperations()
                 ));

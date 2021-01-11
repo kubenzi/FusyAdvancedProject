@@ -13,14 +13,14 @@ public class OperationTypeToOperationTypeDtoConverter {
     public OperationTypeToOperationTypeDtoConverter() {
     }
 
-    public OperationTypeDto convertToDto(OperationType operationType) {
+    public static OperationTypeDto convertToDto(OperationType operationType) {
         return new OperationTypeDto(operationType.getId(),
                 operationType.getName());
     }
 
-    public List<OperationTypeDto> convertListToDto(List<OperationType> operationTypes) {
+    public static List<OperationTypeDto> convertListToDto(List<OperationType> operationTypes) {
         return operationTypes.stream()
-                .map(this::convertToDto)
+                .map(operationType -> convertToDto(operationType))
                 .collect(Collectors.toList());
     }
 }

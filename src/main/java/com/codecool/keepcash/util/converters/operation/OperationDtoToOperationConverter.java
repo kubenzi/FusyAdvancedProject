@@ -10,33 +10,27 @@ import org.springframework.stereotype.Component;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 @Component
-public class OperationDtoToOperationConverter {
+public final class OperationDtoToOperationConverter {
 
-    private OperationTypeDtoToOperationConverter operationTypeDtoToOperationConverter;
-    private OperationTypeRepository operationTypeRepository;
-
-    public OperationDtoToOperationConverter(OperationTypeDtoToOperationConverter operationTypeDtoToOperationConverter,
-                                            OperationTypeRepository operationTypeRepository) {
-        this.operationTypeDtoToOperationConverter = operationTypeDtoToOperationConverter;
-        this.operationTypeRepository = operationTypeRepository;
+    public OperationDtoToOperationConverter() {
     }
 
-    public Operation convertDtoToOperation(OperationDto operationDto){
+    public static Operation convertDtoToOperation(OperationDto operationDto) {
         return new Operation(operationDto.getDescription(),
                 operationDto.getValue(),
                 operationDto.getDate(),
-                operationTypeDtoToOperationConverter.convertDtoToOperationType(operationDto.getOperationType()));
+                OperationTypeDtoToOperationConverter.convertDtoToOperationType(operationDto.getOperationType()));
     }
 
-    public List<Operation> convertDtoListToOperationList(List<OperationDto> operations) {
+    public static List<Operation> convertDtoListToOperationList(List<OperationDto> operations) {
         return operations.stream()
-                .map(this::convertDtoToOperation)
+                .map(operationDto -> convertDtoToOperation(operationDto))
                 .collect(Collectors.toList());
     }
 
-    public Operation convertNewDtoToOperation(NewOperationDto newOperationDto){
+    public static Operation convertNewDtoToOperation(NewOperationDto newOperationDto,
+                                                     OperationTypeRepository operationTypeRepository) {
 
         return new Operation(newOperationDto.getDescription(),
                 newOperationDto.getValue(),
@@ -44,7 +38,7 @@ public class OperationDtoToOperationConverter {
                 operationTypeRepository.findById(newOperationDto.getOperationTypeId())
                         .orElseThrow(() -> new IdNotFoundException(
                                 newOperationDto.getOperationTypeId(), OperationType.class.getSimpleName()))
-                );
+        );
     }
 
 }

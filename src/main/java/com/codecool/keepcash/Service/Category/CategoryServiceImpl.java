@@ -62,9 +62,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteCategoryById(Long id) {
-        try{
+        try {
             categoryRepository.deleteById(id);
-        } catch (EmptyResultDataAccessException e){
+        } catch (EmptyResultDataAccessException e) {
             throw new IdNotFoundException(id, Category.class.getSimpleName());
         }
     }

@@ -14,7 +14,7 @@ import static org.springframework.http.HttpStatus.*;
 @RequestMapping("/api/v1")
 public class CategoriesController {
 
-    public CategoryService categoryService;
+    private CategoryService categoryService;
 
     public CategoriesController(CategoryService categoryService) {
         this.categoryService = categoryService;
