@@ -1,7 +1,6 @@
 package com.codecool.keepcash.Dto.Operation;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
@@ -10,7 +9,6 @@ public class NewOperationDto {
 
     private String description;
     private Double value;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date;
     private Long operationTypeId;
     private Long accountId;
@@ -23,14 +21,12 @@ public class NewOperationDto {
     @JsonCreator
     public NewOperationDto(@JsonProperty("description") String description,
                            @JsonProperty("value") Double value,
-                           @JsonProperty("date") Date date,
                            @JsonProperty("operationTypeId") Long operationTypeId,
                            @JsonProperty("accountId") Long accountId,
                            @JsonProperty("categoryId") Long categoryId
     ) {
         this.description = description;
         this.value = value;
-        this.date = date;
         this.operationTypeId = operationTypeId;
         this.accountId = accountId;
         this.categoryId = categoryId;

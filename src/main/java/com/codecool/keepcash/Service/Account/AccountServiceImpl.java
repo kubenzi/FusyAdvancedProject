@@ -14,7 +14,9 @@ import com.codecool.keepcash.util.converters.account.AccountToAccountDtoConverte
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -36,14 +38,20 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public void createNewAccount(NewAccountDto newAccountDto, Long userId) {
         Account newAccount = AccountDtoToAccountConverter.convertNewAccountToAccount(
                 newAccountDto, accountTypeRepository, currencyRepository);
         accountRepository.save(newAccount);
 
-        UserData userData = userDataRepository.findById(userId).get();
-        userData.getAccounts().add(newAccount);
-        userDataRepository.save(userData);
+        Optional<UserData> maybeCurrentUser = userDataRepository.findById(userId);
+        if (maybeCurrentUser.isPresent()) {
+            UserData currentUser = maybeCurrentUser.get();
+            currentUser.getAccounts().add(newAccount);
+            userDataRepository.save(currentUser);
+        } else {
+            throw new IdNotFoundException(userId, UserData.class.getSimpleName());
+        }
     }
 
     @Override

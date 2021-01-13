@@ -2,10 +2,7 @@ package com.codecool.keepcash.Service.Operation;
 
 import com.codecool.keepcash.Dto.Operation.NewOperationDto;
 import com.codecool.keepcash.Dto.Operation.OperationDto;
-import com.codecool.keepcash.Entity.Account;
-import com.codecool.keepcash.Entity.AccountType;
-import com.codecool.keepcash.Entity.Category;
-import com.codecool.keepcash.Entity.Operation;
+import com.codecool.keepcash.Entity.*;
 import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Repository.AccountRepository;
 import com.codecool.keepcash.Repository.CategoryRepository;
@@ -16,6 +13,7 @@ import com.codecool.keepcash.util.converters.operation.OperationToOperationDtoCo
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,17 +22,17 @@ public class OperationServiceImpl implements OperationService {
     private OperationRepository operationRepository;
     private AccountRepository accountRepository;
     private CategoryRepository categoryRepository;
-    private OperationTypeRepository operationTypeRepository;
+    private OperationTypeService operationTypeService;
 
 
     public OperationServiceImpl(OperationRepository operationRepository,
                                 AccountRepository accountRepository,
                                 CategoryRepository categoryRepository,
-                                OperationTypeRepository operationTypeRepository) {
+                                OperationTypeService operationTypeService) {
         this.operationRepository = operationRepository;
         this.accountRepository = accountRepository;
         this.categoryRepository = categoryRepository;
-        this.operationTypeRepository = operationTypeRepository;
+        this.operationTypeService = operationTypeService;
     }
 
     @Override
@@ -49,9 +47,14 @@ public class OperationServiceImpl implements OperationService {
     @Override
 //    @Transactional ??
     public void addTransaction(NewOperationDto newOperationDto) {
+        newOperationDto.setDate(new Date(System.currentTimeMillis()));
+
+        OperationType operationType = operationTypeService.findOperationTypeById(newOperationDto.getOperationTypeId());
         Operation newOperation = operationRepository.save(
-                OperationDtoToOperationConverter.convertNewDtoToOperation(newOperationDto, operationTypeRepository)
+                OperationDtoToOperationConverter
+                        .convertNewDtoToOperation(newOperationDto, operationType)
         );
+
         Account account = accountRepository.findById(newOperationDto.getAccountId())
                 .orElseThrow(() -> new IdNotFoundException(
                         newOperationDto.getAccountId(), Account.class.getSimpleName())
@@ -63,7 +66,6 @@ public class OperationServiceImpl implements OperationService {
                 .orElseThrow(() -> new IdNotFoundException(
                         newOperationDto.getCategoryId(), Category.class.getSimpleName()
                 ));
-
         category.getOperations().add(newOperation);
         categoryRepository.save(category);
     }

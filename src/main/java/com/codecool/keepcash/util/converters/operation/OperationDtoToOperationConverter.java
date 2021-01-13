@@ -6,6 +6,7 @@ import com.codecool.keepcash.Entity.Operation;
 import com.codecool.keepcash.Entity.OperationType;
 import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Repository.OperationTypeRepository;
+import com.codecool.keepcash.Service.Operation.OperationTypeService;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -13,7 +14,10 @@ import java.util.stream.Collectors;
 @Component
 public final class OperationDtoToOperationConverter {
 
-    public OperationDtoToOperationConverter() {
+    private OperationTypeService operationTypeService;
+
+    public OperationDtoToOperationConverter(OperationTypeService operationTypeService) {
+        this.operationTypeService = operationTypeService;
     }
 
     public static Operation convertDtoToOperation(OperationDto operationDto) {
@@ -29,15 +33,12 @@ public final class OperationDtoToOperationConverter {
                 .collect(Collectors.toList());
     }
 
-    public static Operation convertNewDtoToOperation(NewOperationDto newOperationDto,
-                                                     OperationTypeRepository operationTypeRepository) {
+    public static Operation convertNewDtoToOperation(NewOperationDto newOperationDto, OperationType operationType) {
 
         return new Operation(newOperationDto.getDescription(),
                 newOperationDto.getValue(),
                 newOperationDto.getDate(),
-                operationTypeRepository.findById(newOperationDto.getOperationTypeId())
-                        .orElseThrow(() -> new IdNotFoundException(
-                                newOperationDto.getOperationTypeId(), OperationType.class.getSimpleName()))
+                operationType
         );
     }
 

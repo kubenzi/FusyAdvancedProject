@@ -23,26 +23,20 @@ public class CategoryServiceImpl implements CategoryService {
     private UserDataRepository userDataRepository;
 
     private CategoryRepository categoryRepository;
-    private CategoryToCategoryDtoConverter categoryToCategoryDtoConverter;
-    private CategoryDtoToCategoryConverter categoryDtoToCategoryConverter;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository,
-                               CategoryToCategoryDtoConverter categoryToCategoryDtoConverter,
-                               CategoryDtoToCategoryConverter categoryDtoToCategoryConverter) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
-        this.categoryToCategoryDtoConverter = categoryToCategoryDtoConverter;
-        this.categoryDtoToCategoryConverter = categoryDtoToCategoryConverter;
     }
 
     @Override
     public List<CategoryDto> getCategoriesByUserId(Long userId) {
-        return categoryToCategoryDtoConverter.convertListToDto(
+        return CategoryToCategoryDtoConverter.convertListToDto(
                 userDataRepository.findById(userId).get().getCategories());
     }
 
     @Override
     public CategoryDto getCategoryById(Long id) {
-        return categoryToCategoryDtoConverter.convertToDto(
+        return CategoryToCategoryDtoConverter.convertToDto(
                 categoryRepository.findById(id).
                         orElseThrow(() -> new IdNotFoundException(
                                 id, Category.class.getSimpleName())
@@ -52,7 +46,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     @Transactional
     public void addCategory(Long userId, NewCategoryDto newCategoryDto) {
-        Category newCategory = categoryDtoToCategoryConverter.convertNewCategoryDtoToCategory(newCategoryDto);
+        Category newCategory = CategoryDtoToCategoryConverter.convertNewCategoryDtoToCategory(newCategoryDto);
         categoryRepository.save(newCategory);
 
         UserData userData = userDataRepository.findById(userId).get();
