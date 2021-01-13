@@ -50,9 +50,14 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void updateUserEmail(Long userId, NewEmailDto newEmailDto) {
+
         try {
-            if (!newEmailDto.getNewEmail().isEmpty()) {
-                userDataRepository.findById(userId).get().setEmail(newEmailDto.getNewEmail());
+            UserData currentUserData = userDataRepository.findById(userId).get();
+            if (!newEmailDto.getNewEmail().isEmpty() &&
+                    newEmailDto.getOldEmail().trim().equals(currentUserData.getEmail().trim()) &&
+                    !newEmailDto.getNewEmail().trim().equals(currentUserData.getEmail().trim())) {
+                currentUserData.setEmail(newEmailDto.getNewEmail().trim());
+                userDataRepository.save(currentUserData);
             }
         } catch (NullPointerException e) {
             throw new IdNotFoundException(userId, User.class.getSimpleName());
