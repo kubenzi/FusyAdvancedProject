@@ -58,9 +58,12 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public List<AccountDto> getAccountsByUserId(Long userId) {
-        return AccountToAccountDtoConverter.convertListToDto(
-                userDataRepository.findById(userId).get().getAccounts()
+        UserData userData = userDataRepository.findById(userId).orElseThrow(
+                () -> new IdNotFoundException(
+                        userId, UserData.class.getSimpleName())
         );
+
+        return AccountToAccountDtoConverter.convertListToDto(userData.getAccounts());
     }
 
     @Override

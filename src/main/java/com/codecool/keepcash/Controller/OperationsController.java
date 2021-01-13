@@ -1,6 +1,5 @@
 package com.codecool.keepcash.Controller;
 
-import com.codecool.keepcash.Dto.Account.AccountTypeDto;
 import com.codecool.keepcash.Dto.Operation.NewOperationDto;
 import com.codecool.keepcash.Dto.Operation.OperationDto;
 import com.codecool.keepcash.Service.Operation.OperationService;
@@ -22,7 +21,7 @@ public class OperationsController {
     }
 
     @GetMapping("/users/{userId}/operations")
-    public List<OperationDto> getOperationsByCategory(@PathVariable Long userId,
+    public List<OperationDto> getOperationsByGivenParameter(@PathVariable Long userId,
                                                       @RequestParam(required = false) Long categoryId,
                                                       @RequestParam(required = false) Long accountId) {
         if (categoryId == null && accountId == null) {
@@ -31,7 +30,6 @@ public class OperationsController {
         return categoryId != null ?
                 operationService.getAllOperationByCategoryId(categoryId) :
                 operationService.getAllOperationByAccountId(accountId);
-
     }
 
     @DeleteMapping("/users/{userId}/operations/{operationId}")

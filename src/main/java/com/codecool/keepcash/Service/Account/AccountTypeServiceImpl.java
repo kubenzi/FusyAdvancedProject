@@ -5,7 +5,6 @@ import com.codecool.keepcash.Entity.AccountType;
 import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Repository.AccountTypeRepository;
 import com.codecool.keepcash.util.AccountTypeFields;
-import com.codecool.keepcash.util.NameComparator;
 import com.codecool.keepcash.util.converters.account.AccountTypeDtoToAccountTypeConverter;
 import com.codecool.keepcash.util.converters.account.AccountTypeToAccountTypeDtoConverter;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -17,34 +16,27 @@ import java.util.stream.Collectors;
 @Service
 public class AccountTypeServiceImpl implements AccountTypeService {
 
-    private NameComparator nameComparator;
     private AccountTypeRepository accountTypeRepository;
-    private AccountTypeToAccountTypeDtoConverter accountTypeToAccountTypeDtoConverter;
-    private AccountTypeDtoToAccountTypeConverter accountTypeDtoToAccountTypeConverter;
 
 
-    public AccountTypeServiceImpl(NameComparator nameComparator, AccountTypeRepository accountTypeRepository,
-                                  AccountTypeToAccountTypeDtoConverter accountTypeToAccountTypeDtoConverter,
-                                  AccountTypeDtoToAccountTypeConverter accountTypeDtoToAccountTypeConverter) {
-        this.nameComparator = nameComparator;
+    public AccountTypeServiceImpl(AccountTypeRepository accountTypeRepository) {
         this.accountTypeRepository = accountTypeRepository;
-        this.accountTypeToAccountTypeDtoConverter = accountTypeToAccountTypeDtoConverter;
-        this.accountTypeDtoToAccountTypeConverter = accountTypeDtoToAccountTypeConverter;
     }
 
     @Override
     public List<AccountTypeDto> getAllAccountTypes() {
-        return accountTypeToAccountTypeDtoConverter.convertListToDto((List<AccountType>) accountTypeRepository.findAll());
+        return AccountTypeToAccountTypeDtoConverter
+                .convertListToDto((List<AccountType>) accountTypeRepository.findAll());
     }
 
     @Override
     public void addAccountType(AccountTypeDto accountTypeDto) {
-        accountTypeRepository.save(accountTypeDtoToAccountTypeConverter.convertDtoToAccountType(accountTypeDto));
+        accountTypeRepository.save(AccountTypeDtoToAccountTypeConverter.convertDtoToAccountType(accountTypeDto));
     }
 
     @Override
     public AccountTypeDto getAccountTypeById(Long id) {
-        return accountTypeToAccountTypeDtoConverter.convertToDto(
+        return AccountTypeToAccountTypeDtoConverter.convertToDto(
                 accountTypeRepository.findById(id)
                         .orElseThrow(() -> new IdNotFoundException(
                                 id, AccountType.class.getSimpleName())
@@ -62,7 +54,7 @@ public class AccountTypeServiceImpl implements AccountTypeService {
 
     @Override
     public void updateAccountType(Long id, AccountTypeDto accountTypeDto) {
-        AccountType accountType = accountTypeDtoToAccountTypeConverter.
+        AccountType accountType = AccountTypeDtoToAccountTypeConverter.
                 convertDtoToAccountType(accountTypeDto);
         accountType.setId(id);
         accountTypeRepository.save(accountType);

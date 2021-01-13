@@ -71,7 +71,7 @@ public class OperationServiceImpl implements OperationService {
 
     @Override
     public List<OperationDto> getAllOperationsByUserId(Long userId) {
-        List<Operation> allOperations = (List<Operation>) operationRepository.findAllByUserId(userId);
+        List<Operation> allOperations = operationRepository.findAllByUserId(userId);
         return OperationToOperationDtoConverter.convertListToDto(allOperations);
     }
 
