@@ -6,41 +6,49 @@ import com.codecool.keepcash.Entity.Category;
 import com.codecool.keepcash.Entity.UserData;
 import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Repository.CategoryRepository;
-import com.codecool.keepcash.Repository.UserDataRepository;
+import com.codecool.keepcash.Service.User.UserService;
 import com.codecool.keepcash.util.converters.category.CategoryDtoToCategoryConverter;
 import com.codecool.keepcash.util.converters.category.CategoryToCategoryDtoConverter;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
-    private UserDataRepository userDataRepository;
-
     private CategoryRepository categoryRepository;
+    private UserService userService;
 
-    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+    public CategoryServiceImpl(CategoryRepository categoryRepository,
+                               UserService userService) {
         this.categoryRepository = categoryRepository;
+        this.userService = userService;
     }
 
     @Override
-    public List<CategoryDto> getCategoriesByUserId(Long userId) {
+    public Category getCategoryById(Long id) {
+        Optional<Category> maybeCategory = categoryRepository.findById(id);
+
+        if (maybeCategory.isPresent()) {
+            return maybeCategory.get();
+        } else {
+            throw new IdNotFoundException(id, Category.class.getSimpleName());
+        }
+    }
+
+    @Override
+    public CategoryDto getCategoryDtoById(Long id) {
+        return CategoryToCategoryDtoConverter
+                .convertToDto(getCategoryById(id));
+    }
+
+    @Override
+    public List<CategoryDto> getCategoriesDtoByUserId(Long userId) {
         return CategoryToCategoryDtoConverter.convertListToDto(
-                userDataRepository.findById(userId).get().getCategories());
-    }
-
-    @Override
-    public CategoryDto getCategoryById(Long id) {
-        return CategoryToCategoryDtoConverter.convertToDto(
-                categoryRepository.findById(id).
-                        orElseThrow(() -> new IdNotFoundException(
-                                id, Category.class.getSimpleName())
-                        ));
+                userService.getUserDataById(userId).getCategories());
     }
 
     @Override
@@ -49,9 +57,14 @@ public class CategoryServiceImpl implements CategoryService {
         Category newCategory = CategoryDtoToCategoryConverter.convertNewCategoryDtoToCategory(newCategoryDto);
         categoryRepository.save(newCategory);
 
-        UserData userData = userDataRepository.findById(userId).get();
+        UserData userData = userService.getUserDataById(userId);
         userData.getCategories().add(newCategory);
-        userDataRepository.save(userData);
+        userService.saveUpdatedUserData(userData);
+    }
+
+    @Override
+    public void saveUpdatedCategory(Category category) {
+        categoryRepository.save(category);
     }
 
     @Override

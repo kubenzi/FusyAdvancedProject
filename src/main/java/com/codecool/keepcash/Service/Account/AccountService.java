@@ -2,16 +2,16 @@ package com.codecool.keepcash.Service.Account;
 
 import com.codecool.keepcash.Dto.Account.AccountDto;
 import com.codecool.keepcash.Dto.Account.NewAccountDto;
+import com.codecool.keepcash.Entity.Account;
 
 import java.util.List;
 
 public interface AccountService {
 
-    void createNewAccount(NewAccountDto newAccountDto, Long userId);
-
-    AccountDto getAccountById(Long accountId);
-
-    List<AccountDto> getAccountsByUserId(Long userId);
-
+    Account getAccountById(Long id);
+    AccountDto getAccountDtoById(Long accountId);
+    List<AccountDto> getAccountsDtoByUserId(Long userId);
+    void addNewAccount(NewAccountDto newAccountDto, Long userId);
+    void saveUpdatedAccount(Account account);
     void deleteAccountById(Long accountId);
 }

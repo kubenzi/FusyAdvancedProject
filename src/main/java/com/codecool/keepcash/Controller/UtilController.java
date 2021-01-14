@@ -34,7 +34,7 @@ public class UtilController {
     @GetMapping("/account-types")
     @ResponseStatus(OK)
     public List<AccountTypeDto> getAccountTypes() {
-        return accountTypeService.getAllAccountTypes();
+        return accountTypeService.getAllAccountTypeDto();
     }
 
     @GetMapping("/currencies")
@@ -46,6 +46,6 @@ public class UtilController {
     @GetMapping("/operation-types")
     @ResponseStatus(OK)
     public List<OperationTypeDto> getAllOperationTypes() {
-        return operationTypeService.getAllOperationTypes();
+        return operationTypeService.getAllOperationTypesDto();
     }
 }

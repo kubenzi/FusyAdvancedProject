@@ -4,14 +4,14 @@ import com.codecool.keepcash.Dto.Operation.NewOperationDto;
 import com.codecool.keepcash.Dto.Operation.OperationDto;
 import com.codecool.keepcash.Entity.*;
 import com.codecool.keepcash.Exception.IdNotFoundException;
-import com.codecool.keepcash.Repository.AccountRepository;
-import com.codecool.keepcash.Repository.CategoryRepository;
 import com.codecool.keepcash.Repository.OperationRepository;
-import com.codecool.keepcash.Repository.OperationTypeRepository;
+import com.codecool.keepcash.Service.Account.AccountService;
+import com.codecool.keepcash.Service.Category.CategoryService;
 import com.codecool.keepcash.util.converters.operation.OperationDtoToOperationConverter;
 import com.codecool.keepcash.util.converters.operation.OperationToOperationDtoConverter;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -20,32 +20,23 @@ import java.util.List;
 public class OperationServiceImpl implements OperationService {
 
     private OperationRepository operationRepository;
-    private AccountRepository accountRepository;
-    private CategoryRepository categoryRepository;
+    private AccountService accountService;
+    private CategoryService categoryService;
     private OperationTypeService operationTypeService;
 
 
     public OperationServiceImpl(OperationRepository operationRepository,
-                                AccountRepository accountRepository,
-                                CategoryRepository categoryRepository,
+                                AccountService accountService,
+                                CategoryService categoryService,
                                 OperationTypeService operationTypeService) {
         this.operationRepository = operationRepository;
-        this.accountRepository = accountRepository;
-        this.categoryRepository = categoryRepository;
+        this.accountService = accountService;
+        this.categoryService = categoryService;
         this.operationTypeService = operationTypeService;
     }
 
     @Override
-    public void deleteOperationsById(Long operationId) {
-        try {
-            this.operationRepository.deleteById(operationId);
-        } catch (EmptyResultDataAccessException e) {
-            throw new IdNotFoundException(operationId, AccountType.class.getSimpleName());
-        }
-    }
-
-    @Override
-//    @Transactional ??
+    @Transactional
     public void addTransaction(NewOperationDto newOperationDto) {
         newOperationDto.setDate(new Date(System.currentTimeMillis()));
 
@@ -55,19 +46,13 @@ public class OperationServiceImpl implements OperationService {
                         .convertNewDtoToOperation(newOperationDto, operationType)
         );
 
-        Account account = accountRepository.findById(newOperationDto.getAccountId())
-                .orElseThrow(() -> new IdNotFoundException(
-                        newOperationDto.getAccountId(), Account.class.getSimpleName())
-                );
+        Account account = accountService.getAccountById(newOperationDto.getAccountId());
         account.getOperations().add(newOperation);
-        accountRepository.save(account);
+        accountService.saveUpdatedAccount(account);
 
-        Category category = categoryRepository.findById(newOperationDto.getCategoryId())
-                .orElseThrow(() -> new IdNotFoundException(
-                        newOperationDto.getCategoryId(), Category.class.getSimpleName()
-                ));
+        Category category = categoryService.getCategoryById(newOperationDto.getCategoryId());
         category.getOperations().add(newOperation);
-        categoryRepository.save(category);
+        categoryService.saveUpdatedCategory(category);
     }
 
 
@@ -85,5 +70,14 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public List<OperationDto> getAllOperationByAccountId(Long accountId) {
         return OperationToOperationDtoConverter.convertListToDto(operationRepository.findByAccountId(accountId));
+    }
+
+    @Override
+    public void deleteOperationsById(Long operationId) {
+        try {
+            this.operationRepository.deleteById(operationId);
+        } catch (EmptyResultDataAccessException e) {
+            throw new IdNotFoundException(operationId, AccountType.class.getSimpleName());
+        }
     }
 }

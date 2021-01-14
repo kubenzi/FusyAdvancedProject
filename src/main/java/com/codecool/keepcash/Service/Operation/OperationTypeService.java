@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface OperationTypeService {
     OperationType findOperationTypeById(Long operationTypeId);
-    List<OperationTypeDto> getAllOperationTypes();
+    List<OperationTypeDto> getAllOperationTypesDto();
 }

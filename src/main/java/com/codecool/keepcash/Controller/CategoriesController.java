@@ -23,13 +23,13 @@ public class CategoriesController {
     @GetMapping("/users/{userId}/categories")
     @ResponseStatus(OK)
     public List<CategoryDto> getCategoriesByUserId(@PathVariable Long userId){
-        return categoryService.getCategoriesByUserId(userId);
+        return categoryService.getCategoriesDtoByUserId(userId);
     }
 
     @GetMapping("/users/{userId}/categories/{categoryId}")
     @ResponseStatus(OK)
     public CategoryDto getCategoryById(@PathVariable Long categoryId) {
-        return categoryService.getCategoryById(categoryId);
+        return categoryService.getCategoryDtoById(categoryId);
     }
 
     @PostMapping("/users/{userId}/categories")

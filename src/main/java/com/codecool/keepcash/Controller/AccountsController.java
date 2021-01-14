@@ -22,20 +22,20 @@ public class AccountsController {
     @GetMapping("/users/{userId}/accounts")
     @ResponseStatus(OK)
     public List<AccountDto> getAccountsByUserId(@PathVariable Long userId) {
-        return accountService.getAccountsByUserId(userId);
+        return accountService.getAccountsDtoByUserId(userId);
     }
 
     @GetMapping("/users/{userId}/accounts/{accountId}")
     @ResponseStatus(OK)
     public AccountDto getAccountById(@PathVariable Long accountId) {
-        return accountService.getAccountById(accountId);
+        return accountService.getAccountDtoById(accountId);
     }
 
     @PostMapping("/users/{userId}/accounts")
     @ResponseStatus(CREATED)
     public void addNewAccountForUserId(@PathVariable Long userId,
                                        @RequestBody NewAccountDto newAccountDto) {
-        accountService.createNewAccount(newAccountDto, userId);
+        accountService.addNewAccount(newAccountDto, userId);
     }
 
     @DeleteMapping("/users/{userId}/accounts/{accountId}")

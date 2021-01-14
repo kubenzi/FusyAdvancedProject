@@ -31,7 +31,7 @@ public class OperationTypeServiceImpl implements OperationTypeService {
     }
 
     @Override
-    public List<OperationTypeDto> getAllOperationTypes() {
+    public List<OperationTypeDto> getAllOperationTypesDto() {
         return OperationTypeToOperationTypeDtoConverter
                 .convertListToDto((List<OperationType>) operationTypeRepository.findAll());
     }
