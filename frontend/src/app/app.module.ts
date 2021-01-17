@@ -4,11 +4,17 @@ import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { UserComponentComponent } from './components/user-component/user-component.component';
 import { HttpClientModule } from '@angular/common/http';
+import {MenuComponent} from './components/menu/menu.component';
+import { SectionComponent } from './components/section/section.component';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    UserComponentComponent
+    UserComponentComponent,
+    MenuComponent,
+    SectionComponent,
+    NavigationComponent
   ],
   imports: [
     BrowserModule,

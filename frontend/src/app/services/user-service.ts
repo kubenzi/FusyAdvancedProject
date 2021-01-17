@@ -1,19 +1,18 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
-// import {USER_MOCK} from '../user-mock';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient ) { }
+  constructor(private http: HttpClient) {
+  }
 
-
-  public getUser(userId): Observable<User> {
+  public getUser(): Observable<User> {
     const url = 'http://localhost:8080/api/v1/users/1';
-
     return this.http.get<User>(url);
   }
 

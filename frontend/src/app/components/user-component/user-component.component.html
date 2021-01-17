@@ -1,82 +1,28 @@
 <body>
 
-    <nav>
-
-      <div class="logo">
-
-        <input type="hidden" #userId>
-        <button (click)="getUser(userId.value)">User id</button>
-        <h1>Logo</h1>
-
-      </div>
-
-      <br>
-      <a routerLink="/heroes" class="hype-link"> Dashboard </a> <br>
-      <a routerLink="/heroes" class="hype-link"> Scheduled </a> <br>
-      <a routerLink="/heroes" class="hype-link"> Savings </a> <br>
-      <a routerLink="/heroes" class="hype-link"> Profile </a> <br>
-      <a routerLink="/heroes" class="hype-link"> Settings </a> <br>
-      <a routerLink="/heroes" class="hype-link"> Contact </a> <br>
-
-    </nav>
-
-
+  <nav>
+    <app-navigation>
+    </app-navigation>
+  </nav>
 
   <div class="main-view">
-    Categories:
-    <br>
-    <div class="category-container">
-      <br>
-      <li *ngFor="let category of user.categories" class="repo">
-        <div class="category">
-          <h3>Category id:</h3>
-          {{category.id}}
-          {{category.name}}
-          <br><br>
-        </div>
-
-        <br><br>
-      </li>
-    </div>
-    Accounts:
-    <br>
-    <div class="account-container">
-
-      <br>
-      <li *ngFor="let account of user.accounts" class="repo">
-        <div class="account">
-          <h3>Account type:</h3>
-          {{account.accountType.name}}
-          {{account.accountNumber}}
-          <br><br>
-
-        </div>
-      </li>
-    </div>
+    Empty
+    <app-menu
+      [accounts]="user.accounts"
+      [categories]="user.categories"
+    >
+    </app-menu>
   </div>
 
-  <section>
-    <div *ngIf="user" class="user-data">
-
-      <h3>User firstname:</h3>
-      {{user.firstName}}
-      <br>
-
-      <h3>User lastname:</h3>
-      {{user.lastName}}
-      <br>
-
-      <h3>User email:</h3>
-      {{user.email}}
-      <br>
-
-      <h3>Username:</h3>
-      {{user.username}}
-      <br>
-
-    </div>
-  </section>
-
-
+  <app-section
+    [firstName]="user.firstName"
+    [lastName]="user.lastName"
+    [email]="user.email"
+  >
+  </app-section>
 
 </body>
+
+<!--<app-simulation (onSimulationChange)="onSimulationChange($event)">  -->
+<!--  // this.onSimulationChange.emit(value);-->
+<!--  // @Output() onSimulationChange = new EventEmitter<Simulation>();-->
