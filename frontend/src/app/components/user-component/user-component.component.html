@@ -1,25 +1,15 @@
 <body>
 
-  <nav>
-    <app-navigation>
-    </app-navigation>
-  </nav>
+    <app-navigation></app-navigation>
 
-  <div class="main-view">
-    Empty
-    <app-menu
-      [accounts]="user.accounts"
-      [categories]="user.categories"
-    >
+    <app-menu [accounts]="user.accounts"
+              [categories]="user.categories">
     </app-menu>
-  </div>
 
-  <app-section
-    [firstName]="user.firstName"
-    [lastName]="user.lastName"
-    [email]="user.email"
-  >
-  </app-section>
+    <app-section [firstName]="user.firstName"
+                 [lastName]="user.lastName"
+                 [email]="user.email">
+    </app-section>
 
 </body>
 

@@ -1,0 +1,41 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#keepcash-logo-container {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+#keepcash-logo {
+  widht: 128px;
+  height: 160px;
+}
+
+.horizontal-separator {
+  width: 95%;
+  border-top: 3px dotted #ebebeb;
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  margin-bottom: 25px;
+}
+
+#navigation-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.navigation-button {
+  font-family: 'Alata';
+  font-weight: 400;
+  color: black;
+  background-color: #ffffff;
+  height: 30px;
+  width: 220px;
+  margin-bottom: 40px;
+  border-style: none;
+  box-shadow: 3px 5px 3px gray;
+}

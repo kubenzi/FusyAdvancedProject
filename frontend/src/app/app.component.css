@@ -1,0 +1,11 @@
+html {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background-color: gray;
+  justify-content: center;
+}
+
+app-user-component {
+  align-self: center;
+}

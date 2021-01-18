@@ -4,8 +4,8 @@ body {
   display: flex;
   margin: auto;
   width: 1267px;
-  height: 669px;
-  background: #ffffff;
+  height: 700px;
+  background-color: #ffffff;
   border-color: #ebebeb;
   border-width: 1px;
   border-style: solid;
@@ -13,34 +13,38 @@ body {
   font-family: "Alata";
 }
 
-
-
-.main-view {
-  flex: 3;
-}
-
-
-
-nav {
+app-menu {
   flex: 1;
   text-align: center;
-  width: 1267px;
-  height: 669px;
+  height: 700px;
   background: #ffffff;
   border-color: #ebebeb;
   border-width: 1px;
-  border-style: solid;
-  border-radius: 30px 30px 30px 30px;
+  border-top-style: none;
+  border-bottom-style: none;
+  border-left-style: dotted;
+  border-left-width: 3px;
+  border-right-style: dotted;
+  border-right-width: 3px;
 }
 
-section {
-  flex: 1;
-  height: 669px;
+app-navigation {
+  flex: 0.3;
+  text-align: center;
+  height: 700px;
   background: #ffffff;
-  border-color: #ebebeb;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 30px 30px 30px 30px;
+  border-style: none;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+
+app-section {
+  flex: 0.3;
+  height: 700px;
+  background: #ffffff;
+  border-style: none;
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
 }
 
 .hype-link {

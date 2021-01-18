@@ -1,23 +1,55 @@
-.category-container, .account-container {
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+#category-container, #account-container, #diagram-container {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+}
+
+.subcomponent-headline {
+  text-align: left;
+  margin: 15px;
+}
+
+.category-list, .account-list{
   display: flex;
   background: #ffffff;
-  border-color: #ebebeb;
+  margin-left: 40px;
+  margin-right: 40px;
   border-width: 1px;
-  border-style: solid;
+  border-style: none;
   border-radius: 30px 30px 30px 30px;
+  list-style-type: none;
 }
 
 .category, .account {
   display: inline-block;
+  font-family: 'Alata';
+  font-weight: 400;
   font-size: small;
   color: white;
-  padding: 0.8em 0.7em 0 0.7em;
+  height: 100px;
+  width: 100px;
   background-color:#405061;
   line-height: 1em;
   position: relative;
-  left: -1px;
-  top: -4px;
-  margin-right: .8em;
+  /*left: -1px;*/
+  /*top: -4px;*/
+  margin: .8em;
   border-radius: 8px 8px 8px 8px;
   padding: 10px;
+}
+
+.horizontal-separator {
+  width: 100%;
+  border-top: 3px dotted #ebebeb;
+  border-bottom: none;
+  border-left: none;
+  border-right: none;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
