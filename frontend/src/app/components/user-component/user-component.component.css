@@ -1,62 +1,66 @@
-
-body {
-  max-width: 1440px;
+app-navigation {
   display: flex;
-  margin: auto;
-  width: 1267px;
-  height: 700px;
+  flex-direction: column;
   background-color: #ffffff;
-  border-color: #ebebeb;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 30px 30px 30px 30px;
-  font-family: "Alata";
 }
 
 app-menu {
-  flex: 1;
-  text-align: center;
-  height: 700px;
-  background: #ffffff;
-  border-color: #ebebeb;
-  border-width: 1px;
-  border-top-style: none;
-  border-bottom-style: none;
-  border-left-style: dotted;
-  border-left-width: 3px;
-  border-right-style: dotted;
-  border-right-width: 3px;
-}
-
-app-navigation {
-  flex: 0.3;
-  text-align: center;
-  height: 700px;
-  background: #ffffff;
-  border-style: none;
-  border-top-left-radius: 30px;
-  border-bottom-left-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
 }
 
 app-section {
-  flex: 0.3;
-  height: 700px;
-  background: #ffffff;
-  border-style: none;
-  border-top-right-radius: 30px;
-  border-bottom-right-radius: 30px;
+  background-color: #ffffff;
 }
 
-.hype-link {
-  width: 224px;
-  margin: 20px;
-  /*height: 50px;*/
-  /*padding: 0px 10px 0px 10px;*/
-  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.15);
-  /*background: #ffffff;*/
-  /*color: #232323;*/
-  /*font-weight: 400;*/
-  /*font-size: 14px;*/
-  /*text-align: center;*/
+/*app-navigation {*/
+/*  display: flex;*/
+/*  flex-direction: column;*/
+/*  justify-content: center;*/
 
-}
+/*  flex: 20%;*/
+/*  text-align: center;*/
+/*  height: 700px;*/
+/*  background: #ffffff;*/
+/*  border-style: none;*/
+/*  border-top-left-radius: 30px;*/
+/*  border-bottom-left-radius: 30px;*/
+/*}*/
+
+/*app-menu {*/
+/*  flex: 1;*/
+/*  height: 700px;*/
+/*  background: #ffffff;*/
+/*  border-color: #ebebeb;*/
+/*  border-width: 1px;*/
+/*  border-top-style: none;*/
+/*  border-bottom-style: none;*/
+/*  border-left-style: dotted;*/
+/*  border-left-width: 3px;*/
+/*  border-right-style: dotted;*/
+/*  border-right-width: 3px;*/
+/*}*/
+
+/*app-section {*/
+/*  flex: 1;*/
+/*  height: 700px;*/
+/*  background: #ffffff;*/
+/*  border-style: none;*/
+/*  border-top-right-radius: 30px;*/
+/*  border-bottom-right-radius: 30px;*/
+/*}*/
+
+/*!*.hype-link {*!*/
+/*!*  width: 224px;*!*/
+/*!*  margin: 20px;*!*/
+/*!*  !*height: 50px;*!*!*/
+/*!*  !*padding: 0px 10px 0px 10px;*!*!*/
+/*!*  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.15);*!*/
+/*!*  !*background: #ffffff;*!*!*/
+/*!*  !*color: #232323;*!*!*/
+/*!*  !*font-weight: 400;*!*!*/
+/*!*  !*font-size: 14px;*!*!*/
+/*!*  !*text-align: center;*!*!*/
+
+/*!*}*!*/

@@ -1,36 +1,32 @@
-<body>
-
-  <div id="category-container">
-    <div class="subcomponent-headline"> Categories: </div>
-    <div class="category-list">
-      <li *ngFor="let category of categories.slice(0, 5)">
-        <div class="category">
-          <h3> {{category.name.toUpperCase()}} </h3>
-        </div>
-      </li>
-    </div>
+<div id="category-container">
+  <div class="subcomponent-headline"> Categories: </div>
+  <div class="category-list">
+    <li *ngFor="let category of categories.slice(0, 5)">
+      <div class="category">
+        <h3> {{category.name.toUpperCase()}} </h3>
+      </div>
+    </li>
   </div>
+</div>
 
-  <hr class="horizontal-separator">
+<hr class="horizontal-separator">
 
-  <div id="account-container">
-    <div class="subcomponent-headline"> Accounts: </div>
-    <div class="account-list">
-      <li *ngFor="let account of accounts.slice(0, 5)">
-        <div class="account">
-          <h3>{{account.name.toUpperCase()}}</h3>
-          <h4>{{account.accountType.name}}</h4>
-          <p id="account-number">...{{account.accountNumber.substring
-          (account.accountNumber.length -1, account.accountNumber.length -5)}}</p>
-        </div>
-      </li>
-    </div>
+<div id="account-container">
+  <div class="subcomponent-headline"> Accounts: </div>
+  <div class="account-list">
+    <li *ngFor="let account of accounts.slice(0, 5)">
+      <div class="account">
+        <h3>{{account.name.toUpperCase()}}</h3>
+        <h4>{{account.accountType.name}}</h4>
+        <p id="account-number">...{{account.accountNumber.substring
+        (account.accountNumber.length -1, account.accountNumber.length -5)}}</p>
+      </div>
+    </li>
   </div>
+</div>
 
-  <hr class="horizontal-separator">
+<hr class="horizontal-separator">
 
-  <div id="diagram-container">
-    <div class="subcomponent-headline"> Diagrams: </div>
-  </div>
-
-</body>
+<div id="diagram-container">
+  <div class="subcomponent-headline"> Diagrams: </div>
+</div>

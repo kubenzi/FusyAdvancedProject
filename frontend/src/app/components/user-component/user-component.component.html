@@ -1,17 +1,13 @@
-<body>
+<app-navigation></app-navigation>
 
-    <app-navigation></app-navigation>
+<app-menu [accounts]="user.accounts"
+          [categories]="user.categories">
+</app-menu>
 
-    <app-menu [accounts]="user.accounts"
-              [categories]="user.categories">
-    </app-menu>
-
-    <app-section [firstName]="user.firstName"
-                 [lastName]="user.lastName"
-                 [email]="user.email">
-    </app-section>
-
-</body>
+<app-section [firstName]="user.firstName"
+             [lastName]="user.lastName"
+             [email]="user.email">
+</app-section>
 
 <!--<app-simulation (onSimulationChange)="onSimulationChange($event)">  -->
 <!--  // this.onSimulationChange.emit(value);-->
