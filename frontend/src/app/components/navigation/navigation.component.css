@@ -1,0 +1,16 @@
+
+app-navigation {
+  display: flex;
+}
+
+#navigation-buttons{
+ display: flex;
+ flex-direction: column;
+}
+
+
+.hype-link {
+  width: 224px;
+  margin: 20px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.15);
+}

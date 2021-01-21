@@ -1,9 +1,9 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {MenuComponent} from './components/menu/menu.component';
+import {SectionComponent} from './components/section/section.component';
 
 const routes: Routes = [
-  {path: 'user', component: MenuComponent},
+  {path: 'user', component: SectionComponent},
   // {path: 'dashboard', component: DashboardComponent},
   // {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   // {path: 'detail/:id', component: HeroDetailComponent }

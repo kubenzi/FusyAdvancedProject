@@ -15,7 +15,6 @@ export class UserService {
     const url = 'http://localhost:8080/api/v1/users/1';
     return this.http.get<User>(url);
   }
-
 }
 
 export interface OperationType {

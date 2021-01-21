@@ -1,27 +1,21 @@
-<body>
 
-  <nav>
-    <app-navigation>
-    </app-navigation>
-  </nav>
+<app-navigation>
 
-  <div class="main-view">
-    Empty
-    <app-menu
-      [accounts]="user.accounts"
-      [categories]="user.categories"
-    >
-    </app-menu>
-  </div>
+</app-navigation>
 
-  <app-section
-    [firstName]="user.firstName"
-    [lastName]="user.lastName"
-    [email]="user.email"
+
+<div class="main-view">
+  <app-menu
+    [accounts]="user.accounts"
+    [categories]="user.categories"
   >
-  </app-section>
+  </app-menu>
+</div>
 
-</body>
+<router-outlet>
+
+</router-outlet>
+
 
 <!--<app-simulation (onSimulationChange)="onSimulationChange($event)">  -->
 <!--  // this.onSimulationChange.emit(value);-->

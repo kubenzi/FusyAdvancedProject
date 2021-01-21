@@ -1,4 +1,5 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-section',
@@ -7,11 +8,14 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class SectionComponent implements OnInit {
 
-  @Input() firstName: string;
-  @Input() lastName: string;
-  @Input() email: string;
+  firstName: string;
+  lastName: string;
+  email: string;
 
-  constructor() {
+  constructor(private router: Router) {
+    this.firstName = this.router.getCurrentNavigation().extras.state.firstName;
+    this.lastName = this.router.getCurrentNavigation().extras.state.lastName;
+    this.email = this.router.getCurrentNavigation().extras.state.email;
   }
 
   ngOnInit(): void {
