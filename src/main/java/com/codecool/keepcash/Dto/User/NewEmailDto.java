@@ -1,14 +1,21 @@
 package com.codecool.keepcash.Dto.User;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class NewEmailDto {
 
     private String newEmail;
+    private String oldEmail;
 
     public NewEmailDto() {
     }
 
-    public NewEmailDto(String newEmail) {
-        this.newEmail = newEmail;
+    @JsonCreator
+    public NewEmailDto(@JsonProperty("newEmail") String newEmail,
+                       @JsonProperty("oldEmail") String oldEmail) {
+                this.newEmail = newEmail;
+                this.oldEmail = oldEmail;
     }
 
     public String getNewEmail() {
@@ -17,5 +24,13 @@ public class NewEmailDto {
 
     public void setNewEmail(String newEmail) {
         this.newEmail = newEmail;
+    }
+
+    public String getOldEmail() {
+        return oldEmail;
+    }
+
+    public void setOldEmail(String oldEmail) {
+        this.oldEmail = oldEmail;
     }
 }

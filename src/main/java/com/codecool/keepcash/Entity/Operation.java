@@ -16,6 +16,7 @@ public class Operation {
 
     private Double value;
 
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @OneToOne(cascade = CascadeType.PERSIST)

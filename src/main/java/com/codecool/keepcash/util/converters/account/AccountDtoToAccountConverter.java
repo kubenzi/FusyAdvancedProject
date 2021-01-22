@@ -3,12 +3,10 @@ package com.codecool.keepcash.util.converters.account;
 import com.codecool.keepcash.Dto.Account.AccountDto;
 import com.codecool.keepcash.Dto.Account.NewAccountDto;
 import com.codecool.keepcash.Entity.Account;
-import com.codecool.keepcash.Exception.IdNotFoundException;
-import com.codecool.keepcash.Repository.AccountTypeRepository;
-import com.codecool.keepcash.Repository.CurrencyRepository;
+import com.codecool.keepcash.Entity.AccountType;
+import com.codecool.keepcash.Entity.Currency;
 import com.codecool.keepcash.util.converters.currency.CurrencyDtoToCurrencyConverter;
 import com.codecool.keepcash.util.converters.operation.OperationDtoToOperationConverter;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -36,17 +34,12 @@ public class AccountDtoToAccountConverter {
     }
 
     public static Account convertNewAccountToAccount(NewAccountDto newAccountDto,
-                                              AccountTypeRepository accountTypeRepository,
-                                              CurrencyRepository currencyRepository
-                                              ) {
-        try {
+                                              AccountType accountType,
+                                              Currency currency) {
             return new Account(newAccountDto.getName(),
                     newAccountDto.getBalance(),
                     newAccountDto.getAccountNumber(),
-                    accountTypeRepository.findById(newAccountDto.getAccountTypeId()).get(),
-                    currencyRepository.findById(newAccountDto.getCurrencyId()).get());
-        } catch (EmptyResultDataAccessException e) {
-            throw new IdNotFoundException("AccountType ID or Currency ID not found");
-        }
+                    accountType,
+                    currency);
     }
 }

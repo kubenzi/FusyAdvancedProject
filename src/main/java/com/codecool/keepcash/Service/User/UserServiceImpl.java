@@ -11,31 +11,34 @@ import com.codecool.keepcash.util.converters.user.UserDataToUserDataDtoConverter
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
     private UserRepository userRepository;
     private UserDataRepository userDataRepository;
-    private UserDataToUserDataDtoConverter userDataToUserDataDtoConverter;
 
     public UserServiceImpl(UserRepository userRepository,
-                           UserDataRepository userDataRepository,
-                           UserDataToUserDataDtoConverter userDataToUserDataDtoConverter) {
+                           UserDataRepository userDataRepository) {
         this.userRepository = userRepository;
         this.userDataRepository = userDataRepository;
-        this.userDataToUserDataDtoConverter = userDataToUserDataDtoConverter;
     }
 
     @Override
-    public UserDataDto getUserDataById(Long id) {
-        try {
-            return userDataToUserDataDtoConverter.convertToDto(
-                    userDataRepository.findById(id).
-                            orElseThrow(() -> new IdNotFoundException(id, User.class.getSimpleName()))
-            );
-        } catch (EmptyResultDataAccessException e) {
+    public UserData getUserDataById(Long id) {
+        Optional<UserData> maybeUser = userDataRepository.findById(id);
+
+        if (maybeUser.isPresent()) {
+            return maybeUser.get();
+        } else {
             throw new IdNotFoundException(id, UserData.class.getSimpleName());
         }
+    }
+
+    @Override
+    public UserDataDto getUserDataDtoById(Long id) {
+        return UserDataToUserDataDtoConverter.convertToDto(getUserDataById(id));
     }
 
     @Override
@@ -49,13 +52,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public void saveUpdatedUserData(UserData userData) {
+        userDataRepository.save(userData);
+    }
+
+    @Override
     public void updateUserEmail(Long userId, NewEmailDto newEmailDto) {
-        try {
-            if (!newEmailDto.getNewEmail().isEmpty()) {
-                userDataRepository.findById(userId).get().setEmail(newEmailDto.getNewEmail());
-            }
-        } catch (NullPointerException e) {
-            throw new IdNotFoundException(userId, User.class.getSimpleName());
+        UserData userData = getUserDataById(userId);
+
+        if (!newEmailDto.getNewEmail().isEmpty() &&
+                newEmailDto.getOldEmail().trim().equals(userData.getEmail().trim()) &&
+                !newEmailDto.getNewEmail().trim().equals(userData.getEmail().trim())) {
+            userData.setEmail(newEmailDto.getNewEmail().trim());
+            userDataRepository.save(userData);
         }
     }
 }
