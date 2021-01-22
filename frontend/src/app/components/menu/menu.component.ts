@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Account, Category, UserService} from '../../services/user-service';
+import {Account, Category, User, UserService} from '../../services/user-service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -9,11 +10,13 @@ import {Account, Category, UserService} from '../../services/user-service';
 })
 export class MenuComponent implements OnInit {
 
-  @Input() categories: Category[];
-  @Input() accounts: Account[];
+  categories: Category[];
+  accounts: Account[];
 
+  constructor(private router: Router) {
+    this.categories = this.router.getCurrentNavigation().extras.state.categories;
+    this.accounts = this.router.getCurrentNavigation().extras.state.accounts;
 
-  constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {

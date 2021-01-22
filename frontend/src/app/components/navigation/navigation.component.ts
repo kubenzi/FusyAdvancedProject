@@ -17,5 +17,4 @@ export class NavigationComponent implements OnInit {
     this.userService.getUser()
       .subscribe(value => this.user = value);
   }
-
 }

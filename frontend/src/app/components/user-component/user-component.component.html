@@ -5,16 +5,23 @@
 
 
 <div class="main-view">
-  <app-menu
-    [accounts]="user.accounts"
-    [categories]="user.categories"
-  >
-  </app-menu>
+<!--  <app-menu-->
+<!--    [accounts]="user.accounts"-->
+<!--    [categories]="user.categories"-->
+<!--  >-->
+<!--  </app-menu>-->
+  <router-outlet>
+
+  </router-outlet>
 </div>
 
-<router-outlet>
-
-</router-outlet>
+<section>
+  <app-section
+    [firstName]="user.firstName"
+    [lastName]="user.firstName"
+  >
+  </app-section>
+</section>
 
 
 <!--<app-simulation (onSimulationChange)="onSimulationChange($event)">  -->
