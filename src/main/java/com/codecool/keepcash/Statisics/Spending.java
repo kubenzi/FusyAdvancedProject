@@ -4,7 +4,6 @@ import com.codecool.keepcash.Entity.Operation;
 
 import java.util.List;
 
-
 public class Spending {
 
     private List<Operation> operationList;

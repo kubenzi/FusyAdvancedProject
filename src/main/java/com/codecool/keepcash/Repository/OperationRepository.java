@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -19,5 +21,9 @@ public interface OperationRepository extends CrudRepository<Operation, Long> {
     @Query(value = "select * from operations inner join accounts a on a.id = operations.account_id" +
             " inner join user_data ud on ud.user_id = a.user_id where a.user_id = ?1", nativeQuery = true)
     List<Operation> findAllByUserId(Long userId);
+
+    @Query(value = "select * from operations inner join accounts a on a.id = operations.account_id\n" +
+            "    inner join user_data ud on ud.user_id = a.user_id where a.user_id = ?1 and operations.date > ?2 ;  ", nativeQuery = true)
+    List<Operation> findAllByUserIdAndPeriod(Long userId, LocalDate date);
 
 }

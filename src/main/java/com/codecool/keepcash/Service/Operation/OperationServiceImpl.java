@@ -13,6 +13,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -79,5 +80,14 @@ public class OperationServiceImpl implements OperationService {
         } catch (EmptyResultDataAccessException e) {
             throw new IdNotFoundException(operationId, AccountType.class.getSimpleName());
         }
+    }
+
+    @Override
+    public List<OperationDto> findAllByUserIdAndPeriod(Long userId, Integer period) {
+
+        LocalDate date = LocalDate.now().minusDays(period);
+
+        return OperationToOperationDtoConverter.convertListToDto(
+                operationRepository.findAllByUserIdAndPeriod(userId, date));
     }
 }

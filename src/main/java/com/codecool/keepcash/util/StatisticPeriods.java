@@ -3,8 +3,8 @@ package com.codecool.keepcash.util;
 public enum StatisticPeriods {
     _30days(30),
     _60days(60),
-    _180days(180),
-    _360days(360);
+    _90days(90);
+
 
     private int periodDays;
 
