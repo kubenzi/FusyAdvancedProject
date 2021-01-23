@@ -66,8 +66,16 @@ public class StatisticsServiceImpl implements StatisticsService {
         TreeMap<String, Double> sortedMap = new TreeMap<>();
         sortedMap.putAll(dayMapForPeriod);
 
-        return sortedMap.entrySet().stream()
-                .collect(Collectors.toMap(entry -> entry.getKey(), entry -> balance + entry.getValue()));
+//        return sortedMap.entrySet().stream()
+//                .collect(Collectors.toMap(entry -> entry.getKey(), entry -> balance + entry.getValue()));
+
+        for (String key : sortedMap.keySet()) {
+            Double value = sortedMap.get(key);
+            balance += value;
+            sortedMap.put(key, balance);
+        }
+        return sortedMap;
+
     }
 
     private List<SeriesDto> convertMapToDataSeriesDto(Map<String, Double> sortMapWithBalance){
