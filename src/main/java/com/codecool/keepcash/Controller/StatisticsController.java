@@ -2,6 +2,7 @@ package com.codecool.keepcash.Controller;
 
 import com.codecool.keepcash.Dto.Operation.OperationDto;
 import com.codecool.keepcash.Service.Statistics.StatisticsService;
+import com.codecool.keepcash.Statisics.DataSeriesDto;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,9 +21,10 @@ public class StatisticsController {
     }
 
     @GetMapping()
-    public Map<String, List<OperationDto>> getStatisticsMap(Long userId, Integer period){
+    public DataSeriesDto getAllOperationsSeriesForPeriod(Long userId, Integer period, Double balance){
         Long userTest = 2L;
         Integer periodTest = 90;
-        return statisticsService.CreateDayMapForPeriod(userTest, periodTest);
+        Double balanceTest = 1000.0;
+        return statisticsService.getAllOperationsSeriesForPeriod(userTest, periodTest, balanceTest);
     }
 }

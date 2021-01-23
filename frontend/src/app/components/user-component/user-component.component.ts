@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { UserService, User, AccountType, Currency, Operation, OperationType}
-from '../../services/user-service';
+import {Component, OnInit} from '@angular/core';
+import {User, UserService} from '../../services/user-service';
 
 @Component({
   selector: 'app-user-component',
@@ -14,7 +13,6 @@ export class UserComponentComponent implements OnInit {
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.userService.getUser()
-      .subscribe(value => this.user = value);
+    this.user = this.userService.getUser();
   }
 }

@@ -10,16 +10,18 @@ import {Router} from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-  categories: Category[];
-  accounts: Account[];
+  // categories: Category[];
+  // accounts: Account[];
+  user: User;
 
-  constructor(private router: Router) {
-    this.categories = this.router.getCurrentNavigation().extras.state.categories;
-    this.accounts = this.router.getCurrentNavigation().extras.state.accounts;
+  constructor(private router: Router, private userService: UserService) {
+    // this.categories = this.router.getCurrentNavigation().extras.state.categories;
+    // this.accounts = this.router.getCurrentNavigation().extras.state.accounts;
 
   }
 
   ngOnInit(): void {
+    this.user = this.userService.getUser();
   }
 
 }
