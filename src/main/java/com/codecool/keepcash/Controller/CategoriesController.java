@@ -9,7 +9,6 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.*;
 
-
 @RestController
 @RequestMapping("/api/v1")
 public class CategoriesController {
@@ -44,5 +43,4 @@ public class CategoriesController {
     public void deleteCategoryById(@PathVariable Long categoryId){
         categoryService.deleteCategoryById(categoryId);
     }
-
 }

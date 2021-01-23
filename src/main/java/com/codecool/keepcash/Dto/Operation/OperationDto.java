@@ -13,7 +13,6 @@ public class OperationDto {
     private Double value;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
     private Date date;
-    private OperationTypeDto operationType;
 
     public OperationDto() {
     }
@@ -22,13 +21,11 @@ public class OperationDto {
     public OperationDto(@JsonProperty("id") Long id,
                         @JsonProperty("description") String description,
                         @JsonProperty("value") Double value,
-                        @JsonProperty("date") Date date,
-                        @JsonProperty("operationType") OperationTypeDto operationType) {
+                        @JsonProperty("date") Date date) {
         this.id = id;
         this.description = description;
         this.value = value;
         this.date = date;
-        this.operationType = operationType;
     }
 
     public Long getId() {
@@ -61,13 +58,5 @@ public class OperationDto {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public OperationTypeDto getOperationType() {
-        return operationType;
-    }
-
-    public void setOperationType(OperationTypeDto operationType) {
-        this.operationType = operationType;
     }
 }

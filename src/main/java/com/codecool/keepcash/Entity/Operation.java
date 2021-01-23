@@ -19,33 +19,25 @@ public class Operation {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
-    private OperationType operationType;
-
-
     public Operation() {
     }
 
     public Operation(String description,
                      Double value,
-                     Date date,
-                     OperationType operationType) {
+                     Date date) {
         this.description = description;
         this.value = value;
         this.date = date;
-        this.operationType = operationType;
     }
 
     public Operation(Long id,
                      String description,
                      Double value,
-                     Date date,
-                     OperationType operationType) {
+                     Date date) {
         this.id = id;
         this.description = description;
         this.value = value;
         this.date = date;
-        this.operationType = operationType;
     }
 
     public Long getId() {
@@ -78,13 +70,5 @@ public class Operation {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public OperationType getOperationType() {
-        return operationType;
-    }
-
-    public void setOperationType(OperationType operationType) {
-        this.operationType = operationType;
     }
 }

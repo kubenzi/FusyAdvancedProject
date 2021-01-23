@@ -17,8 +17,7 @@ public final class OperationToOperationDtoConverter {
         return new OperationDto(operation.getId(),
                 operation.getDescription(),
                 operation.getValue(),
-                operation.getDate(),
-                OperationTypeToOperationTypeDtoConverter.convertToDto(operation.getOperationType()));
+                operation.getDate());
     }
 
     public static List<OperationDto> convertListToDto(List<Operation> operations) {

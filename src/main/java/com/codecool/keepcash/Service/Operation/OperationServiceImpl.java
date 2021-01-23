@@ -23,17 +23,14 @@ public class OperationServiceImpl implements OperationService {
     private OperationRepository operationRepository;
     private AccountService accountService;
     private CategoryService categoryService;
-    private OperationTypeService operationTypeService;
 
 
     public OperationServiceImpl(OperationRepository operationRepository,
                                 AccountService accountService,
-                                CategoryService categoryService,
-                                OperationTypeService operationTypeService) {
+                                CategoryService categoryService) {
         this.operationRepository = operationRepository;
         this.accountService = accountService;
         this.categoryService = categoryService;
-        this.operationTypeService = operationTypeService;
     }
 
     @Override
@@ -41,10 +38,9 @@ public class OperationServiceImpl implements OperationService {
     public void addTransaction(NewOperationDto newOperationDto) {
         newOperationDto.setDate(new Date(System.currentTimeMillis()));
 
-        OperationType operationType = operationTypeService.findOperationTypeById(newOperationDto.getOperationTypeId());
         Operation newOperation = operationRepository.save(
                 OperationDtoToOperationConverter
-                        .convertNewDtoToOperation(newOperationDto, operationType)
+                        .convertNewDtoToOperation(newOperationDto)
         );
 
         Account account = accountService.getAccountById(newOperationDto.getAccountId());

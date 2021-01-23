@@ -2,9 +2,7 @@ package com.codecool.keepcash.Service.Operation;
 
 import com.codecool.keepcash.Dto.Operation.NewOperationDto;
 import com.codecool.keepcash.Dto.Operation.OperationDto;
-import com.codecool.keepcash.Entity.Operation;
 
-import java.util.Date;
 import java.util.List;
 
 public interface OperationService {

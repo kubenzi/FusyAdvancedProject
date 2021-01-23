@@ -22,8 +22,8 @@ public class OperationsController {
 
     @GetMapping("/users/{userId}/operations")
     public List<OperationDto> getOperationsByGivenParameter(@PathVariable Long userId,
-                                                      @RequestParam(required = false) Long categoryId,
-                                                      @RequestParam(required = false) Long accountId) {
+                                                            @RequestParam(required = false) Long categoryId,
+                                                            @RequestParam(required = false) Long accountId) {
         if (categoryId == null && accountId == null) {
             return operationService.getAllOperationsByUserId(userId);
         }
@@ -34,13 +34,13 @@ public class OperationsController {
 
     @DeleteMapping("/users/{userId}/operations/{operationId}")
     @ResponseStatus(NO_CONTENT)
-    public void deleteOperations(@PathVariable Long operationId){
+    public void deleteOperations(@PathVariable Long operationId) {
         operationService.deleteOperationsById(operationId);
     }
 
     @PostMapping("/users/{userId}/operations")
     @ResponseStatus(CREATED)
-    public void createNewOperation(@RequestBody NewOperationDto operationDto){
+    public void createNewOperation(@RequestBody NewOperationDto operationDto) {
         operationService.addTransaction(operationDto);
     }
 
