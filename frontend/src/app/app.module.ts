@@ -12,6 +12,7 @@ import {LineChartComponent} from './components/line-chart/line-chart.component';
 import {FormsModule} from '@angular/forms';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { PieChartComponent } from './components/pie-chart/pie-chart.component';
     HttpClientModule,
     FormsModule,
     NgxChartsModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

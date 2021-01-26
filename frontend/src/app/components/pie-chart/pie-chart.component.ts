@@ -1,14 +1,15 @@
-import {Component, Input} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Series} from '../../models/models';
+import {UserService} from '../../services/user-service';
 
 @Component({
   selector: 'app-pie-chart',
   templateUrl: './pie-chart.component.html',
   styleUrls: ['./pie-chart.component.css']
 })
-export class PieChartComponent {
+export class PieChartComponent implements OnInit {
 
-  @Input() pieChartData: Series[];
+  pieChartData: Series[] = [];
 
   view: any[] = [400, 300];
 
@@ -25,7 +26,12 @@ export class PieChartComponent {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
+  constructor(private userService: UserService) {
+  }
 
+  ngOnInit(): void {
+    this.userService.getPieChartData().subscribe(value => this.pieChartData = value);;
+  }
 
   onSelect(data): void {
     console.log('Item clicked', JSON.parse(JSON.stringify(data)));

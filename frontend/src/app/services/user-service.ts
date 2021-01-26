@@ -25,8 +25,13 @@ export class UserService {
     return this.user;
   }
 
-  getData(): Observable<Data[]> {
-    const url = 'http://localhost:8080/api/v1/users/' + '2' + '/line-chart/30';
+  getData30(): Observable<Data[]> {
+    const url = 'http://localhost:8080/api/v1/users/' + '2' + '/line-chart/' + 30;
+    return this.http.get<Data[]>(url);
+  }
+
+  getData(period: number): Observable<Data[]> {
+    const url = 'http://localhost:8080/api/v1/users/' + '2' + '/line-chart/' + period;
     return this.http.get<Data[]>(url);
   }
 

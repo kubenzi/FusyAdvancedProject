@@ -15,8 +15,7 @@ export class MenuComponent implements OnInit {
   pieChartData: Series[] = [];
 
   constructor(private userService: UserService) {
-    this.userService.getData().subscribe(value => this.lineChartData = value);
-    this.userService.getPieChartData().subscribe(value => this.pieChartData = value);
+
   }
 
   ngOnInit(): void {

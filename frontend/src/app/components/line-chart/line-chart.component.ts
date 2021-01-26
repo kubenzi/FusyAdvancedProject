@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Data} from '../../models/models';
+import {UserService} from '../../services/user-service';
 
 @Component({
   selector: 'app-line-chart',
@@ -8,7 +9,7 @@ import {Data} from '../../models/models';
 })
 export class LineChartComponent implements OnInit {
 
-  @Input() balanceData: Data[];
+  lineChartData: Data[];
 
   view: any[] = [800, 300];
 
@@ -24,9 +25,6 @@ export class LineChartComponent implements OnInit {
   yAxisLabel = 'Total Balance';
   timeline = true;
 
-  // curveBaisic:
-
-
 
   // showGridLines: true;
   // rangeFillOpacity = 0;
@@ -39,10 +37,17 @@ export class LineChartComponent implements OnInit {
 
 
 
-  constructor() {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
+    this.userService.getData30().subscribe(value => this.lineChartData = value);
+  }
+
+  setPeriod(period: number): void {
+    this.lineChartData = [];
+    this.userService.getData(period).subscribe(value => this.lineChartData = value);
+    console.log(period);
   }
 
   onSelect(data): void {

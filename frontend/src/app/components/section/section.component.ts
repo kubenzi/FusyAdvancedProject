@@ -1,6 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user-service';
 import {User} from '../../models/models';
+
 
 @Component({
   selector: 'app-section',
@@ -10,14 +11,12 @@ import {User} from '../../models/models';
 export class SectionComponent implements OnInit {
 
   user: User;
-  // @Input()
-  // balance: number;
 
   constructor(private userService: UserService) {
-    this.user = this.userService.getUser();
   }
 
   ngOnInit(): void {
+    this.user = this.userService.getUser();
   }
 
 }
