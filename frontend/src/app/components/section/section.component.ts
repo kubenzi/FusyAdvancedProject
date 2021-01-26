@@ -1,5 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {User, UserService} from '../../services/user-service';
+import {Component, Input, OnInit} from '@angular/core';
+import {UserService} from '../../services/user-service';
+import {User} from '../../models/models';
 
 @Component({
   selector: 'app-section',
@@ -9,15 +10,14 @@ import {User, UserService} from '../../services/user-service';
 export class SectionComponent implements OnInit {
 
   user: User;
+  // @Input()
+  // balance: number;
 
   constructor(private userService: UserService) {
-    // this.firstName = this.router.getCurrentNavigation().extras.state.firstName;
-    // this.lastName = this.router.getCurrentNavigation().extras.state.lastName;
-    // this.email = this.router.getCurrentNavigation().extras.state.email;
+    this.user = this.userService.getUser();
   }
 
   ngOnInit(): void {
-    this.user = this.userService.getUser();
   }
 
 }

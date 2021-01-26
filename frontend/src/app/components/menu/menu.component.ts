@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {Account, Category, User, UserService} from '../../services/user-service';
-import {Router} from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {UserService} from '../../services/user-service';
+import {Data, Series, User} from '../../models/models';
 
 @Component({
   selector: 'app-menu',
@@ -10,18 +10,16 @@ import {Router} from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-  // categories: Category[];
-  // accounts: Account[];
   user: User;
+  lineChartData: Data[];
+  pieChartData: Series[] = [];
 
-  constructor(private router: Router, private userService: UserService) {
-    // this.categories = this.router.getCurrentNavigation().extras.state.categories;
-    // this.accounts = this.router.getCurrentNavigation().extras.state.accounts;
-
+  constructor(private userService: UserService) {
+    this.userService.getData().subscribe(value => this.lineChartData = value);
+    this.userService.getPieChartData().subscribe(value => this.pieChartData = value);
   }
 
   ngOnInit(): void {
     this.user = this.userService.getUser();
   }
-
 }

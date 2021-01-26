@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {User, UserService} from '../../services/user-service';
+import {UserService} from '../../services/user-service';
+import {User} from '../../models/models';
 
 @Component({
   selector: 'app-user-component',
@@ -9,6 +10,7 @@ import {User, UserService} from '../../services/user-service';
 export class UserComponentComponent implements OnInit {
 
   user: User;
+  totalBalance = 0;
 
   constructor(private userService: UserService) { }
 
