@@ -22,17 +22,27 @@ public class StatisticsServiceImpl implements StatisticsService {
         this.operationService = operationService;
     }
 
+    public List<SeriesDto> getSeriesForPieChartByUserIdAndPeriod(Long userId, Integer period, Double balance) {
+        return getSeriesForPeriodPieChart(
+                operationService.findAllByUserIdAndPeriod(userId, period), balance
+        );
+    }
 
-    public List<DataSeriesDto> getDataSeriesForPeriodLineChart(Long userId, Integer period, Double balance) {
-        List<SeriesDto> seriesDtosBalance = getAllSeriesDtoForPeriod(userId, period, balance, false);
-        List<SeriesDto> seriesDtosSpending = getAllSeriesDtoForPeriod(userId, period, 0.0, true);
+    public List<DataSeriesDto> getAllDataSeriesDtoForPeriodByUserId(Long userId, Integer period, Double balance) {
+        return getDataSeriesForPeriodLineChart(
+                operationService.findAllByUserIdAndPeriod(userId, period), period, balance);
+    }
+
+    private List<DataSeriesDto> getDataSeriesForPeriodLineChart(List<OperationDto> operationDtos,
+                                                                Integer period, Double balance) {
+        List<SeriesDto> seriesDtosBalance = getAllSeriesDtoForPeriod(operationDtos, period, balance, false);
+        List<SeriesDto> seriesDtosSpending = getAllSeriesDtoForPeriod(operationDtos, period, 0.0, true);
         return Arrays.asList(new DataSeriesDto("balance", seriesDtosBalance),
                 new DataSeriesDto("spending", seriesDtosSpending));
     }
 
-    public List<SeriesDto> getSeriesForPeriodPieChart(Long userId, Integer period, Double balance) {
-        List<OperationDto> allByUserIdAndPeriod = operationService.findAllByUserIdAndPeriod(userId, period);
-        Double spending = allByUserIdAndPeriod.stream()
+    private List<SeriesDto> getSeriesForPeriodPieChart(List<OperationDto> operationDtos, Double balance) {
+        Double spending = operationDtos.stream()
                 .map(OperationDto::getValue)
                 .reduce(0.0, (a, b) -> a - b);
 
@@ -40,19 +50,19 @@ public class StatisticsServiceImpl implements StatisticsService {
                 new SeriesDto("Spending", spending));
     }
 
-    private List<SeriesDto> getAllSeriesDtoForPeriod(Long userId, Integer period, Double balance, Boolean spending) {
-        Map<String, List<OperationDto>> dayMapForPeriod = createDayMapForPeriod(userId, period);
+    private List<SeriesDto> getAllSeriesDtoForPeriod(List<OperationDto> operationDtos, Integer period,
+                                                     Double balance, Boolean spending) {
+        Map<String, List<OperationDto>> dayMapForPeriod = createDayMapForPeriod(operationDtos);
         Map<String, Double> transformDayMapForPeriod = transformDayMapForPeriod(dayMapForPeriod);
         Map<String, Double> filledMapWithEmptyDay = fillMapWithEmptyDay(transformDayMapForPeriod, period);
         Map<String, Double> sortedMapWithBalance = sortMapWithBalance(filledMapWithEmptyDay, balance, spending);
         return convertMapToDataSeriesDto(sortedMapWithBalance);
     }
 
-    private Map<String, List<OperationDto>> createDayMapForPeriod(Long userId, Integer period) {
-        return operationService.findAllByUserIdAndPeriod(userId, period)
-                .stream().collect(Collectors
-                        .groupingBy(operationDto -> operationDto.getDate().toString())
-                );
+    private Map<String, List<OperationDto>> createDayMapForPeriod(List<OperationDto> operationDtos) {
+        return operationDtos.stream().collect(Collectors
+                .groupingBy(operationDto -> operationDto.getDate().toString())
+        );
     }
 
     private Map<String, Double> transformDayMapForPeriod(Map<String, List<OperationDto>> dayMapForPeriod) {

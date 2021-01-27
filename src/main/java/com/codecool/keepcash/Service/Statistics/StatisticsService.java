@@ -10,6 +10,6 @@ import java.util.Map;
 
 @Service
 public interface StatisticsService {
-    List<DataSeriesDto> getDataSeriesForPeriodLineChart(Long userId, Integer period, Double balance);
-    List<SeriesDto> getSeriesForPeriodPieChart(Long userId, Integer period, Double balance);
+    List<DataSeriesDto> getAllDataSeriesDtoForPeriodByUserId(Long userId, Integer period, Double balance);
+    List<SeriesDto> getSeriesForPieChartByUserIdAndPeriod(Long userId, Integer period, Double balance);
 }

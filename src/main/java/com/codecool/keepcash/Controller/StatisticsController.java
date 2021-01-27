@@ -28,7 +28,7 @@ public class StatisticsController {
         Integer periodTest = 60;
         Double balanceTest = 1000.0;
 
-        return statisticsService.getDataSeriesForPeriodLineChart(userId, periodTest, balanceTest);
+        return statisticsService.getAllDataSeriesDtoForPeriodByUserId(userId, periodTest, balanceTest);
     }
 
     @GetMapping("/users/{userId}/pie-chart/{period}")
@@ -37,7 +37,7 @@ public class StatisticsController {
                                                                    Integer period, Double balance) {
         Integer periodTest = 60;
         Double balanceTest = 1000.0;
-        return statisticsService.getSeriesForPeriodPieChart(userId, periodTest, balanceTest);
+        return statisticsService.getSeriesForPieChartByUserIdAndPeriod(userId, periodTest, balanceTest);
 
     }
 }
