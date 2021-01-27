@@ -7,10 +7,7 @@ import com.codecool.keepcash.Statisics.SeriesDto;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,9 +20,8 @@ public class StatisticsServiceImpl implements StatisticsService {
     }
 
     public List<SeriesDto> getSeriesForPieChartByUserIdAndPeriod(Long userId, Integer period, Double balance) {
-        return getSeriesForPeriodPieChart(
-                operationService.findAllByUserIdAndPeriod(userId, period), balance
-        );
+        return Arrays.asList(getSpendingSeries(operationService.findAllByUserIdAndPeriod(userId, period)),
+                new SeriesDto("Balance", balance));
     }
 
     public List<DataSeriesDto> getAllDataSeriesDtoForPeriodByUserId(Long userId, Integer period, Double balance) {
@@ -41,44 +37,38 @@ public class StatisticsServiceImpl implements StatisticsService {
                 new DataSeriesDto("spending", seriesDtosSpending));
     }
 
-    private List<SeriesDto> getSeriesForPeriodPieChart(List<OperationDto> operationDtos, Double balance) {
+    private SeriesDto getSpendingSeries(List<OperationDto> operationDtos) {
         Double spending = operationDtos.stream()
                 .map(OperationDto::getValue)
                 .reduce(0.0, (a, b) -> a - b);
 
-        return Arrays.asList(new SeriesDto("Balance", balance),
-                new SeriesDto("Spending", spending));
+        return new SeriesDto("Spending", spending);
     }
 
     private List<SeriesDto> getAllSeriesDtoForPeriod(List<OperationDto> operationDtos, Integer period,
                                                      Double balance, Boolean spending) {
-        Map<String, List<OperationDto>> dayMapForPeriod = createDayMapForPeriod(operationDtos);
-        Map<String, Double> transformDayMapForPeriod = transformDayMapForPeriod(dayMapForPeriod);
-        Map<String, Double> filledMapWithEmptyDay = fillMapWithEmptyDay(transformDayMapForPeriod, period);
+        Map<String, Double> dayMapForPeriod = createDayMapForPeriod(operationDtos);
+        Map<String, Double> filledMapWithEmptyDay = fillMapWithEmptyDay(dayMapForPeriod, period);
         Map<String, Double> sortedMapWithBalance = sortMapWithBalance(filledMapWithEmptyDay, balance, spending);
         return convertMapToDataSeriesDto(sortedMapWithBalance);
     }
 
-    private Map<String, List<OperationDto>> createDayMapForPeriod(List<OperationDto> operationDtos) {
-        return operationDtos.stream().collect(Collectors
-                .groupingBy(operationDto -> operationDto.getDate().toString())
-        );
-    }
-
-    private Map<String, Double> transformDayMapForPeriod(Map<String, List<OperationDto>> dayMapForPeriod) {
-        return dayMapForPeriod.entrySet().stream()
-                .collect(Collectors.toMap(
-                        entry -> entry.getKey(), entry -> entry.getValue().
-                                stream().collect(Collectors.summingDouble(value -> value.getValue()))
+    private Map<String, Double> createDayMapForPeriod(List<OperationDto> operationDtos) {
+        return operationDtos.stream()
+                .collect(Collectors.groupingBy(operationDto -> operationDto.getDate().toString()))
+                .entrySet().stream()
+                .collect(Collectors.toMap(Map.Entry::getKey,
+                        entry -> entry.getValue().stream()
+                                .mapToDouble(OperationDto::getValue).sum()
                 ));
     }
 
     private Map<String, Double> fillMapWithEmptyDay(Map<String, Double> dayMapForPeriod, Integer period) {
-        LocalDate date = LocalDate.now();
         int counter = 0;
+        LocalDate localDate = LocalDate.now().minusDays(counter);
         while (period > 0) {
-            if (!dayMapForPeriod.containsKey(LocalDate.now().minusDays(counter).toString())) {
-                dayMapForPeriod.put(LocalDate.now().minusDays(counter).toString(), 0.0);
+            if (!dayMapForPeriod.containsKey(localDate.toString())) {
+                dayMapForPeriod.put(localDate.toString(), 0.0);
             }
             period--;
             counter++;
@@ -89,8 +79,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     private Map<String, Double> sortMapWithBalance(Map<String, Double> dayMapForPeriod, Double balance,
                                                    Boolean spendings) {
 
-        TreeMap<String, Double> sortedMap = new TreeMap<>();
-        sortedMap.putAll(dayMapForPeriod);
+        TreeMap<String, Double> sortedMap = new TreeMap<>(dayMapForPeriod);
 
 //        return sortedMap.entrySet().stream()
 //                .collect(Collectors.toMap(entry -> entry.getKey(), entry -> balance + entry.getValue()));
@@ -116,7 +105,7 @@ public class StatisticsServiceImpl implements StatisticsService {
                 .collect(Collectors.toList());
 
         return seriesDtoList.stream()
-                .sorted((series1, series2) -> series1.getName().compareTo(series2.getName()))
+                .sorted(Comparator.comparing(SeriesDto::getName))
                 .collect(Collectors.toList());
     }
 
