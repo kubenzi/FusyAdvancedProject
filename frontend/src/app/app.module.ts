@@ -13,6 +13,7 @@ import {FormsModule} from '@angular/forms';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import { PieChartComponent } from './components/pie-chart/pie-chart.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {AuthModule} from './authentication/auth.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     FormsModule,
     NgxChartsModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

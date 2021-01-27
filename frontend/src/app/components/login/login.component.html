@@ -3,36 +3,44 @@
     <div id="form_left">
       <img src="./assets/images/keepcash-logo.png" alt="keepcash-logo" />
     </div>
-    <div id="form_right">
-      <h1>Login</h1>
-      <div class="input_container">
-        <i class="fas fa-envelope"></i>
-        <input
-          placeholder="Username"
-          type="text"
-          name="Username"
-          id="field_username"
-          class="input_field"
-        />
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
+      <div id="form_right">
+        <h1>Login</h1>
+        <div class="input_container">
+          <i class="fas fa-envelope"></i>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              id="username"
+              placeholder="Username"
+              class="input_field"
+              formControlName="username"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <div class="input_container">
+          <i class="fas fa-lock"></i>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              id="password"
+              placeholder="Password"
+              class="input_field"
+              formControlName="password"
+              required
+            />
+          </mat-form-field>
+        </div>
+        <button mat-raised-button type="submit" id="button" class="button" [disabled]="!loginForm.valid">Sign in</button>
+<!--        <div class="actions">-->
+<!--          <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">LOG IN</button>-->
+<!--        </div>-->
+        <h3 style="color: gray">New User? <a href="#"> Create your account!</a></h3>
       </div>
-      <div class="input_container">
-        <i class="fas fa-lock"></i>
-        <input
-          placeholder="Password"
-          type="password"
-          name="Password"
-          id="field_password"
-          class="input_field"
-        />
-      </div>
-      <input
-        type="submit"
-        value="Sign in"
-        id="input_submit"
-        class="input_field"
-      />
-      <h3 style="color: gray">New User? <a href="#"> Create your account!</a></h3>
-    </div>
+    </form>
   </div>
   <div class="footer">
     <h3>Jakub Chorążyk | Bartosz Jakimko | Krzysztof Chromiec</h3>

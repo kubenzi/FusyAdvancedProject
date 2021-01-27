@@ -3,75 +3,84 @@
     <div id="form_left">
       <img src="./assets/images/keepcash-logo.png" alt="keepcash-logo" />
     </div>
-    <div id="form_right">
-      <h1>User registration</h1>
-      <div class="input_container">
-        <i class="fas fa-envelope"></i>
-        <input
-          placeholder="E-mail"
-          type="email"
-          name="Email"
-          id="field_email"
-          class="input_field"
-        />
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
+      <div id="form_right">
+        <h1>User registration</h1>
+        <div class="input_container">
+          <i class="fas fa-envelope"></i>
+          <mat-form-field>
+            <input
+              placeholder="E-mail"
+              type="email"
+              name="Email"
+              id="field_email"
+              class="input_field"
+            />
+          </mat-form-field>
+        </div>
+        <div class="input_container">
+          <i class="fas fa-envelope"></i>
+          <mat-form-field>
+            <input
+              placeholder="Username"
+              type="text"
+              name="Username"
+              id="field_username"
+              class="input_field"
+            />
+          </mat-form-field>
+        </div>
+        <div class="input_container">
+          <i class="fas fa-envelope"></i>
+          <mat-form-field>
+            <input
+              placeholder="First name"
+              type="text"
+              name="Firstname"
+              id="field_firstname"
+              class="input_field"
+            />
+          </mat-form-field>
+        </div>
+        <div class="input_container">
+          <i class="fas fa-envelope"></i>
+          <mat-form-field>
+            <input
+              placeholder="Last name"
+              type="text"
+              name="Lastname"
+              id="field_lastname"
+              class="input_field"
+            />
+          </mat-form-field>
+        </div>
+        <div class="input_container">
+          <i class="fas fa-lock"></i>
+          <mat-form-field>
+            <input
+              placeholder="Password"
+              type="password"
+              name="Password"
+              id="field_password"
+              class="input_field"
+            />
+          </mat-form-field>
+        </div>
+        <div class="input_container">
+          <i class="fas fa-lock"></i>
+          <mat-form-field>
+            <input
+              placeholder="Confirm password"
+              type="password"
+              name="Password"
+              id="field_confirm_password"
+              class="input_field"
+            />
+          </mat-form-field>
+        </div>
+        <button mat-raised-button type="submit" id="button" class="button" [disabled]="!registerForm.valid">Sign up</button>
       </div>
-      <div class="input_container">
-        <i class="fas fa-envelope"></i>
-        <input
-          placeholder="Username"
-          type="text"
-          name="Username"
-          id="field_username"
-          class="input_field"
-        />
-      </div>
-      <div class="input_container">
-        <i class="fas fa-envelope"></i>
-        <input
-          placeholder="First name"
-          type="text"
-          name="Firstname"
-          id="field_firstname"
-          class="input_field"
-        />
-      </div>
-      <div class="input_container">
-        <i class="fas fa-envelope"></i>
-        <input
-          placeholder="Last name"
-          type="text"
-          name="Lastname"
-          id="field_lastname"
-          class="input_field"
-        />
-      </div>
-      <div class="input_container">
-        <i class="fas fa-lock"></i>
-        <input
-          placeholder="Password"
-          type="password"
-          name="Password"
-          id="field_password"
-          class="input_field"
-        />
-      </div>
-      <div class="input_container">
-        <i class="fas fa-lock"></i>
-        <input
-          placeholder="Confirm password"
-          type="password"
-          name="Password"
-          id="field_confirm_password"
-          class="input_field"
-        />
-      </div>
-      <input
-        type="submit"
-        value="Sign up"
-        id="input_submit"
-        class="input_field"
-      />
-    </div>
+    </form>
   </div>
   <div class="footer">
     <h3>Jakub Chorążyk | Bartosz Jakimko | Krzysztof Chromiec</h3>

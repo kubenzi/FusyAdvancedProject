@@ -64,8 +64,7 @@ body-register {
   cursor: pointer;
 }
 
-.input_container,
-#input_submit {
+.input_container, #input_submit, #button {
   height: 60px;
   border-radius: 30px;
   width: 100%;
@@ -84,11 +83,15 @@ body-register {
 }
 
 .input_field:hover,
-.input_field:focus {
+.input_field:focus, #button {
   outline: none;
 }
 
-#input_submit {
+#button {
+  font-size: 20px;
+}
+
+#input_submit, #button {
   background-color: gray;
   padding-left: 0;
   font-weight: bold;
@@ -96,7 +99,7 @@ body-register {
   text-transform: uppercase;
 }
 
-#input_submit:hover {
+#input_submit:hover, #button:hover {
   background-color: #b5e7a0;
   transition: background-color, 1s;
   cursor: pointer;
