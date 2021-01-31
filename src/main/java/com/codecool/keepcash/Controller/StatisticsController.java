@@ -23,7 +23,6 @@ public class StatisticsController {
     @ResponseStatus(OK)
     public List<DataSeriesDto> getAllOperationsSeriesForPeriod(@PathVariable Long userId,
                                                                @PathVariable Integer period, Double balance) {
-        Integer periodTest = 60;
         Double balanceTest = 1000.0;
 
         return statisticsService.getAllDataSeriesDtoForPeriodByUserId(userId, period, balanceTest);
@@ -31,11 +30,10 @@ public class StatisticsController {
 
     @GetMapping("/users/{userId}/pie-chart/{period}")
     @ResponseStatus(OK)
-    public List<SeriesDto> getAllOperationsSeriesForPeriodPieChart(@PathVariable Long userId,
-                                                                   @PathVariable Integer period, Double balance) {
-        Integer periodTest = 60;
+    public List<SeriesDto> getAllOperationsSeriesForPieChartForUserIdAndPeriod(@PathVariable Long userId,
+                                                                   @PathVariable Integer period) {
         Double balanceTest = 1000.0;
-        return statisticsService.getSeriesForPieChartByUserIdAndPeriod(userId, period, balanceTest);
+        return statisticsService.getSeriesForPieChartByUserIdAndPeriod(userId, period);
 
     }
 
@@ -46,6 +44,15 @@ public class StatisticsController {
         Integer periodTest = 60;
         Double balanceTest = 1000.0;
         return statisticsService.getDataSeriesForLineChartByCategoryIdIdAndPeriod(categoryId, period, balanceTest);
+    }
+
+//    http://localhost:8080/api/v1/users/2/pie-chart/categories/2/period/30
+    @GetMapping("/users/{userId}/pie-chart/categories/{categoryId}/period/{period}")
+    @ResponseStatus(OK)
+    public List<SeriesDto> getAllOperationsSeriesForPieChartForCategoryIdAndPeriod(@PathVariable Long categoryId,
+                                                                   @PathVariable Integer period) {
+        Double balanceTest = 1000.0;
+        return statisticsService.getSeriesForPieChartByCategoryIdAndPeriod(categoryId, period);
 
     }
 }

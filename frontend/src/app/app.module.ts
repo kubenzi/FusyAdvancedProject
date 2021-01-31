@@ -14,6 +14,7 @@ import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {PieChartComponent} from './components/pie-chart/pie-chart.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CategoriesComponent } from './components/categories/categories.component';
+import { ScheduledComponent } from './components/scheduled/scheduled.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CategoriesComponent } from './components/categories/categories.componen
     NavigationComponent,
     LineChartComponent,
     PieChartComponent,
-    CategoriesComponent
+    CategoriesComponent,
+    ScheduledComponent
   ],
   imports: [
     BrowserModule,

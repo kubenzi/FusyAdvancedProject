@@ -47,7 +47,8 @@ export class PieChartComponent implements OnInit {
 
   setPeriod(period: number): void {
     this.pieChartData = [];
-    this.userService.getPieChartDataStartForPeriod(period).subscribe(
+    this.userService.getPieChartDataStartForPeriod(
+      this.userService.address, period).subscribe(
       value => this.pieChartData = value);
   }
 }

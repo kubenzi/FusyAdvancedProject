@@ -11,6 +11,7 @@ import java.util.Map;
 @Service
 public interface StatisticsService {
     List<DataSeriesDto> getAllDataSeriesDtoForPeriodByUserId(Long userId, Integer period, Double balance);
-    List<SeriesDto> getSeriesForPieChartByUserIdAndPeriod(Long userId, Integer period, Double balance);
+    List<SeriesDto> getSeriesForPieChartByUserIdAndPeriod(Long userId, Integer period);
     List<DataSeriesDto> getDataSeriesForLineChartByCategoryIdIdAndPeriod(Long categoryId, Integer period, Double balance);
+    List<SeriesDto> getSeriesForPieChartByCategoryIdAndPeriod(Long categoryId, Integer period);
 }

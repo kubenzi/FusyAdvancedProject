@@ -59,18 +59,36 @@ export class UserService {
     return this.http.get<Series[]>(url);
   }
 
-  getPieChartDataStartForPeriod(period: number): Observable<Series[]> {
-    const url = 'http://localhost:8080/api/v1/users/' + '2' + '/pie-chart/' + period;
-    return this.http.get<Series[]>(url);
-  }
+  // getPieChartDataStartForPeriod(period: number): Observable<Series[]> {
+  //   const url = 'http://localhost:8080/api/v1/users/' + '2' + '/pie-chart/' + period;
+  //   return this.http.get<Series[]>(url);
+  // }
+  //
+  // getPieChartData(addressUrl: string): Observable<Series[]> {
+  //   console.log(addressUrl);
+  //   if (addressUrl === undefined) {
+  //     const url = 'http://localhost:8080/api/v1/users/' + '2' + '/pie-chart/30';
+  //     return this.http.get<Series[]>(url);
+  //   } else {
+  //     const url = 'http://localhost:8080/api/v1/' + addressUrl + '/pie-chart/60';
+  //     return this.http.get<Series[]>(url);
+  //   }
+  // }
 
-  getPieChartData(addressUrl: string): Observable<Series[]> {
-    console.log(addressUrl);
+  getPieChartDataStartForPeriod(addressUrl: string, period: number): Observable<Series[]> {
     if (addressUrl === undefined) {
-      const url = 'http://localhost:8080/api/v1/users/' + '2' + '/pie-chart/30';
+      const url = 'http://localhost:8080/api/v1/users/' + '2' + '/pie-chart/' + period;
+      return this.http.get<Series[]>(url);
+    }
+    if (addressUrl === '/dashboard') {
+      const url = 'http://localhost:8080/api/v1/users/' + '2' + '/pie-chart/' + period;
+      return this.http.get<Series[]>(url);
+    }
+    if (addressUrl === '/scheduled') {
+      const url = 'http://localhost:8080/api/v1/users/' + '2' + '/pie-chart/' + period;
       return this.http.get<Series[]>(url);
     } else {
-      const url = 'http://localhost:8080/api/v1/' + addressUrl + '/pie-chart/60';
+      const url = 'http://localhost:8080/api/v1/users/2/pie-chart' + addressUrl + '/period/' + period;
       return this.http.get<Series[]>(url);
     }
   }
