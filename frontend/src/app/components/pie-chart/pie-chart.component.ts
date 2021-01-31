@@ -30,7 +30,7 @@ export class PieChartComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userService.getPieChartData().subscribe(value => this.pieChartData = value);;
+    this.userService.getPieChartDataStart().subscribe(value => this.pieChartData = value);
   }
 
   onSelect(data): void {
@@ -45,4 +45,9 @@ export class PieChartComponent implements OnInit {
     console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
+  setPeriod(period: number): void {
+    this.pieChartData = [];
+    this.userService.getPieChartDataStartForPeriod(period).subscribe(
+      value => this.pieChartData = value);
+  }
 }

@@ -73,6 +73,12 @@ public class StatisticsServiceImpl implements StatisticsService {
                 ));
     }
 
+    @Override
+    public List<DataSeriesDto> getDataSeriesForLineChartByCategoryIdIdAndPeriod(Long categoryId, Integer period, Double balance) {
+        return getDataSeriesForPeriodLineChart(
+                operationService.findAllByCategoryIdAndPeriod(categoryId, period), period, balance);
+    }
+
     private Map<String, Double> fillMapWithEmptyDay(Map<String, Double> dayMapForPeriod, Integer period) {
         LocalDate date = LocalDate.now();
         int counter = 0;

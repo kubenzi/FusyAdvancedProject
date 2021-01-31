@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user-service';
 import {User} from '../../models/models';
+import {Observable} from 'rxjs';
 
 
 @Component({
@@ -10,13 +11,13 @@ import {User} from '../../models/models';
 })
 export class SectionComponent implements OnInit {
 
-  user: User;
+  user$: Observable<User>;
 
   constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
-    this.user = this.userService.getUser();
+    this.user$ = this.userService.getUser$();
   }
 
 }

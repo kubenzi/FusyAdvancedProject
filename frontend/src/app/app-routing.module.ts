@@ -1,12 +1,13 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {SectionComponent} from './components/section/section.component';
 import {MenuComponent} from './components/menu/menu.component';
+import {CategoriesComponent} from './components/categories/categories.component';
 
 const routes: Routes = [
-  {path: 'user', component: MenuComponent},
+  {path: 'dashboard', component: MenuComponent},
+  {path: ':type', component: MenuComponent},
+  {path: 'categories/:id', component: CategoriesComponent},
 ];
-
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

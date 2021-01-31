@@ -13,4 +13,5 @@ public interface OperationService {
     void deleteOperationsById(Long operationId);
     void addTransaction(NewOperationDto newOperationDto);
     List<OperationDto> findAllByUserIdAndPeriod(Long userId, Integer period);
+    List<OperationDto> findAllByCategoryIdAndPeriod(Long categoryId, Integer period);
 }

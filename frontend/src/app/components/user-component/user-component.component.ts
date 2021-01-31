@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user-service';
 import {User} from '../../models/models';
+import {Observable, Subject} from "rxjs";
 
 @Component({
   selector: 'app-user-component',
@@ -9,12 +10,12 @@ import {User} from '../../models/models';
 })
 export class UserComponentComponent implements OnInit {
 
-  user: User;
+  user$ = new Observable<User>();
   totalBalance = 0;
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
-    this.user = this.userService.getUser();
+    this.user$ = this.userService.getUser$();
   }
 }

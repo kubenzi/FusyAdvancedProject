@@ -34,20 +34,20 @@ export class LineChartComponent implements OnInit {
     domain: ['#5AA454', '#E44D25', '#CFC0BB', '#7aa3e5', '#a8385d', '#aae3f5']
   };
 
-
-
-
   constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
-    this.userService.getData30().subscribe(value => this.lineChartData = value);
+    // this.userService.getLineChartDataForInit30().subscribe(value => this.lineChartData = value);
+    this.userService.getLineChartDataForPeriod(
+      this.userService.getAddress(), 30
+    ).subscribe(value => this.lineChartData = value);
   }
 
   setPeriod(period: number): void {
     this.lineChartData = [];
-    this.userService.getData(period).subscribe(value => this.lineChartData = value);
-    console.log(period);
+    this.userService.getLineChartDataForPeriod(
+      this.userService.address, period).subscribe(value => this.lineChartData = [...value]);
   }
 
   onSelect(data): void {

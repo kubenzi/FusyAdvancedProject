@@ -11,8 +11,9 @@ import {AppRoutingModule} from './app-routing.module';
 import {LineChartComponent} from './components/line-chart/line-chart.component';
 import {FormsModule} from '@angular/forms';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
-import { PieChartComponent } from './components/pie-chart/pie-chart.component';
+import {PieChartComponent} from './components/pie-chart/pie-chart.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { CategoriesComponent } from './components/categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     SectionComponent,
     NavigationComponent,
     LineChartComponent,
-    PieChartComponent
+    PieChartComponent,
+    CategoriesComponent
   ],
   imports: [
     BrowserModule,

@@ -2,7 +2,10 @@ package com.codecool.keepcash.Service.Operation;
 
 import com.codecool.keepcash.Dto.Operation.NewOperationDto;
 import com.codecool.keepcash.Dto.Operation.OperationDto;
-import com.codecool.keepcash.Entity.*;
+import com.codecool.keepcash.Entity.Account;
+import com.codecool.keepcash.Entity.AccountType;
+import com.codecool.keepcash.Entity.Category;
+import com.codecool.keepcash.Entity.Operation;
 import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Repository.OperationRepository;
 import com.codecool.keepcash.Service.Account.AccountService;
@@ -79,11 +82,15 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
+    public List<OperationDto> findAllByCategoryIdAndPeriod(Long categoryId, Integer period) {
+        return OperationToOperationDtoConverter.convertListToDto(
+                operationRepository.findAllByCategoryAndPeriod(categoryId, LocalDate.now().minusDays(period)));
+    }
+
+    @Override
     public List<OperationDto> findAllByUserIdAndPeriod(Long userId, Integer period) {
 
-        LocalDate date = LocalDate.now().minusDays(period);
-
         return OperationToOperationDtoConverter.convertListToDto(
-                operationRepository.findAllByUserIdAndPeriod(userId, date));
+                operationRepository.findAllByUserIdAndPeriod(userId, LocalDate.now().minusDays(period)));
     }
 }

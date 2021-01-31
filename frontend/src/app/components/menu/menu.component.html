@@ -2,13 +2,13 @@ Categories:
 <br>
 <div class="category-container">
   <br>
-  <li *ngFor="let category of user?.categories" class="repo">
-    <div class="category">
+  <li *ngFor="let category of (user$ | async)?.categories" class="repo">
+    <a class="category" [routerLink]="['/categories', category.id]" >
       <h3>Category id:</h3>
       {{category.id}}
       {{category.name}}
       <br><br>
-    </div>
+    </a>
 
     <br><br>
   </li>
@@ -18,7 +18,7 @@ Accounts:
 <div class="account-container">
 
   <br>
-  <li *ngFor="let account of user?.accounts" class="repo">
+  <li *ngFor="let account of (user$ | async)?.accounts " class="repo">
     <div class="account">
       <h3>Account type:</h3>
       {{account.accountType.name}}

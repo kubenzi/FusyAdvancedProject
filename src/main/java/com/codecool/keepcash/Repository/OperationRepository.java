@@ -26,4 +26,6 @@ public interface OperationRepository extends CrudRepository<Operation, Long> {
             "    inner join user_data ud on ud.user_id = a.user_id where a.user_id = ?1 and operations.date > ?2 ;  ", nativeQuery = true)
     List<Operation> findAllByUserIdAndPeriod(Long userId, LocalDate date);
 
+    @Query(value = "select * from operations where category_id=?1 and operations.date > ?2", nativeQuery = true)
+    List<Operation> findAllByCategoryAndPeriod(Long categoryId, LocalDate minusDays);
 }
