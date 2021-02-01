@@ -1,4 +1,4 @@
-<body-register>
+<div class="body-register">
   <div id="form_wrapper">
     <div id="form_left">
       <img src="./assets/images/keepcash-logo.png" alt="keepcash-logo" />
@@ -10,6 +10,7 @@
           <i class="fas fa-envelope"></i>
           <mat-form-field>
             <input
+              matInput
               placeholder="E-mail"
               type="email"
               name="Email"
@@ -22,6 +23,7 @@
           <i class="fas fa-envelope"></i>
           <mat-form-field>
             <input
+              matInput
               placeholder="Username"
               type="text"
               name="Username"
@@ -34,6 +36,7 @@
           <i class="fas fa-envelope"></i>
           <mat-form-field>
             <input
+              matInput
               placeholder="First name"
               type="text"
               name="Firstname"
@@ -46,6 +49,7 @@
           <i class="fas fa-envelope"></i>
           <mat-form-field>
             <input
+              matInput
               placeholder="Last name"
               type="text"
               name="Lastname"
@@ -58,6 +62,7 @@
           <i class="fas fa-lock"></i>
           <mat-form-field>
             <input
+              matInput
               placeholder="Password"
               type="password"
               name="Password"
@@ -66,18 +71,19 @@
             />
           </mat-form-field>
         </div>
-        <div class="input_container">
-          <i class="fas fa-lock"></i>
-          <mat-form-field>
-            <input
-              placeholder="Confirm password"
-              type="password"
-              name="Password"
-              id="field_confirm_password"
-              class="input_field"
-            />
-          </mat-form-field>
-        </div>
+<!--        <div class="input_container">-->
+<!--          <i class="fas fa-lock"></i>-->
+<!--          <mat-form-field>-->
+<!--            <input-->
+<!--                  matInput-->
+<!--              placeholder="Confirm password"-->
+<!--              type="password"-->
+<!--              name="Password"-->
+<!--              id="field_confirm_password"-->
+<!--              class="input_field"-->
+<!--            />-->
+<!--          </mat-form-field>-->
+<!--        </div>-->
         <button mat-raised-button type="submit" id="button" class="button" [disabled]="!registerForm.valid">Sign up</button>
       </div>
     </form>
@@ -85,6 +91,6 @@
   <div class="footer">
     <h3>Jakub Chorążyk | Bartosz Jakimko | Krzysztof Chromiec</h3>
   </div>
-</body-register>
+</div>
 
 

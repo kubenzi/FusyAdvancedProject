@@ -1,4 +1,4 @@
-<body-login>
+<div class="body-login">
   <div id="form_wrapper">
     <div id="form_left">
       <img src="./assets/images/keepcash-logo.png" alt="keepcash-logo" />
@@ -16,6 +16,7 @@
               placeholder="Username"
               class="input_field"
               formControlName="username"
+              autocomplete="off"
               required
             />
           </mat-form-field>
@@ -25,11 +26,12 @@
           <mat-form-field>
             <input
               matInput
-              type="text"
+              type="password"
               id="password"
               placeholder="Password"
               class="input_field"
               formControlName="password"
+              autocomplete="off"
               required
             />
           </mat-form-field>
@@ -45,4 +47,4 @@
   <div class="footer">
     <h3>Jakub Chorążyk | Bartosz Jakimko | Krzysztof Chromiec</h3>
   </div>
-</body-login>
+</div>

@@ -23,8 +23,8 @@ export class SessionInterceptor implements HttpInterceptor {
   private addSessionId(request: HttpRequest<any>, sessionId: string) {
     return request.clone({
       setHeaders: {
-        'Authorization': `Bearer ${sessionId}`
-        //  'SessionId': `Id ${sessionId}`
+        // 'Authorization': `Bearer ${sessionId}`
+         'session-id': `${sessionId}`
       }
     });
   }

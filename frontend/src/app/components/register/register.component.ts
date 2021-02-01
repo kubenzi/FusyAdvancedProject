@@ -18,7 +18,6 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.formBuilder.group({
        username: [''],
        password: [''],
-       confirmpassword: [''],
        email: [''],
        firstname: [''],
        lastname: ['']
@@ -32,7 +31,6 @@ export class RegisterComponent implements OnInit {
       {
         username: this.form.username.value,
         password: this.form.password.value,
-        confirmpassword: this.form.confirmpassword.value,
         firstname: this.form.firstname.value,
         lastname: this.form.email.value,
         email: this.form.email.value
