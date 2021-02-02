@@ -1,6 +1,6 @@
 
 export interface LoginData {
   userId: number;
-  userName: string;
+  username: string;
   sessionId: string;
 }

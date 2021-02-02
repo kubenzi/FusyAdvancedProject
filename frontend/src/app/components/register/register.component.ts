@@ -19,8 +19,8 @@ export class RegisterComponent implements OnInit {
        username: [''],
        password: [''],
        email: [''],
-       firstname: [''],
-       lastname: ['']
+       firstName: [''],
+       lastName: ['']
     });
   }
 
@@ -31,8 +31,8 @@ export class RegisterComponent implements OnInit {
       {
         username: this.form.username.value,
         password: this.form.password.value,
-        firstname: this.form.firstname.value,
-        lastname: this.form.email.value,
+        firstName: this.form.firstName.value,
+        lastName: this.form.lastName.value,
         email: this.form.email.value
       }
     )

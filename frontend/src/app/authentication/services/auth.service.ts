@@ -15,7 +15,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  register(user: { username: string, password: string, firstname: string, lastname: string, email: string }): Observable<boolean> {
+  register(user: { username: string, password: string, firstName: string, lastName: string, email: string }): Observable<boolean> {
     return this.http.post<any>(`${environment.apiUrl}/register`, user)
       .pipe(
         mapTo(true),
@@ -28,7 +28,7 @@ export class AuthService {
   login(user: { username: string, password: string }): Observable<boolean> {
     return this.http.post<any>(`${environment.apiUrl}/login`, user)
       .pipe(
-        tap((data: LoginData) => this.doLoginUser(data.userName, data.sessionId)),
+        tap((data: LoginData) => this.doLoginUser(data.username, data.sessionId)),
         mapTo(true),
         catchError(error => {
           alert(error.error);
@@ -55,8 +55,8 @@ export class AuthService {
     return localStorage.getItem(this.SESSION_ID);
   }
 
-  private doLoginUser(userName: string, sessionId: string) {
-    this.loggedUser = userName;
+  private doLoginUser(username: string, sessionId: string) {
+    this.loggedUser = username;
     this.storeSessionId(sessionId);
   }
 
