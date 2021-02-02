@@ -18,6 +18,7 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userService.setUser$().subscribe();
     this.user$ = this.userService.getUser$();
     // this.activatedRoute.events.pipe(first(event => !!event)).subscribe((
     //   navigationStart: NavigationStart) => this.userService.getPieChartData(navigationStart.url));

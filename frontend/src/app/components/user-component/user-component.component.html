@@ -1,5 +1,5 @@
 
-<app-navigation>
+<app-navigation *ngIf="authService.isLoggedIn()" >
 
 </app-navigation>
 
@@ -16,7 +16,7 @@
 
 </div>
 
-<section>
+<section *ngIf="authService.isLoggedIn()">
   <app-section>
   </app-section>
 

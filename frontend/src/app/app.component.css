@@ -1,13 +1,15 @@
 app-user-component {
-  max-width: 1440px;
-  display: flex;
-  margin: auto;
+  /*max-width: 1440px;*/
+  /*display: flex;*/
+  /*margin: auto;*/
 
-  height: 669px;
-  background: #ffffff;
-  border-color: #ebebeb;
-  border-width: 1px;
-  border-style: solid;
-  border-radius: 30px 30px 30px 30px;
-  font-family: "Alata";
+  /*height: 669px;*/
+  /*background: #ffffff;*/
+  /*border-color: #ebebeb;*/
+  /*border-width: 1px;*/
+  /*border-style: solid;*/
+  /*border-radius: 30px 30px 30px 30px;*/
+  /*font-family: "Alata";*/
 }
+
+

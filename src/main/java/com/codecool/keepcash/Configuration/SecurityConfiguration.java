@@ -1,5 +1,6 @@
 package com.codecool.keepcash.Configuration;
 
+import com.codecool.keepcash.Service.Authentication.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.reactive.config.CorsRegistry;
 
 @Configuration
 @EnableWebSecurity
@@ -29,6 +31,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
                 .anyRequest().authenticated();
     }
 
+
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -37,7 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder managerBuilder,
-                                UserDetailsService authenticationService) throws Exception{
+                                AuthenticationService authenticationService) throws Exception{
         managerBuilder.userDetailsService(authenticationService)
                 .passwordEncoder(bCryptPasswordEncoder());
     }

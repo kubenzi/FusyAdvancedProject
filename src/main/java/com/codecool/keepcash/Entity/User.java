@@ -1,16 +1,16 @@
 package com.codecool.keepcash.Entity;
 
-//import org.springframework.security.core.GrantedAuthority;
-//import org.springframework.security.core.authority.SimpleGrantedAuthority;
-//import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.Collections;
 
 @Entity(name="users")
-//public class User implements UserDetails {
-public class User {
+public class User implements UserDetails {
+//public class User {
 
     @Id
     @SequenceGenerator(name= "user_id_generator", initialValue = 10, allocationSize = 1)
@@ -20,12 +20,12 @@ public class User {
     private String password;
 
     private String username;
-//
-//    @Column(columnDefinition="BOOLEAN DEFAULT true")
-//    private boolean enabled = true;
-//
-//    @Column(columnDefinition="BOOLEAN DEFAULT false")
-//    private boolean locked = false;
+
+    @Column(columnDefinition="BOOLEAN DEFAULT true")
+    private boolean enabled = true;
+
+    @Column(columnDefinition="BOOLEAN DEFAULT false")
+    private boolean locked = false;
 
     public User() {
     }
@@ -36,11 +36,11 @@ public class User {
         this.username = username;
     }
 
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        final SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("USER");
-//        return Collections.singletonList(simpleGrantedAuthority);
-//    }
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        final SimpleGrantedAuthority simpleGrantedAuthority = new SimpleGrantedAuthority("USER");
+        return Collections.singletonList(simpleGrantedAuthority);
+    }
 
     public Long getId() {
         return id;
@@ -66,23 +66,23 @@ public class User {
         this.username = username;
     }
 
-//    @Override
-//    public boolean isAccountNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isAccountNonLocked() {
-//        return !locked;
-//    }
-//
-//    @Override
-//    public boolean isCredentialsNonExpired() {
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean isEnabled() {
-//        return enabled;
-//    }
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return !locked;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
 }

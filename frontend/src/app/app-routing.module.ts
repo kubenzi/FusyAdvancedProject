@@ -4,6 +4,9 @@ import {MenuComponent} from './components/menu/menu.component';
 import {CategoriesComponent} from './components/categories/categories.component';
 import {ScheduledComponent} from './components/scheduled/scheduled.component';
 import {SectionComponent} from './components/section/section.component';
+import {LoginComponent} from './components/login/login.component';
+import {AuthGuard} from './authentication/guards/auth.guard';
+import {RegisterComponent} from './components/register/register.component';
 
 const routes: Routes = [
   {path: 'dashboard', component: MenuComponent},
@@ -11,6 +14,13 @@ const routes: Routes = [
   {path: 'scheduled', component: ScheduledComponent},
   {path: ':type', component: MenuComponent},
   {path: 'categories/:id', component: CategoriesComponent},
+  { path: '', pathMatch: 'full', redirectTo: '/login' },
+  {
+    path: 'login', component: LoginComponent, canActivate: [AuthGuard]
+  },
+  {
+    path: 'register', component: RegisterComponent, canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({

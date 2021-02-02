@@ -15,6 +15,7 @@ import {PieChartComponent} from './components/pie-chart/pie-chart.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { ScheduledComponent } from './components/scheduled/scheduled.component';
+import {AuthModule} from './authentication/auth.module';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ScheduledComponent } from './components/scheduled/scheduled.component';
     FormsModule,
     NgxChartsModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

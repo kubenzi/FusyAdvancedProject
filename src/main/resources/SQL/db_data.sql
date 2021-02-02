@@ -4,11 +4,11 @@ INSERT INTO public.currency (id, name, signature) VALUES (2, 'Polish zloty', 'PL
 INSERT INTO public.account_types (id, name) VALUES (1, 'Savings');
 INSERT INTO public.account_types (id, name) VALUES (2, 'Current');
 
--- INSERT INTO public.users (id, enabled, locked, username, password) VALUES (1, true, false, 'bj', 'dupa');
--- INSERT INTO public.users (id, enabled, locked, username, password) VALUES (2, true, false, 'jch', 'okon');
+INSERT INTO public.users (id, enabled, locked, username, password) VALUES (1, true, false, 'bj', 'dupa');
+INSERT INTO public.users (id, enabled, locked, username, password) VALUES (2, true, false, 'jch', 'okon');
 
-INSERT INTO public.users (id, username, password) VALUES (1, 'bj', 'dupa');
-INSERT INTO public.users (id, username, password) VALUES (2, 'jch', 'okon');
+-- INSERT INTO public.users (id, username, password) VALUES (1, 'bj', 'dupa');
+-- INSERT INTO public.users (id, username, password) VALUES (2, 'jch', 'okon');
 
 INSERT INTO public.user_data (email, first_name, last_name, user_id) VALUES ('barjakimko@gmail.com', 'Bartosz', 'Jakimko', 1);
 INSERT INTO public.user_data (email, first_name, last_name, user_id) VALUES ('kchorazyk.97@gmail.com', 'Jakub', 'Chorążyk', 2);

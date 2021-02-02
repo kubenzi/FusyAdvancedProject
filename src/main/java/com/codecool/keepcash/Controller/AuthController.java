@@ -19,12 +19,14 @@ public class AuthController {
         this.authenticationService = authenticationService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/register", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(CREATED)
     public void register(@RequestBody UserRegistrationDto userRegistrationDto) {
         authenticationService.register(userRegistrationDto);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/login", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
     public void login(@RequestBody UserCredentialsDto userCredentialsDto) {

@@ -11,11 +11,10 @@ export class AppComponent implements OnInit{
 
 
 
-  constructor(private userService: UserService) {
+  constructor() {
   }
 
   ngOnInit(): void {
-    this.userService.setUser$().subscribe();
   }
 
 
