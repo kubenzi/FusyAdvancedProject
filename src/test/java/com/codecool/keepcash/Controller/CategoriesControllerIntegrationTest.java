@@ -45,9 +45,9 @@ public class CategoriesControllerIntegrationTest {
         // given:
         Long id = 1L;
         List<CategoryDto> categoryDtos = new ArrayList<>();
-        categoryDtos.add(new CategoryDto(1L, "first", Collections.emptyList()));
-        categoryDtos.add(new CategoryDto(2L, "second", Collections.emptyList()));
-        categoryDtos.add(new CategoryDto(3L, "third", Collections.emptyList()));
+        categoryDtos.add(new CategoryDto(1L, "first", false, Collections.emptyList()));
+        categoryDtos.add(new CategoryDto(2L, "second", false, Collections.emptyList()));
+        categoryDtos.add(new CategoryDto(3L, "third", false, Collections.emptyList()));
         when(categoryService.getCategoriesDtoByUserId(id)).thenReturn(categoryDtos);
 
         // when, then:

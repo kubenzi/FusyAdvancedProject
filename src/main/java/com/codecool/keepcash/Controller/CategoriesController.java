@@ -35,7 +35,7 @@ public class CategoriesController {
     @ResponseStatus(CREATED)
     public void addNewCategoryForUserId(@PathVariable Long userId,
                             @RequestBody NewCategoryDto newCategoryDto) {
-        categoryService.addCategory(userId, newCategoryDto);
+        categoryService.addCategory(userId, newCategoryDto, false);
     }
 
     @DeleteMapping("/users/{userId}/categories/{categoryId}")

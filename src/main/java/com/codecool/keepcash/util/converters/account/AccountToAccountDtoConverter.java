@@ -22,6 +22,7 @@ public class AccountToAccountDtoConverter {
                 account.getAccountNumber(),
                 AccountTypeToAccountTypeDtoConverter.convertToDto(account.getAccountType()),
                 CurrencyToCurrencyDtoConverter.convertToDto(account.getCurrency()),
+                account.isBuiltin(),
                 OperationToOperationDtoConverter.convertListToDto(account.getOperations()));
     }
 

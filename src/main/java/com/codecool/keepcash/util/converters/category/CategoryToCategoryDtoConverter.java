@@ -17,6 +17,7 @@ public class CategoryToCategoryDtoConverter {
     public static CategoryDto convertToDto(Category category) {
         return new CategoryDto(category.getId(),
                 category.getName(),
+                category.isBuiltin(),
                 OperationToOperationDtoConverter.convertListToDto(category.getOperations()));
     }
 

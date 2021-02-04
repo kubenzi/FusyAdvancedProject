@@ -53,8 +53,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     @Transactional
-    public void addCategory(Long userId, NewCategoryDto newCategoryDto) {
+    public void addCategory(Long userId, NewCategoryDto newCategoryDto, boolean isBuiltin) {
         Category newCategory = CategoryDtoToCategoryConverter.convertNewCategoryDtoToCategory(newCategoryDto);
+        newCategory.setBuiltin(isBuiltin);
         categoryRepository.save(newCategory);
 
         UserData userData = userService.getUserDataById(userId);

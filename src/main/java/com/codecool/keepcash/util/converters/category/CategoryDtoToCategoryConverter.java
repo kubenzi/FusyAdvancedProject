@@ -17,12 +17,13 @@ public class CategoryDtoToCategoryConverter {
 
     public static Category convertDtoToCategory(CategoryDto categoryDto) {
         return new Category(categoryDto.getName(),
+                categoryDto.isBuiltin(),
                 OperationDtoToOperationConverter.convertDtoListToOperationList(categoryDto.getOperations()
                 ));
     }
 
     public static Category convertNewCategoryDtoToCategory(NewCategoryDto newCategoryDto) {
-        return new Category(newCategoryDto.getName());
+        return new Category(newCategoryDto.getName(), false);
     }
 
     public static List<Category> convertDtoToList(List<CategoryDto> categories) {

@@ -27,6 +27,8 @@ public class Account {
     @OneToOne
     private Currency currency;
 
+    private boolean builtin;
+
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "account_id")
     private List<Operation> operations = new ArrayList<>();
@@ -38,12 +40,14 @@ public class Account {
                    Double balance,
                    String accountNumber,
                    AccountType accountType,
-                   Currency currency) {
+                   Currency currency,
+                   boolean builtin) {
         this.name = name;
         this.balance = balance;
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.currency = currency;
+        this.builtin = builtin;
     }
 
     public Account(String name,
@@ -51,12 +55,14 @@ public class Account {
                    String accountNumber,
                    AccountType accountType,
                    Currency currency,
+                   boolean builtin,
                    List<Operation> operations) {
         this.name = name;
         this.balance = balance;
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.currency = currency;
+        this.builtin = builtin;
         this.operations = operations;
     }
 
@@ -66,6 +72,7 @@ public class Account {
                    String accountNumber,
                    AccountType accountType,
                    Currency currency,
+                   boolean builtin,
                    List<Operation> operations) {
         this.id = id;
         this.name = name;
@@ -73,6 +80,7 @@ public class Account {
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.currency = currency;
+        this.builtin = builtin;
         this.operations = operations;
     }
 
@@ -122,6 +130,14 @@ public class Account {
 
     public void setCurrency(Currency currency) {
         this.currency = currency;
+    }
+
+    public boolean isBuiltin() {
+        return builtin;
+    }
+
+    public void setBuiltin(boolean builtin) {
+        this.builtin = builtin;
     }
 
     public List<Operation> getOperations() {
