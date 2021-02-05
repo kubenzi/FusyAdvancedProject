@@ -9,7 +9,7 @@ const routes: Routes = [
   {path: 'dashboard', component: MenuComponent},
   {path: 'navigation', component: SectionComponent, outlet: 'nav'},
   {path: 'scheduled', component: ScheduledComponent},
-  {path: ':type', component: MenuComponent},
+  // {path: ':type', component: MenuComponent},
   {path: 'categories/:id', component: CategoriesComponent},
 ];
 

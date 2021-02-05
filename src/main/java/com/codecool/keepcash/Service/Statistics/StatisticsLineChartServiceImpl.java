@@ -14,18 +14,19 @@ import java.util.TreeMap;
 import java.util.stream.Collectors;
 
 @Service
-public class StatisticsServiceImpl implements StatisticsService {
+public class StatisticsLineChartServiceImpl implements StatisticsLineChartService {
 
     private OperationService operationService;
 
-    public StatisticsServiceImpl(OperationService operationService) {
+    public StatisticsLineChartServiceImpl(OperationService operationService) {
         this.operationService = operationService;
     }
 
     @Override
-    public List<SeriesDto> getSeriesForPieChartByCategoryIdAndPeriod(Long categoryId, Integer period) {
+    public List<SeriesDto> getSeriesForPieChartByCategoryIdAndPeriod(Long userId, Long categoryId, Integer period) {
         return getSeriesForPeriodPieChart(
-                operationService.findAllByCategoryIdAndPeriod(categoryId, period)
+                operationService.findAllByCategoryIdAndPeriod(categoryId, period),
+                operationService.getAllOperationsByUserId(userId)
         );
 
     }
@@ -55,13 +56,13 @@ public class StatisticsServiceImpl implements StatisticsService {
     Makes two data DataSeriesDto for line chart named: balance and spending.
     We have to put parameter spending: false or true - boolean is used in two methods,
     to distinguish how to calculate balance or spending. If it is used to calculate SPENDING SET TRUE.
-    */
-    {
+    */ {
         List<SeriesDto> seriesDtosBalance = getAllSeriesDtoForPeriod(operationDtos, period, balance, false);
         List<SeriesDto> seriesDtosSpending = getAllSeriesDtoForPeriod(operationDtos, period, 0.0, true);
         return Arrays.asList(new DataSeriesDto("balance", seriesDtosBalance),
                 new DataSeriesDto("spending", seriesDtosSpending));
     }
+
 
     private List<SeriesDto> getSeriesForPeriodPieChart(List<OperationDto> operationDtos) {
         Double spending = operationDtos.stream()
@@ -75,6 +76,22 @@ public class StatisticsServiceImpl implements StatisticsService {
                 .reduce(0.0, (a, b) -> a + b);
 
         return Arrays.asList(new SeriesDto("Revenue", revenue),
+                new SeriesDto("Spending", spending));
+    }
+
+    private List<SeriesDto> getSeriesForPeriodPieChart(List<OperationDto> operationDtosCategory,
+                                                       List<OperationDto> operationDtosCategoryTotal) {
+        Double spending = operationDtosCategory.stream()
+                .filter(operationDto -> operationDto.getValue() > 0)
+                .map(OperationDto::getValue)
+                .reduce(0.0, (a, b) -> a + b);
+
+        Double revenue = operationDtosCategoryTotal.stream()
+                .filter(operationDto -> operationDto.getValue() > 0)
+                .map(OperationDto::getValue)
+                .reduce(0.0, (a, b) -> a + b);
+
+        return Arrays.asList(new SeriesDto("Total Spending", revenue),
                 new SeriesDto("Spending", spending));
     }
 
@@ -126,8 +143,7 @@ public class StatisticsServiceImpl implements StatisticsService {
     private Map<String, Double> sortMapWithBalance(Map<String, Double> dayMapForPeriod, Double balance,
                                                    Boolean spendings) {
 
-        TreeMap<String, Double> sortedMap = new TreeMap<>();
-        sortedMap.putAll(dayMapForPeriod);
+        TreeMap<String, Double> sortedMap = new TreeMap<>(dayMapForPeriod);
 
         for (String key : sortedMap.keySet()) {
             Double value = sortedMap.get(key);

@@ -24,9 +24,9 @@ export class MenuComponent implements OnInit {
   ngOnInit(): void {
     this.user$ = this.userService.getUser$();
     this.userService.reEmitUser();
-    this.activatedRoute.events.pipe(first(event => !!event)).subscribe((
-      navigationStart: NavigationStart) => this.userService.setAddress(navigationStart.url));
-    this.userService.getAddress();
+    // this.activatedRoute.events.pipe(first(event => !!event)).subscribe((
+    //   navigationStart: NavigationStart) => this.userService.setAddress(navigationStart.url));
+    // this.userService.getAddress();
 
       // navigationStart: NavigationStart) => console.log(navigationStart.url));
   }

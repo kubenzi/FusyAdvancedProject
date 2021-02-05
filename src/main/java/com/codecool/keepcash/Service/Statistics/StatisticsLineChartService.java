@@ -1,17 +1,18 @@
 package com.codecool.keepcash.Service.Statistics;
 
-import com.codecool.keepcash.Dto.Operation.OperationDto;
 import com.codecool.keepcash.Statisics.DataSeriesDto;
 import com.codecool.keepcash.Statisics.SeriesDto;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
-public interface StatisticsService {
+public interface StatisticsLineChartService {
     List<DataSeriesDto> getAllDataSeriesDtoForPeriodByUserId(Long userId, Integer period, Double balance);
-    List<SeriesDto> getSeriesForPieChartByUserIdAndPeriod(Long userId, Integer period);
+
     List<DataSeriesDto> getDataSeriesForLineChartByCategoryIdIdAndPeriod(Long categoryId, Integer period, Double balance);
-    List<SeriesDto> getSeriesForPieChartByCategoryIdAndPeriod(Long categoryId, Integer period);
+
+    List<SeriesDto> getSeriesForPieChartByUserIdAndPeriod(Long userId, Integer period);
+
+    List<SeriesDto> getSeriesForPieChartByCategoryIdAndPeriod(Long UserId, Long categoryId, Integer period);
 }

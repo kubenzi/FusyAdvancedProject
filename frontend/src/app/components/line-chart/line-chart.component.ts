@@ -40,7 +40,7 @@ export class LineChartComponent implements OnInit {
   ngOnInit(): void {
     // this.userService.getLineChartDataForInit30().subscribe(value => this.lineChartData = value);
     this.userService.getLineChartDataForPeriod(
-      this.userService.getAddress(), 30
+      this.userService.address, 30
     ).subscribe(value => this.lineChartData = value);
   }
 
