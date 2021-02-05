@@ -13,8 +13,8 @@ import {FormsModule} from '@angular/forms';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {PieChartComponent} from './components/pie-chart/pie-chart.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { CategoriesComponent } from './components/categories/categories.component';
-import { ScheduledComponent } from './components/scheduled/scheduled.component';
+// import { CategoriesComponent } from './components/categories/categories.component';
+// import { ScheduledComponent } from './components/scheduled/scheduled.component';
 import {AuthModule} from './authentication/auth.module';
 
 @NgModule({
@@ -25,9 +25,9 @@ import {AuthModule} from './authentication/auth.module';
     SectionComponent,
     NavigationComponent,
     LineChartComponent,
-    PieChartComponent,
-    CategoriesComponent,
-    ScheduledComponent
+    PieChartComponent
+    // CategoriesComponent,
+    // ScheduledComponent
   ],
   imports: [
     BrowserModule,

@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     )
       .subscribe(success => {
         if (success){
-          this.router.navigate(['/user']);
+          this.router.navigate(['/dashboard']);
         }
       });
   }

@@ -15,16 +15,17 @@ export class SessionInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (this.authService.getSessionId()) {
-      request = this.addSessionId(request, this.authService.getSessionId());
+      request = this.addSessionId(request, this.authService.getSessionId(), this.authService.getUserId());
     }
     return next.handle(request);
   }
 
-  private addSessionId(request: HttpRequest<any>, sessionId: string) {
+  private addSessionId(request: HttpRequest<any>, sessionId: string, userId: number) {
     return request.clone({
       setHeaders: {
         // 'Authorization': `Bearer ${sessionId}`
-         'session-id': `${sessionId}`
+        'session-id': `${sessionId}`,
+        'UserID': `${userId}`,
       }
     });
   }

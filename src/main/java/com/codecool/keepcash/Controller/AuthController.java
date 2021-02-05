@@ -3,9 +3,12 @@ package com.codecool.keepcash.Controller;
 import com.codecool.keepcash.Dto.Authentication.UserCredentialsDto;
 import com.codecool.keepcash.Dto.Authentication.UserRegistrationDto;
 import com.codecool.keepcash.Service.Authentication.AuthenticationService;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+
 import org.springframework.web.bind.annotation.*;
+
 
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
@@ -33,5 +36,18 @@ public class AuthController {
         Authentication authentication = authenticationService.login(userCredentialsDto);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
+
+//        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
     }
+
+//    @GetMapping
+//    @ResponseStatus(OK)
+//    public void getUser(){
+//
+//    }
+
+
+
 }
