@@ -24,6 +24,7 @@ public class AccountDtoToAccountConverter {
                 accountDto.getAccountNumber(),
                 AccountTypeDtoToAccountTypeConverter.convertDtoToAccountType(accountDto.getAccountType()),
                 CurrencyDtoToCurrencyConverter.convertDtoToCurrency(accountDto.getCurrency()),
+                accountDto.isBuiltin(),
                 OperationDtoToOperationConverter.convertDtoListToOperationList(accountDto.getOperations()));
     }
 
@@ -40,6 +41,7 @@ public class AccountDtoToAccountConverter {
                     newAccountDto.getBalance(),
                     newAccountDto.getAccountNumber(),
                     accountType,
-                    currency);
+                    currency,
+                    false);
     }
 }

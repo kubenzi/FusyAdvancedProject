@@ -24,7 +24,7 @@ public class CategoryRepositoryTest {
     @Test
     public void should_save_category() {
         // given:
-        Category first = new Category("first");
+        Category first = new Category("first", false);
 
         // when:
         categoryRepository.save(first);

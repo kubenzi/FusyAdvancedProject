@@ -2,10 +2,14 @@ package com.codecool.keepcash.Service.Authentication;
 
 import com.codecool.keepcash.Dto.Authentication.UserCredentialsDto;
 import com.codecool.keepcash.Dto.Authentication.UserRegistrationDto;
+import com.codecool.keepcash.Entity.Account;
+import com.codecool.keepcash.Entity.Category;
 import com.codecool.keepcash.Entity.User;
 import com.codecool.keepcash.Entity.UserData;
 import com.codecool.keepcash.Repository.UserDataRepository;
 import com.codecool.keepcash.Repository.UserRepository;
+import com.codecool.keepcash.Service.Account.AccountService;
+import com.codecool.keepcash.Service.Category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.xml.bind.ValidationException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -33,6 +38,12 @@ public class AuthenticationService implements UserDetailsService {
     private PasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
+    private AccountService accountService;
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
     public void register(UserRegistrationDto userRegistrationDto) {
@@ -41,12 +52,15 @@ public class AuthenticationService implements UserDetailsService {
         failIfUserAlreadyRegistered(userRegistrationDto.getUsername());
         userRepository.save(user);
 
-        Long registeredId = userRepository.findByUsername(user.getUsername()).get().getId();
-
         UserData userData = new UserData(userRegistrationDto.getFirstName(),
                 userRegistrationDto.getLastName(),
                 userRegistrationDto.getEmail(),
                 user);
+
+        List<Category> inbuiltCategories = categoryService.createBuiltinCategories();
+        inbuiltCategories.stream().forEach(category -> userData.getCategories().add(category));
+
+        userData.getAccounts().add(accountService.createBuiltinAccounts());
         userDataRepository.save(userData);
     }
 
@@ -54,10 +68,6 @@ public class AuthenticationService implements UserDetailsService {
         return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userCredentialsDto.getUsername(),
                 userCredentialsDto.getPassword()));
     }
-
-//    public Authentication logout(){
-//        return authenticationManager.authenticate().setAuthenticated(false);
-//    }
 
     private void failIfUserAlreadyRegistered(String username) {
         Optional<User> maybeUser = userRepository.findByUsername(username);

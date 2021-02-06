@@ -11,6 +11,7 @@ public interface AccountService {
     Account getAccountById(Long id);
     AccountDto getAccountDtoById(Long accountId);
     List<AccountDto> getAccountsDtoByUserId(Long userId);
+    Account createBuiltinAccounts();
     void addNewAccount(NewAccountDto newAccountDto, Long userId);
     void saveUpdatedAccount(Account account);
     void deleteAccountById(Long accountId);

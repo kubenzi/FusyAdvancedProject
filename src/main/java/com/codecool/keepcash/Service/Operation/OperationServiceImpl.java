@@ -37,26 +37,6 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    @Transactional
-    public void addTransaction(NewOperationDto newOperationDto) {
-        newOperationDto.setDate(new Date(System.currentTimeMillis()));
-
-        Operation newOperation = operationRepository.save(
-                OperationDtoToOperationConverter
-                        .convertNewDtoToOperation(newOperationDto)
-        );
-
-        Account account = accountService.getAccountById(newOperationDto.getAccountId());
-        account.getOperations().add(newOperation);
-        accountService.saveUpdatedAccount(account);
-
-        Category category = categoryService.getCategoryById(newOperationDto.getCategoryId());
-        category.getOperations().add(newOperation);
-        categoryService.saveUpdatedCategory(category);
-    }
-
-
-    @Override
     public List<OperationDto> getAllOperationsByUserId(Long userId) {
         List<Operation> allOperations = operationRepository.findAllByUserId(userId);
         return OperationToOperationDtoConverter.convertListToDto(allOperations);
@@ -70,6 +50,47 @@ public class OperationServiceImpl implements OperationService {
     @Override
     public List<OperationDto> getAllOperationByAccountId(Long accountId) {
         return OperationToOperationDtoConverter.convertListToDto(operationRepository.findByAccountId(accountId));
+    }
+
+    @Override
+    @Transactional
+    public void addTransaction(NewOperationDto newOperationDto) {
+        newOperationDto.setDate(new Date(System.currentTimeMillis()));
+
+        Operation newOperation = operationRepository.save(
+                OperationDtoToOperationConverter
+                        .convertNewDtoToOperation(newOperationDto)
+        );
+
+        Account account = accountService.getAccountById(newOperationDto.getAccountId());
+        account.getOperations().add(newOperation);
+        account.setBalance(account.getBalance() - newOperation.getValue());
+        accountService.saveUpdatedAccount(account);
+
+        Category category = categoryService.getCategoryById(newOperationDto.getCategoryId());
+        category.getOperations().add(newOperation);
+        categoryService.saveUpdatedCategory(category);
+    }
+
+    @Override
+    public void addNewCSVOperations(List<Operation> csvOperations, Long userId, Long accountId) {
+        Account account = accountService.getAccountById(accountId);
+        Category catIncome = categoryService.getCategoryByNameAndUserId("INCOME", userId);
+        Category catUnassigned = categoryService.getCategoryByNameAndUserId("UNASSIGNED", userId);
+
+        for (Operation operation : csvOperations) {
+            account.getOperations().add(operation);
+
+            if (operation.getValue() > 0) {
+                catIncome.getOperations().add(operation);
+            } else {
+                catUnassigned.getOperations().add(operation);
+            }
+        }
+
+        accountService.saveUpdatedAccount(account);
+        categoryService.saveUpdatedCategory(catIncome);
+        categoryService.saveUpdatedCategory(catUnassigned);
     }
 
     @Override
@@ -92,5 +113,12 @@ public class OperationServiceImpl implements OperationService {
 
         return OperationToOperationDtoConverter.convertListToDto(
                 operationRepository.findAllByUserIdAndPeriod(userId, LocalDate.now().minusDays(period)));
+    }
+
+    @Override
+    public List<OperationDto> findAllByAccountIdAndPeriod(Long accountId, Integer period){
+
+        return OperationToOperationDtoConverter.convertListToDto(
+                operationRepository.findAllByAccountAndPeriod(accountId, LocalDate.now().minusDays(period)));
     }
 }

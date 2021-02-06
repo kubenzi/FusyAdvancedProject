@@ -8,11 +8,13 @@ import java.util.List;
 public class Category {
 
     @Id
-    @SequenceGenerator(name= "category_id_generator", initialValue = 10, allocationSize = 1)
+    @SequenceGenerator(name= "category_id_generator", initialValue = 11, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_id_generator")
     private Long id;
 
     private String name;
+
+    private boolean builtin;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "category_id")
@@ -21,18 +23,21 @@ public class Category {
     public Category() {
     }
 
-    public Category(String name) {
+    public Category(String name, boolean builtin) {
         this.name = name;
+        this.builtin = builtin;
     }
 
-    public Category(String name, List<Operation> operations) {
+    public Category(String name, boolean builtin, List<Operation> operations) {
         this.name = name;
+        this.builtin = builtin;
         this.operations = operations;
     }
 
-    public Category(Long id, String name, List<Operation> operations) {
+    public Category(Long id, String name, boolean builtin, List<Operation> operations) {
         this.id = id;
         this.name = name;
+        this.builtin = builtin;
         this.operations = operations;
     }
 
@@ -50,6 +55,14 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isBuiltin() {
+        return builtin;
+    }
+
+    public void setBuiltin(boolean builtin) {
+        this.builtin = builtin;
     }
 
     public List<Operation> getOperations() {

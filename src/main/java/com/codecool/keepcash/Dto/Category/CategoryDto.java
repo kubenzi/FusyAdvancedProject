@@ -10,6 +10,7 @@ public class CategoryDto {
 
     private Long id;
     private String name;
+    private boolean builtin;
     private List<OperationDto> operations;
 
     public CategoryDto() {
@@ -18,9 +19,11 @@ public class CategoryDto {
     @JsonCreator
     public CategoryDto(@JsonProperty("id") Long id,
                        @JsonProperty("name") String name,
+                       @JsonProperty("builtin") boolean builtin,
                        @JsonProperty("operations") List<OperationDto> operations) {
         this.id = id;
         this.name = name;
+        this.builtin = builtin;
         this.operations = operations;
     }
 
@@ -38,6 +41,14 @@ public class CategoryDto {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isBuiltin() {
+        return builtin;
+    }
+
+    public void setBuiltin(boolean builtin) {
+        this.builtin = builtin;
     }
 
     public List<OperationDto> getOperations() {

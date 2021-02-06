@@ -63,6 +63,16 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Account createBuiltinAccounts() {
+        return new Account("CASH PLN",
+                0.0,
+                "00 0000 0000 0000 0000",
+                accountTypeService.getAccountTypeById(2L),
+                currencyService.getCurrencyById(2L),
+                true);
+    }
+
+    @Override
     @Transactional
     public void addNewAccount(NewAccountDto newAccountDto, Long userId) {
         AccountType accountType = accountTypeService.getAccountTypeById(newAccountDto.getAccountTypeId());

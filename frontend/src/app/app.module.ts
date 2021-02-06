@@ -13,8 +13,10 @@ import {FormsModule} from '@angular/forms';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {PieChartComponent} from './components/pie-chart/pie-chart.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-// import { CategoriesComponent } from './components/categories/categories.component';
-// import { ScheduledComponent } from './components/scheduled/scheduled.component';
+import { CategoriesComponent } from './components/categories/categories.component';
+import { ScheduledComponent } from './components/scheduled/scheduled.component';
+import { AccountsComponent } from './components/accounts/accounts.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 import {AuthModule} from './authentication/auth.module';
 import { CookieService } from 'ngx-cookie-service';
 import {MatButtonModule} from '@angular/material/button';
@@ -28,9 +30,11 @@ import {MatButtonModule} from '@angular/material/button';
     SectionComponent,
     NavigationComponent,
     LineChartComponent,
-    PieChartComponent
-    // CategoriesComponent,
-    // ScheduledComponent
+    PieChartComponent,
+    CategoriesComponent,
+    ScheduledComponent,
+    AccountsComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,

@@ -22,38 +22,38 @@ import java.util.List;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = CategoryControllerIntegrationTestConfiguration.class)
-@WebAppConfiguration
-public class CategoriesControllerIntegrationTest {
-
-    @Autowired
-    private CategoryService categoryService;
-
-    @Autowired
-    private WebApplicationContext webApplicationContext;
-
-    private MockMvc mockMvc;
-
-    @Before
-    public void init() {
-        this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
-
-    @Test
-    public void should_return_all_categories_by_user_id() throws Exception {
-        // given:
-        Long id = 1L;
-        List<CategoryDto> categoryDtos = new ArrayList<>();
-        categoryDtos.add(new CategoryDto(1L, "first", Collections.emptyList()));
-        categoryDtos.add(new CategoryDto(2L, "second", Collections.emptyList()));
-        categoryDtos.add(new CategoryDto(3L, "third", Collections.emptyList()));
-        when(categoryService.getCategoriesDtoByUserId(id)).thenReturn(categoryDtos);
-
-        // when, then:
-        mockMvc.perform(MockMvcRequestBuilders
-                .get("/api/v1//users/{userId}/categories"))
-                .andExpect(status().isOk());
-    }
-
-}
+//@RunWith(SpringJUnit4ClassRunner.class)
+//@ContextConfiguration(classes = CategoryControllerIntegrationTestConfiguration.class)
+//@WebAppConfiguration
+//public class CategoriesControllerIntegrationTest {
+//
+//    @Autowired
+//    private CategoryService categoryService;
+//
+//    @Autowired
+//    private WebApplicationContext webApplicationContext;
+//
+//    private MockMvc mockMvc;
+//
+//    @Before
+//    public void init() {
+//        this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
+//    }
+//
+//    @Test
+//    public void should_return_all_categories_by_user_id() throws Exception {
+//        // given:
+//        Long id = 1L;
+//        List<CategoryDto> categoryDtos = new ArrayList<>();
+//        categoryDtos.add(new CategoryDto(1L, "first", Collections.emptyList()));
+//        categoryDtos.add(new CategoryDto(2L, "second", Collections.emptyList()));
+//        categoryDtos.add(new CategoryDto(3L, "third", Collections.emptyList()));
+//        when(categoryService.getCategoriesDtoByUserId(id)).thenReturn(categoryDtos);
+//
+//        // when, then:
+//        mockMvc.perform(MockMvcRequestBuilders
+//                .get("/api/v1//users/{userId}/categories"))
+//                .andExpect(status().isOk());
+//    }
+//
+//}

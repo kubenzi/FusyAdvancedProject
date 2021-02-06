@@ -14,6 +14,7 @@ public class AccountDto {
     private String accountNumber;
     private AccountTypeDto accountType;
     private CurrencyDto currency;
+    private boolean builtin;
     private List<OperationDto> operations;
 
     public AccountDto() {
@@ -26,6 +27,7 @@ public class AccountDto {
                       @JsonProperty("accountNumber") String accountNumber,
                       @JsonProperty("accountType") AccountTypeDto accountType,
                       @JsonProperty("currency") CurrencyDto currency,
+                      @JsonProperty("builtin") boolean builtin,
                       @JsonProperty("operations") List<OperationDto> operations) {
         this.id = id;
         this.name = name;
@@ -33,6 +35,7 @@ public class AccountDto {
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.currency = currency;
+        this.builtin = builtin;
         this.operations = operations;
     }
 
@@ -82,6 +85,14 @@ public class AccountDto {
 
     public void setCurrency(CurrencyDto currency) {
         this.currency = currency;
+    }
+
+    public boolean isBuiltin() {
+        return builtin;
+    }
+
+    public void setBuiltin(boolean builtin) {
+        this.builtin = builtin;
     }
 
     public List<OperationDto> getOperations() {
