@@ -10,9 +10,8 @@ import java.util.List;
 public interface StatisticsLineChartService {
     List<DataSeriesDto> getAllDataSeriesDtoForPeriodByUserId(Long userId, Integer period, Double balance);
 
-    List<DataSeriesDto> getDataSeriesForLineChartByCategoryIdIdAndPeriod(Long categoryId, Integer period, Double balance);
-
-    List<SeriesDto> getSeriesForPieChartByUserIdAndPeriod(Long userId, Integer period);
-
-    List<SeriesDto> getSeriesForPieChartByCategoryIdAndPeriod(Long UserId, Long categoryId, Integer period);
+    List<DataSeriesDto> getDataSeriesForLineChartByCategoryIdIdAndPeriod(Long categoryId, Integer period,
+                                                                         Double balance, Long userId);
+    List<DataSeriesDto> getDataSeriesForLineChartByAccountIdIdAndPeriod(Long categoryId, Integer period,
+                                                                                       Double balance, Long userId);
 }

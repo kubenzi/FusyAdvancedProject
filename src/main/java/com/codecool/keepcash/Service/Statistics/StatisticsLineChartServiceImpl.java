@@ -1,6 +1,7 @@
 package com.codecool.keepcash.Service.Statistics;
 
 import com.codecool.keepcash.Dto.Operation.OperationDto;
+import com.codecool.keepcash.Service.Account.AccountService;
 import com.codecool.keepcash.Service.Operation.OperationService;
 import com.codecool.keepcash.Statisics.DataSeriesDto;
 import com.codecool.keepcash.Statisics.SeriesDto;
@@ -17,106 +18,106 @@ import java.util.stream.Collectors;
 public class StatisticsLineChartServiceImpl implements StatisticsLineChartService {
 
     private OperationService operationService;
+    private AccountService accountService;
 
-    public StatisticsLineChartServiceImpl(OperationService operationService) {
+    public StatisticsLineChartServiceImpl(OperationService operationService, AccountService accountService) {
         this.operationService = operationService;
+        this.accountService = accountService;
     }
 
     @Override
-    public List<SeriesDto> getSeriesForPieChartByCategoryIdAndPeriod(Long userId, Long categoryId, Integer period) {
-        return getSeriesForPeriodPieChart(
-                operationService.findAllByCategoryIdAndPeriod(categoryId, period),
-                operationService.getAllOperationsByUserId(userId)
-        );
-
-    }
-
-    @Override
-    public List<DataSeriesDto> getDataSeriesForLineChartByCategoryIdIdAndPeriod(Long categoryId, Integer period, Double balance) {
+    public List<DataSeriesDto> getDataSeriesForLineChartByCategoryIdIdAndPeriod(Long categoryId, Integer period,
+                                                                                Double balance, Long userId) {
         return getDataSeriesForPeriodLineChart(
-                operationService.findAllByCategoryIdAndPeriod(categoryId, period), period, balance);
+                operationService.findAllByCategoryIdAndPeriod(categoryId, period), period, balance, userId);
     }
 
     @Override
-    public List<SeriesDto> getSeriesForPieChartByUserIdAndPeriod(Long userId, Integer period) {
-        return getSeriesForPeriodPieChart(
-                operationService.findAllByUserIdAndPeriod(userId, period)
-        );
+    public List<DataSeriesDto> getDataSeriesForLineChartByAccountIdIdAndPeriod(Long accountId, Integer period,
+                                                                               Double balance, Long userId) {
+        return getDataSeriesForPeriodLineChartAccount(
+                operationService.findAllByAccountIdAndPeriod(accountId, period), period,
+                accountService.getAccountById(accountId).getBalance(), userId);
     }
+
 
     @Override
     public List<DataSeriesDto> getAllDataSeriesDtoForPeriodByUserId(Long userId, Integer period, Double balance) {
         return getDataSeriesForPeriodLineChart(
-                operationService.findAllByUserIdAndPeriod(userId, period), period, balance);
+                operationService.findAllByUserIdAndPeriod(userId, period), period, balance, userId);
     }
 
     private List<DataSeriesDto> getDataSeriesForPeriodLineChart(List<OperationDto> operationDtos,
-                                                                Integer period, Double balance)
+                                                                Integer period, Double balance, Long userId)
     /*
     Makes two data DataSeriesDto for line chart named: balance and spending.
     We have to put parameter spending: false or true - boolean is used in two methods,
     to distinguish how to calculate balance or spending. If it is used to calculate SPENDING SET TRUE.
     */ {
-        List<SeriesDto> seriesDtosBalance = getAllSeriesDtoForPeriod(operationDtos, period, balance, false);
-        List<SeriesDto> seriesDtosSpending = getAllSeriesDtoForPeriod(operationDtos, period, 0.0, true);
+        List<SeriesDto> seriesDtosBalance = getAllSeriesDtoForPeriod(
+                operationService.findAllByUserIdAndPeriod(userId, period)
+                , period, balance, false);
+
+        List<SeriesDto> seriesDtosSpending = getAllSeriesDtoForPeriod(operationDtos, period,
+                0.0, true);
+
         return Arrays.asList(new DataSeriesDto("balance", seriesDtosBalance),
                 new DataSeriesDto("spending", seriesDtosSpending));
     }
 
+    private List<DataSeriesDto> getDataSeriesForPeriodLineChartAccount(List<OperationDto> operationDtos,
+                                                                       Integer period, Double balance, Long userId)
+    /*
+    Makes two data DataSeriesDto for line chart named: balance and spending.
+    We have to put parameter spending: false or true - boolean is used in two methods,
+    to distinguish how to calculate balance or spending. If it is used to calculate SPENDING SET TRUE.
+    */ {
+        List<SeriesDto> seriesDtosBalance = getAllSeriesDtoForPeriod(
+                operationDtos, period, balance, false);
 
-    private List<SeriesDto> getSeriesForPeriodPieChart(List<OperationDto> operationDtos) {
-        Double spending = operationDtos.stream()
-                .filter(operationDto -> operationDto.getValue() < 0)
-                .map(OperationDto::getValue)
-                .reduce(0.0, (a, b) -> a - b);
+        List<SeriesDto> seriesDtosSpending = getAllSeriesDtoForPeriod(operationDtos, period,
+                0.0, true);
 
-        Double revenue = operationDtos.stream()
-                .filter(operationDto -> operationDto.getValue() > 0)
-                .map(OperationDto::getValue)
-                .reduce(0.0, (a, b) -> a + b);
-
-        return Arrays.asList(new SeriesDto("Revenue", revenue),
-                new SeriesDto("Spending", spending));
+        return Arrays.asList(new DataSeriesDto("balance", seriesDtosBalance),
+                new DataSeriesDto("spending", seriesDtosSpending));
     }
 
-    private List<SeriesDto> getSeriesForPeriodPieChart(List<OperationDto> operationDtosCategory,
-                                                       List<OperationDto> operationDtosCategoryTotal) {
-        Double spending = operationDtosCategory.stream()
-                .filter(operationDto -> operationDto.getValue() > 0)
-                .map(OperationDto::getValue)
-                .reduce(0.0, (a, b) -> a + b);
-
-        Double revenue = operationDtosCategoryTotal.stream()
-                .filter(operationDto -> operationDto.getValue() > 0)
-                .map(OperationDto::getValue)
-                .reduce(0.0, (a, b) -> a + b);
-
-        return Arrays.asList(new SeriesDto("Total Spending", revenue),
-                new SeriesDto("Spending", spending));
-    }
 
     private List<SeriesDto> getAllSeriesDtoForPeriod(List<OperationDto> operationDtos, Integer period,
                                                      Double balance, Boolean spending) {
         Map<String, List<OperationDto>> dayMapForPeriod = createDayMapForPeriod(operationDtos, spending);
         Map<String, Double> transformDayMapForPeriod = transformDayMapForPeriod(dayMapForPeriod);
         Map<String, Double> filledMapWithEmptyDay = fillMapWithEmptyDay(transformDayMapForPeriod, period);
-        Map<String, Double> sortedMapWithBalance = sortMapWithBalance(filledMapWithEmptyDay, balance, spending);
+
+        Map<String, Double> sortedMapWithBalance = spending ?
+                sortMapWithBalanceForSpending(filledMapWithEmptyDay, balance)
+                :
+                sortMapWithBalanceForBalance(filledMapWithEmptyDay, balance);
+
         return convertMapToDataSeriesDto(sortedMapWithBalance);
     }
 
-    private Map<String, List<OperationDto>> createDayMapForPeriod(List<OperationDto> operationDtos, Boolean spending) {
+//    private List<SeriesDto> getAllSeriesDtoForPeriodSpenging(List<OperationDto> operationDtos, Integer period,
+//                                                             Double balance, Boolean spending) {
+//        Map<String, List<OperationDto>> dayMapForPeriod = createDayMapForPeriod(operationDtos, spending);
+//        Map<String, Double> transformDayMapForPeriod = transformDayMapForPeriod(dayMapForPeriod);
+//        Map<String, Double> filledMapWithEmptyDay = fillMapWithEmptyDay(transformDayMapForPeriod, period);
+//        Map<String, Double> sortedMapWithBalance = sortMapWithBalanceForSpending(filledMapWithEmptyDay, balance);
+//        return convertMapToDataSeriesDto(sortedMapWithBalance);
+//    }
 
+    private Map<String, List<OperationDto>> createDayMapForPeriod(List<OperationDto> operationDtos,
+                                                                  Boolean spending) {
         return spending ?
                 operationDtos.stream()
                         .filter(operationDto -> operationDto.getValue() < 0)
                         .collect(Collectors.groupingBy(operationDto -> operationDto.getDate().toString()))
-
                 :
-
                 operationDtos.stream()
                         .collect(Collectors.groupingBy(operationDto -> operationDto.getDate().toString())
                         );
     }
+
 
     private Map<String, Double> transformDayMapForPeriod(Map<String, List<OperationDto>> dayMapForPeriod) {
         return dayMapForPeriod.entrySet().stream()
@@ -125,7 +126,6 @@ public class StatisticsLineChartServiceImpl implements StatisticsLineChartServic
                                 stream().collect(Collectors.summingDouble(value -> value.getValue()))
                 ));
     }
-
 
     private Map<String, Double> fillMapWithEmptyDay(Map<String, Double> dayMapForPeriod, Integer period) {
         LocalDate date = LocalDate.now();
@@ -140,24 +140,36 @@ public class StatisticsLineChartServiceImpl implements StatisticsLineChartServic
         return dayMapForPeriod;
     }
 
-    private Map<String, Double> sortMapWithBalance(Map<String, Double> dayMapForPeriod, Double balance,
-                                                   Boolean spendings) {
+    private Map<String, Double> sortMapWithBalanceForBalance(Map<String, Double> dayMapForPeriod, Double balance) {
+
+
+        TreeMap<String, Double> sortedMap = new TreeMap<>(dayMapForPeriod);
+        Map<String, Double> reverseSortedMap = sortedMap.descendingMap();
+
+        for (String key : reverseSortedMap.keySet()) {
+            Double value = reverseSortedMap.get(key);
+
+            balance -= value;
+
+            reverseSortedMap.put(key, balance);
+        }
+        TreeMap<String, Double> resortedMap = new TreeMap<>(reverseSortedMap);
+        return resortedMap;
+    }
+
+    private Map<String, Double> sortMapWithBalanceForSpending(Map<String, Double> dayMapForPeriod, Double balance) {
 
         TreeMap<String, Double> sortedMap = new TreeMap<>(dayMapForPeriod);
 
         for (String key : sortedMap.keySet()) {
             Double value = sortedMap.get(key);
-            if (spendings) {
-                if (value < 0) {
-                    balance -= value;
-                }
-            } else
-                balance += value;
 
+            if (value < 0) {
+                balance -= value;
+            }
             sortedMap.put(key, balance);
         }
         return sortedMap;
-
     }
 
     private List<SeriesDto> convertMapToDataSeriesDto(Map<String, Double> sortMapWithBalance) {
@@ -171,6 +183,4 @@ public class StatisticsLineChartServiceImpl implements StatisticsLineChartServic
                 .sorted((series1, series2) -> series1.getName().compareTo(series2.getName()))
                 .collect(Collectors.toList());
     }
-
-
 }

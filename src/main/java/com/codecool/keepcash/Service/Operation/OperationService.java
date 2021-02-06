@@ -20,4 +20,6 @@ public interface OperationService {
     List<OperationDto> findAllByUserIdAndPeriod(Long userId, Integer period);
 
     List<OperationDto> findAllByCategoryIdAndPeriod(Long categoryId, Integer period);
+
+    List<OperationDto> findAllByAccountIdAndPeriod(Long categoryId, Integer period);
 }
