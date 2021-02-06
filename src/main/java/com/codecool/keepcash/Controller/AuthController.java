@@ -1,15 +1,18 @@
 package com.codecool.keepcash.Controller;
 
 import com.codecool.keepcash.Dto.Authentication.UserCredentialsDto;
+import com.codecool.keepcash.Dto.Authentication.LoginData;
 import com.codecool.keepcash.Dto.Authentication.UserRegistrationDto;
+import com.codecool.keepcash.Entity.User;
 import com.codecool.keepcash.Service.Authentication.AuthenticationService;
-
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
-
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
-
-
+import org.springframework.web.context.request.RequestContextHolder;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -32,22 +35,32 @@ public class AuthController {
     @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/login", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
-    public void login(@RequestBody UserCredentialsDto userCredentialsDto) {
+    public LoginData login(@RequestBody UserCredentialsDto userCredentialsDto) {
         Authentication authentication = authenticationService.login(userCredentialsDto);
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
-
-//        UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
+        User loggedUser = (User) authentication.getPrincipal();
+        LoginData loginData = new LoginData(loggedUser.getId(),
+                loggedUser.getUsername(),
+                RequestContextHolder.currentRequestAttributes().getSessionId());
+        return loginData;
     }
 
-//    @GetMapping
-//    @ResponseStatus(OK)
-//    public void getUser(){
-//
-//    }
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PostMapping(value = "/logout")
+    @ResponseStatus(OK)
+    public void logout(HttpServletRequest request, HttpServletResponse response) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        if (auth != null) {
+            new SecurityContextLogoutHandler().logout(request, response, auth);
+        }
+    }
 
+    @CrossOrigin(origins = "http://localhost:4200/hello")
+    @GetMapping("/hello")
+    public String hello(@CurrentSecurityContext(expression = "authentication?.username")
+                                String username) {
+        return "Hello, " + username + "!";
+    }
 
 
 }

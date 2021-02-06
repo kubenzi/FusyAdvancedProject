@@ -16,7 +16,8 @@ const routes: Routes = [
   // {path: 'categories/:id', component: CategoriesComponent},
   {path: '', pathMatch: 'full', redirectTo: '/login' },
   {path: 'login', component: LoginComponent, canActivate: [AuthGuard]},
-  {path: 'register', component: RegisterComponent, canActivate: [AuthGuard]}
+  {path: 'register', component: RegisterComponent, canActivate: [AuthGuard]},
+  {path: 'hello', component: MenuComponent}
 ];
 
 @NgModule({

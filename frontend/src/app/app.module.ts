@@ -16,6 +16,9 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 // import { CategoriesComponent } from './components/categories/categories.component';
 // import { ScheduledComponent } from './components/scheduled/scheduled.component';
 import {AuthModule} from './authentication/auth.module';
+import { CookieService } from 'ngx-cookie-service';
+import {MatButtonModule} from '@angular/material/button';
+
 
 @NgModule({
   declarations: [
@@ -38,9 +41,10 @@ import {AuthModule} from './authentication/auth.module';
     NgxChartsModule,
     FormsModule,
     BrowserAnimationsModule,
-    AuthModule
+    AuthModule,
+    MatButtonModule
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

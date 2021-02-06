@@ -4,6 +4,7 @@ import {Data, Series, User} from '../../models/models';
 import {Observable} from 'rxjs';
 import {ActivatedRoute, ActivationStart, NavigationStart, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
+import {AuthService} from '../../authentication/services/auth.service';
 
 @Component({
   selector: 'app-menu',
@@ -30,4 +31,5 @@ export class MenuComponent implements OnInit {
 
       // navigationStart: NavigationStart) => console.log(navigationStart.url));
   }
+
 }

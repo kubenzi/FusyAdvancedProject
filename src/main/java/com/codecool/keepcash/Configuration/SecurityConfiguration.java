@@ -9,14 +9,12 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.reactive.config.CorsRegistry;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Bean
     public PasswordEncoder bCryptPasswordEncoder() {
@@ -32,7 +30,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
     }
 
 
-
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -41,7 +38,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter  {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder managerBuilder,
-                                AuthenticationService authenticationService) throws Exception{
+                                AuthenticationService authenticationService) throws Exception {
         managerBuilder.userDetailsService(authenticationService)
                 .passwordEncoder(bCryptPasswordEncoder());
     }
