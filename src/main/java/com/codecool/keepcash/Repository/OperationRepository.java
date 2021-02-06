@@ -27,4 +27,7 @@ public interface OperationRepository extends CrudRepository<Operation, Long> {
 
     @Query(value = "select * from operations where category_id=?1 and operations.date > ?2", nativeQuery = true)
     List<Operation> findAllByCategoryAndPeriod(Long categoryId, LocalDate minusDays);
+
+    @Query(value = "select * from operations where account_id=?1 and operations.date > ?2", nativeQuery = true)
+    List<Operation> findAllByAccountAndPeriod(Long accountId, LocalDate minusDays);
 }

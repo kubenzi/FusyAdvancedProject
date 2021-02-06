@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {Data, Series, User} from '../models/models';
 
@@ -11,6 +11,7 @@ import {Data, Series, User} from '../models/models';
 export class UserService {
   user$ = new BehaviorSubject<User>({});
   address: string;
+  addressChange$ = new Subject<boolean>();
 
   constructor(private http: HttpClient) {
   }
@@ -20,6 +21,10 @@ export class UserService {
     return this.http.get<User>(url).pipe(
       tap(user => this.user$.next(user))
     );
+  }
+
+  getAddressChange$(): Observable<boolean> {
+    return this.addressChange$.asObservable();
   }
 
   reEmitUser(): void {
@@ -95,10 +100,11 @@ export class UserService {
 
   setAddress(addressUrl: string): void {
     this.address = addressUrl;
+    this.addressChange$.next(true);
   }
 
-  getAddress(): string {
-    console.log(this.address + 'test of user service');
-    return this.address;
-  }
+  // getAddress(): string {
+  //   console.log(this.address + 'test of user service');
+  //   return this.address;
+  // }
 }

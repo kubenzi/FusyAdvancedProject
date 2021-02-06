@@ -64,6 +64,7 @@ public class OperationServiceImpl implements OperationService {
 
         Account account = accountService.getAccountById(newOperationDto.getAccountId());
         account.getOperations().add(newOperation);
+        account.setBalance(account.getBalance() - newOperation.getValue());
         accountService.saveUpdatedAccount(account);
 
         Category category = categoryService.getCategoryById(newOperationDto.getCategoryId());
@@ -112,5 +113,12 @@ public class OperationServiceImpl implements OperationService {
 
         return OperationToOperationDtoConverter.convertListToDto(
                 operationRepository.findAllByUserIdAndPeriod(userId, LocalDate.now().minusDays(period)));
+    }
+
+    @Override
+    public List<OperationDto> findAllByAccountIdAndPeriod(Long accountId, Integer period){
+
+        return OperationToOperationDtoConverter.convertListToDto(
+                operationRepository.findAllByAccountAndPeriod(accountId, LocalDate.now().minusDays(period)));
     }
 }

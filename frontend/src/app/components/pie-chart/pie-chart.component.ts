@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Series} from '../../models/models';
+import {Series, User} from '../../models/models';
 import {UserService} from '../../services/user-service';
+import {Router} from '@angular/router';
+import {take} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-pie-chart',
@@ -9,7 +12,9 @@ import {UserService} from '../../services/user-service';
 })
 export class PieChartComponent implements OnInit {
 
+  userId: number;
   pieChartData: Series[] = [];
+  period = 30;
 
   view: any[] = [400, 300];
 
@@ -26,10 +31,19 @@ export class PieChartComponent implements OnInit {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private activatedRoute: Router) {
   }
 
   ngOnInit(): void {
+    this.userService.getUser$()
+      .subscribe((user: User) => {
+        this.userId = user.id;
+      });
+    console.log(this.userId);
+    this.userService.getAddressChange$().subscribe(() => {
+      this.userService.getPieChartDataStartForPeriod(this.userService.address, 30).subscribe(
+        value => this.pieChartData = value);
+    });
     this.userService.getPieChartDataStart().subscribe(value => this.pieChartData = value);
   }
 
@@ -47,8 +61,9 @@ export class PieChartComponent implements OnInit {
 
   setPeriod(period: number): void {
     this.pieChartData = [];
+    this.period = period;
     this.userService.getPieChartDataStartForPeriod(
-      this.userService.address, period).subscribe(
+      this.userService.address, this.period).subscribe(
       value => this.pieChartData = value);
   }
 }

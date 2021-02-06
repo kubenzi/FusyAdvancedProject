@@ -15,6 +15,7 @@ import {PieChartComponent} from './components/pie-chart/pie-chart.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { ScheduledComponent } from './components/scheduled/scheduled.component';
+import { AccountsComponent } from './components/accounts/accounts.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ScheduledComponent } from './components/scheduled/scheduled.component';
     LineChartComponent,
     PieChartComponent,
     CategoriesComponent,
-    ScheduledComponent
+    ScheduledComponent,
+    AccountsComponent
   ],
   imports: [
     BrowserModule,
