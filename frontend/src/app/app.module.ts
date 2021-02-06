@@ -16,6 +16,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { CategoriesComponent } from './components/categories/categories.component';
 import { ScheduledComponent } from './components/scheduled/scheduled.component';
 import { AccountsComponent } from './components/accounts/accounts.component';
+import { FileUploadComponent } from './components/file-upload/file-upload.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AccountsComponent } from './components/accounts/accounts.component';
     PieChartComponent,
     CategoriesComponent,
     ScheduledComponent,
-    AccountsComponent
+    AccountsComponent,
+    FileUploadComponent
   ],
   imports: [
     BrowserModule,
