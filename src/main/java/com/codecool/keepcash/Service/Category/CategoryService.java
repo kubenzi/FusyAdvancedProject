@@ -10,9 +10,13 @@ public interface CategoryService {
 
     Category getCategoryById(Long id);
 
+    Category getCategoryByNameAndUserId(String name, Long userId);
+
     CategoryDto getCategoryDtoById(Long id);
 
     List<CategoryDto> getCategoriesDtoByUserId(Long userId);
+
+    List<Category> createBuiltinCategories();
 
     void addCategory(Long userId, NewCategoryDto newCategoryDto, boolean isBuiltin);
 

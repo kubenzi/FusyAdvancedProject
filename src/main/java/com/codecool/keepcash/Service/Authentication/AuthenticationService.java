@@ -20,7 +20,9 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import javax.xml.bind.ValidationException;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -39,23 +41,27 @@ public class AuthenticationService implements UserDetailsService {
     private AccountService accountService;
 
     @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
     private AuthenticationManager authenticationManager;
 
+    @Transactional
     public void register(UserRegistrationDto userRegistrationDto) {
         User user = new User(bCryptPasswordEncoder.encode(userRegistrationDto.getPassword()),
                 userRegistrationDto.getUsername());
         failIfUserAlreadyRegistered(userRegistrationDto.getUsername());
         userRepository.save(user);
 
-//        Long registeredId = userRepository.findByUsername(user.getUsername()).get().getId();
-
         UserData userData = new UserData(userRegistrationDto.getFirstName(),
                 userRegistrationDto.getLastName(),
                 userRegistrationDto.getEmail(),
                 user);
-        userData.getCategories().add(new Category("OTHER", true));
-        userData.getCategories().add(new Category("UNASSIGNED", true));
-        userData.getAccounts().add(accountService.createBuiltinAccount());
+
+        List<Category> inbuiltCategories = categoryService.createBuiltinCategories();
+        inbuiltCategories.stream().forEach(category -> userData.getCategories().add(category));
+
+        userData.getAccounts().add(accountService.createBuiltinAccounts());
         userDataRepository.save(userData);
     }
 

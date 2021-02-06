@@ -63,7 +63,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account createBuiltinAccount() {
+    public Account createBuiltinAccounts() {
         return new Account("CASH PLN",
                 0.0,
                 "00 0000 0000 0000 0000",

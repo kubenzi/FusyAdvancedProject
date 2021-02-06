@@ -29,7 +29,6 @@ public class AuthController {
     @ResponseStatus(OK)
     public void login(@RequestBody UserCredentialsDto userCredentialsDto) {
         Authentication authentication = authenticationService.login(userCredentialsDto);
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

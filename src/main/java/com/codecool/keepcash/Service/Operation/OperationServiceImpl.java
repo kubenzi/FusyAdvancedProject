@@ -37,6 +37,22 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
+    public List<OperationDto> getAllOperationsByUserId(Long userId) {
+        List<Operation> allOperations = operationRepository.findAllByUserId(userId);
+        return OperationToOperationDtoConverter.convertListToDto(allOperations);
+    }
+
+    @Override
+    public List<OperationDto> getAllOperationByCategoryId(Long categoryId) {
+        return OperationToOperationDtoConverter.convertListToDto(operationRepository.findByCategoryId(categoryId));
+    }
+
+    @Override
+    public List<OperationDto> getAllOperationByAccountId(Long accountId) {
+        return OperationToOperationDtoConverter.convertListToDto(operationRepository.findByAccountId(accountId));
+    }
+
+    @Override
     @Transactional
     public void addTransaction(NewOperationDto newOperationDto) {
         newOperationDto.setDate(new Date(System.currentTimeMillis()));
@@ -55,21 +71,25 @@ public class OperationServiceImpl implements OperationService {
         categoryService.saveUpdatedCategory(category);
     }
 
-
     @Override
-    public List<OperationDto> getAllOperationsByUserId(Long userId) {
-        List<Operation> allOperations = operationRepository.findAllByUserId(userId);
-        return OperationToOperationDtoConverter.convertListToDto(allOperations);
-    }
+    public void addNewCSVOperations(List<Operation> csvOperations, Long userId, Long accountId) {
+        Account account = accountService.getAccountById(accountId);
+        Category catIncome = categoryService.getCategoryByNameAndUserId("INCOME", userId);
+        Category catUnassigned = categoryService.getCategoryByNameAndUserId("UNASSIGNED", userId);
 
-    @Override
-    public List<OperationDto> getAllOperationByCategoryId(Long categoryId) {
-        return OperationToOperationDtoConverter.convertListToDto(operationRepository.findByCategoryId(categoryId));
-    }
+        for (Operation operation : csvOperations) {
+            account.getOperations().add(operation);
 
-    @Override
-    public List<OperationDto> getAllOperationByAccountId(Long accountId) {
-        return OperationToOperationDtoConverter.convertListToDto(operationRepository.findByAccountId(accountId));
+            if (operation.getValue() > 0) {
+                catIncome.getOperations().add(operation);
+            } else {
+                catUnassigned.getOperations().add(operation);
+            }
+        }
+
+        accountService.saveUpdatedAccount(account);
+        categoryService.saveUpdatedCategory(catIncome);
+        categoryService.saveUpdatedCategory(catUnassigned);
     }
 
     @Override
