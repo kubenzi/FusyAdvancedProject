@@ -28,26 +28,37 @@ public class StatisticsLineChartServiceImpl implements StatisticsLineChartServic
     @Override
     public List<DataSeriesDto> getDataSeriesForLineChartByCategoryIdIdAndPeriod(Long categoryId, Integer period,
                                                                                 Double balance, Long userId) {
+
         return getDataSeriesForPeriodLineChart(
-                operationService.findAllByCategoryIdAndPeriod(categoryId, period), period, balance, userId);
+                new OperationBuilder.Builder()
+                        .spending(operationService.findAllByCategoryIdAndPeriod(categoryId, period))
+                        .balance(operationService.findAllByUserIdAndPeriod(userId, period))
+                        .build(),
+                period, balance, userId);
     }
 
     @Override
     public List<DataSeriesDto> getDataSeriesForLineChartByAccountIdIdAndPeriod(Long accountId, Integer period,
                                                                                Double balance, Long userId) {
-        return getDataSeriesForPeriodLineChartAccount(
-                operationService.findAllByAccountIdAndPeriod(accountId, period), period,
+        return getDataSeriesForPeriodLineChart(
+                new OperationBuilder.Builder()
+                        .spending(operationService.findAllByAccountIdAndPeriod(accountId, period)).build(),
+                period,
                 accountService.getAccountById(accountId).getBalance(), userId);
+//                operationService.findAllByAccountIdAndPeriod(accountId, period), period,
     }
 
 
     @Override
     public List<DataSeriesDto> getAllDataSeriesDtoForPeriodByUserId(Long userId, Integer period, Double balance) {
+//        operationService.findAllByUserIdAndPeriod(userId, period)
         return getDataSeriesForPeriodLineChart(
-                operationService.findAllByUserIdAndPeriod(userId, period), period, balance, userId);
+                new OperationBuilder.Builder().spending(
+                        operationService.findAllByUserIdAndPeriod(userId, period)).build(),
+                period, balance, userId);
     }
 
-    private List<DataSeriesDto> getDataSeriesForPeriodLineChart(List<OperationDto> operationDtos,
+    private List<DataSeriesDto> getDataSeriesForPeriodLineChart(OperationBuilder operationBuilder,
                                                                 Integer period, Double balance, Long userId)
     /*
     Makes two data DataSeriesDto for line chart named: balance and spending.
@@ -55,32 +66,33 @@ public class StatisticsLineChartServiceImpl implements StatisticsLineChartServic
     to distinguish how to calculate balance or spending. If it is used to calculate SPENDING SET TRUE.
     */ {
         List<SeriesDto> seriesDtosBalance = getAllSeriesDtoForPeriod(
-                operationService.findAllByUserIdAndPeriod(userId, period)
-                , period, balance, false);
+                operationBuilder.getBalanceOperationsDto(),
+                period, balance, false);
 
-        List<SeriesDto> seriesDtosSpending = getAllSeriesDtoForPeriod(operationDtos, period,
-                0.0, true);
-
-        return Arrays.asList(new DataSeriesDto("balance", seriesDtosBalance),
-                new DataSeriesDto("spending", seriesDtosSpending));
-    }
-
-    private List<DataSeriesDto> getDataSeriesForPeriodLineChartAccount(List<OperationDto> operationDtos,
-                                                                       Integer period, Double balance, Long userId)
-    /*
-    Makes two data DataSeriesDto for line chart named: balance and spending.
-    We have to put parameter spending: false or true - boolean is used in two methods,
-    to distinguish how to calculate balance or spending. If it is used to calculate SPENDING SET TRUE.
-    */ {
-        List<SeriesDto> seriesDtosBalance = getAllSeriesDtoForPeriod(
-                operationDtos, period, balance, false);
-
-        List<SeriesDto> seriesDtosSpending = getAllSeriesDtoForPeriod(operationDtos, period,
-                0.0, true);
+        List<SeriesDto> seriesDtosSpending = getAllSeriesDtoForPeriod(
+                operationBuilder.getSpendingOperationsDto(),
+                period, 0.0, true);
 
         return Arrays.asList(new DataSeriesDto("balance", seriesDtosBalance),
                 new DataSeriesDto("spending", seriesDtosSpending));
     }
+
+//    private List<DataSeriesDto> getDataSeriesForPeriodLineChart(List<OperationDto> operationDtos,
+//                                                                Integer period, Double balance, Long userId)
+//    /*
+//    Makes two data DataSeriesDto for line chart named: balance and spending.
+//    We have to put parameter spending: false or true - boolean is used in two methods,
+//    to distinguish how to calculate balance or spending. If it is used to calculate SPENDING SET TRUE.
+//    */ {
+//        List<SeriesDto> seriesDtosBalance = getAllSeriesDtoForPeriod(
+//                operationDtos, period, balance, false);
+//
+//        List<SeriesDto> seriesDtosSpending = getAllSeriesDtoForPeriod(operationDtos, period,
+//                0.0, true);
+//
+//        return Arrays.asList(new DataSeriesDto("balance", seriesDtosBalance),
+//                new DataSeriesDto("spending", seriesDtosSpending));
+//    }
 
 
     private List<SeriesDto> getAllSeriesDtoForPeriod(List<OperationDto> operationDtos, Integer period,
