@@ -39,10 +39,9 @@ public class AuthController {
         Authentication authentication = authenticationService.login(userCredentialsDto);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         User loggedUser = (User) authentication.getPrincipal();
-        LoginData loginData = new LoginData(loggedUser.getId(),
+        return new LoginData(loggedUser.getId(),
                 loggedUser.getUsername(),
                 RequestContextHolder.currentRequestAttributes().getSessionId());
-        return loginData;
     }
 
     @CrossOrigin(origins = "http://localhost:4200")

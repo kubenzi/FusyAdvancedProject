@@ -12,12 +12,14 @@ export class UserService {
   user$ = new BehaviorSubject<User>({});
   address: string;
   addressChange$ = new Subject<boolean>();
+  userId = new BehaviorSubject<User>({}).getValue().id;
+
 
   constructor(private http: HttpClient) {
   }
 
-  setUser$(): Observable<User> {
-    const url = 'http://localhost:8080/api/v1/users/2';
+  setUser$(userId: number): Observable<User> {
+    const url = 'http://localhost:8080/api/v1/users/' + userId;
     return this.http.get<User>(url).pipe(
       tap(user => this.user$.next(user))
     );
@@ -42,25 +44,25 @@ export class UserService {
 
   getLineChartDataForPeriod(addressUrl: string, period: number): Observable<Data[]> {
     if (addressUrl === undefined) {
-      const url = 'http://localhost:8080/api/v1/users/' + '2' + '/line-chart/' + period;
+      const url = 'http://localhost:8080/api/v1/users/' + this.userId + '/line-chart/' + period;
       return this.http.get<Data[]>(url);
     }
     if (addressUrl === '/dashboard') {
-      const url = 'http://localhost:8080/api/v1/users/' + '2' + '/line-chart/' + period;
+      const url = 'http://localhost:8080/api/v1/users/' + this.userId + '/line-chart/' + period;
       return this.http.get<Data[]>(url);
     }
     if (addressUrl === '/scheduled') {
-      const url = 'http://localhost:8080/api/v1/users/' + '2' + '/line-chart/' + period;
+      const url = 'http://localhost:8080/api/v1/users/' + this.userId + '/line-chart/' + period;
       return this.http.get<Data[]>(url);
     } else {
-      const url = 'http://localhost:8080/api/v1/users/2/line-chart' + addressUrl + '/period/' + period;
+      const url = 'http://localhost:8080/api/v1/users/' + this.userId + '/line-chart' + addressUrl + '/period/' + period;
       return this.http.get<Data[]>(url);
     }
   }
 
 
   getPieChartDataStart(): Observable<Series[]> {
-    const url = 'http://localhost:8080/api/v1/users/' + '2' + '/pie-chart/30';
+    const url = 'http://localhost:8080/api/v1/users/' + this.userId + '/pie-chart/30';
     return this.http.get<Series[]>(url);
   }
 

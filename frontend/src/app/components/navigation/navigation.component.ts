@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user-service';
 import {User} from '../../models/models';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {AuthService} from '../../authentication/services/auth.service';
 import {filter, first} from 'rxjs/operators';
 import {NavigationEnd, NavigationStart, Router, RouterEvent} from '@angular/router';
@@ -14,13 +14,15 @@ import {NavigationEnd, NavigationStart, Router, RouterEvent} from '@angular/rout
 export class NavigationComponent implements OnInit {
 
   user$: Observable<User>;
+  username = new BehaviorSubject<User>({}).getValue().firstName;
 
   constructor(private userService: UserService, private activatedRoute: Router, private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
-    this.userService.setUser$().subscribe();
+    this.userService.setUser$(this.authService.getUserId()).subscribe();
     this.user$ = this.userService.getUser$();
+    console.log(this.user$);
     // this.activatedRoute.events.pipe(first(event => !!event)).subscribe((
     //   navigationStart: NavigationStart) => this.userService.getPieChartData(navigationStart.url));
     // this.activatedRoute.events.pipe(first(event => !!event)).subscribe((
