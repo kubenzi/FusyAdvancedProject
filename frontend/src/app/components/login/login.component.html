@@ -8,7 +8,7 @@
         <h1>Login</h1>
         <div class="input_container">
           <i class="fas fa-envelope"></i>
-          <mat-form-field>
+          <mat-form-field [appearance]="form">
             <input
               matInput
               type="text"
@@ -23,7 +23,7 @@
         </div>
         <div class="input_container">
           <i class="fas fa-lock"></i>
-          <mat-form-field>
+          <mat-form-field [appearance]="form">
             <input
               matInput
               type="password"
@@ -40,7 +40,7 @@
 <!--        <div class="actions">-->
 <!--          <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">LOG IN</button>-->
 <!--        </div>-->
-        <h3 style="color: gray">New User? <a href="#"> Create your account!</a></h3>
+        <h3 style="color: gray">New User? <a routerLink="/register" routerLinkActive="active"> Create your account!</a></h3>
       </div>
     </form>
   </div>

@@ -6,9 +6,9 @@
     <form [formGroup]="registerForm" (ngSubmit)="register()">
       <div id="form_right">
         <h1>User registration</h1>
-        <div class="input_container">
-          <i class="fas fa-envelope"></i>
-          <mat-form-field>
+        <span class="input_container">
+<!--          <i class="fas fa-envelope"></i>-->
+          <mat-form-field [appearance]="form">
             <input
               matInput
               placeholder="E-mail"
@@ -16,13 +16,15 @@
               name="Email"
               id="field_email"
               class="input_field"
-              formControlName="email"
+              [formControl]="email"
+              required
             />
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
           </mat-form-field>
-        </div>
+        </span>
         <div class="input_container">
           <i class="fas fa-envelope"></i>
-          <mat-form-field>
+          <mat-form-field [appearance]="form" >
             <input
               matInput
               placeholder="Username"
@@ -32,11 +34,14 @@
               class="input_field"
               formControlName="username"
             />
+            <div *ngIf="username.errors?.pattern">
+              User name not valid.
+            </div>
           </mat-form-field>
         </div>
         <div class="input_container">
           <i class="fas fa-envelope"></i>
-          <mat-form-field>
+          <mat-form-field [appearance]="form">
             <input
               matInput
               placeholder="First name"
@@ -50,7 +55,7 @@
         </div>
         <div class="input_container">
           <i class="fas fa-envelope"></i>
-          <mat-form-field>
+          <mat-form-field [appearance]="form">
             <input
               matInput
               placeholder="Last name"
@@ -64,7 +69,7 @@
         </div>
         <div class="input_container">
           <i class="fas fa-lock"></i>
-          <mat-form-field>
+          <mat-form-field [appearance]="form">
             <input
               matInput
               placeholder="Password"
@@ -78,7 +83,7 @@
         </div>
 <!--        <div class="input_container">-->
 <!--          <i class="fas fa-lock"></i>-->
-<!--          <mat-form-field>-->
+<!--          <mat-form-field [appearance]="form">-->
 <!--            <input-->
 <!--                  matInput-->
 <!--              placeholder="Confirm password"-->
@@ -90,6 +95,7 @@
 <!--          </mat-form-field>-->
 <!--        </div>-->
         <button mat-raised-button type="submit" id="button" class="button" [disabled]="!registerForm.valid">Sign up</button>
+        <h3 style="color: gray">Already registered? <a routerLink="/login" routerLinkActive="active"> Sign in here!</a></h3>
       </div>
     </form>
   </div>

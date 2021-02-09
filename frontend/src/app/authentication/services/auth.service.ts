@@ -33,13 +33,13 @@ export class AuthService {
         tap((data: LoginData) => this.doLoginUser(data.username, data.sessionId, data.userId)),
         mapTo(true),
         catchError(error => {
-          alert(error.error);
+          console.log(error);
           return of(false);
         }));
   }
 
   logout() {
-    return this.http.post<any>(`${environment.apiUrl}/logout`, {}).pipe(
+    return this.http.post<any>(`${environment.apiUrl}/log-out`, {}).pipe(
       tap(() => this.doLogoutUser()),
       mapTo(true),
       catchError(error => {

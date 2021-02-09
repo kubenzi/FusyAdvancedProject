@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {tap} from 'rxjs/operators';
 import {Data, Series, User} from '../models/models';
+import {AuthService} from '../authentication/services/auth.service';
 
 
 @Injectable({
@@ -12,10 +13,9 @@ export class UserService {
   user$ = new BehaviorSubject<User>({});
   address: string;
   addressChange$ = new Subject<boolean>();
-  userId = new BehaviorSubject<User>({}).getValue().id;
 
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
   }
 
   setUser$(userId: number): Observable<User> {
@@ -38,31 +38,31 @@ export class UserService {
   }
 
   getLineChartDataForInit30(): Observable<Data[]> {
-    const url = 'http://localhost:8080/api/v1/users/' + '2' + '/line-chart/' + 30;
+    const url = 'http://localhost:8080/api/v1/users/' +  + '/line-chart/' + 30;
     return this.http.get<Data[]>(url);
   }
 
   getLineChartDataForPeriod(addressUrl: string, period: number): Observable<Data[]> {
     if (addressUrl === undefined) {
-      const url = 'http://localhost:8080/api/v1/users/' + this.userId + '/line-chart/' + period;
+      const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/line-chart/' + period;
       return this.http.get<Data[]>(url);
     }
     if (addressUrl === '/dashboard') {
-      const url = 'http://localhost:8080/api/v1/users/' + this.userId + '/line-chart/' + period;
+      const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/line-chart/' + period;
       return this.http.get<Data[]>(url);
     }
     if (addressUrl === '/scheduled') {
-      const url = 'http://localhost:8080/api/v1/users/' + this.userId + '/line-chart/' + period;
+      const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/line-chart/' + period;
       return this.http.get<Data[]>(url);
-    } else {
-      const url = 'http://localhost:8080/api/v1/users/' + this.userId + '/line-chart' + addressUrl + '/period/' + period;
+    } else { //if addressUrl = login
+      const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/line-chart' + addressUrl + '/period/' + period;
       return this.http.get<Data[]>(url);
     }
   }
 
 
   getPieChartDataStart(): Observable<Series[]> {
-    const url = 'http://localhost:8080/api/v1/users/' + this.userId + '/pie-chart/30';
+    const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/pie-chart/30';
     return this.http.get<Series[]>(url);
   }
 
@@ -84,18 +84,18 @@ export class UserService {
 
   getPieChartDataStartForPeriod(addressUrl: string, period: number): Observable<Series[]> {
     if (addressUrl === undefined) {
-      const url = 'http://localhost:8080/api/v1/users/' + '2' + '/pie-chart/' + period;
+      const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/pie-chart/' + period;
       return this.http.get<Series[]>(url);
     }
     if (addressUrl === '/dashboard') {
-      const url = 'http://localhost:8080/api/v1/users/' + '2' + '/pie-chart/' + period;
+      const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/pie-chart/' + period;
       return this.http.get<Series[]>(url);
     }
     if (addressUrl === '/scheduled') {
-      const url = 'http://localhost:8080/api/v1/users/' + '2' + '/pie-chart/' + period;
+      const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/pie-chart/' + period;
       return this.http.get<Series[]>(url);
     } else {
-      const url = 'http://localhost:8080/api/v1/users/2/pie-chart' + addressUrl + '/period/' + period;
+      const url = 'http://localhost:8080/api/v1/users/'+ this.authService.getUserId() +'/pie-chart' + addressUrl + '/period/' + period;
       return this.http.get<Series[]>(url);
     }
   }

@@ -43,7 +43,7 @@ public class AuthController {
                 RequestContextHolder.currentRequestAttributes().getSessionId());
     }
 
-    @PostMapping(value = "/logout")
+    @PostMapping(value = "/log-out")
     @ResponseStatus(OK)
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
