@@ -1,9 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
 /*Tutaj do dodania style zapewniające szare tło*/
 
-html, body {
+html, body{
   margin: 0;
   height: 100%;
-  overflow: hidden;
+  /*!*overflow: hidden;*! blokada scrolla*/
   background-color: lightgray;
 }
+
+/*body{*/
+/*  width: 1870px;*/
+/*  height: 850px;*/
+/*  margin: 10px 10px 10px 10px;*/
+/*  background-color: #ffffff;*/
+/*  border-radius: 30px;*/
+/*  !*Just for a moment*!*/
+/*  !*border-color: #d6d6d6;*!*/
+/*  !*border-style: solid;*!*/
+/*  !*border-width: 50px;*!*/
+/*  !*Just for the moment*!*/
+/*  display: flex;*/
+/*  grid-template-columns: 1fr 1fr;*/
+/*  grid-gap: 5vw;*/
+/*  padding: 5vh 15px;*/
+/*}*/
+
+/*app-root{*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*}*/

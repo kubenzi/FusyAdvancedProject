@@ -2,6 +2,10 @@ package com.codecool.keepcash.Controller;
 
 import com.codecool.keepcash.Dto.Category.CategoryDto;
 import com.codecool.keepcash.Dto.Category.NewCategoryDto;
+import com.codecool.keepcash.Entity.Category;
+import com.sun.net.httpserver.Authenticator;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.codecool.keepcash.Service.Category.CategoryService;
 
@@ -26,9 +30,26 @@ public class CategoriesController {
         return categoryService.getCategoriesDtoByUserId(userId);
     }
 
+//    public ResponseEntity<?> categoryByIdAccess(Long categoryId, Long userId) {
+//        List<CategoryDto> categoriesByUserId = getCategoriesByUserId(userId);
+//        CategoryDto categoryDtoById = categoryService.getCategoryDtoById(categoryId);
+//        boolean contains = categoriesByUserId.contains(categoryDtoById);
+//        if (contains)
+//            return new ResponseEntity<Authenticator.Success>(HttpStatus.OK);
+//        else
+//            return new ResponseEntity<Error>(FORBIDDEN);
+//    }
+
     @GetMapping("/users/{userId}/categories/{categoryId}")
     @ResponseStatus(OK)
     public CategoryDto getCategoryById(@PathVariable Long categoryId) {
+//        List<CategoryDto> categoriesByUserId = getCategoriesByUserId(userId);
+//        CategoryDto categoryDtoById = categoryService.getCategoryDtoById(categoryId);
+//        boolean contains = categoriesByUserId.contains(categoryDtoById);
+//        if(contains){
+//            return categoryDtoById;
+//        }
+//        return categoryByIdAccess(categoryId, userId);
         return categoryService.getCategoryDtoById(categoryId);
     }
 
