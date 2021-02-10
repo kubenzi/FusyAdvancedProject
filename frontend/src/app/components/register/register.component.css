@@ -23,7 +23,7 @@
 }
 
 .ng-invalid.ng-dirty:not(form), .ng-invalid:not(form).form-submitted {
-  border: solid 2px lightcoral;
+  border: solid 0px;
 }
 
 #form_left {
@@ -69,7 +69,7 @@
   margin: 8px;
 }
 
-.input_container:hover {
+.input_container:hover{
   background-color: #FFFACD;
   transition: background-color, 1s;
   cursor: pointer;
@@ -100,6 +100,7 @@
 
 #button {
   font-size: 20px;
+  /*max-width: available;*/
 }
 
 #input_submit, #button {

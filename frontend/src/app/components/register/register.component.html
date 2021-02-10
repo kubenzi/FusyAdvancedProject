@@ -17,13 +17,14 @@
               id="field_email"
               class="input_field"
               [formControl]="email"
+              autocomplete="off"
               required
             />
-            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+            <mat-error *ngIf="email.invalid">{{getErrorMessageEmail()}}</mat-error>
           </mat-form-field>
         </span>
         <div class="input_container">
-          <i class="fas fa-envelope"></i>
+<!--          <i class="fas fa-envelope"></i>-->
           <mat-form-field [appearance]="form" >
             <input
               matInput
@@ -32,15 +33,15 @@
               name="username"
               id="field_username"
               class="input_field"
-              formControlName="username"
+              [formControl]="username"
+              autocomplete="off"
+              required
             />
-            <div *ngIf="username.errors?.pattern">
-              User name not valid.
-            </div>
+            <mat-error *ngIf="username.invalid">{{getErrorMessageUsername()}}</mat-error>
           </mat-form-field>
         </div>
         <div class="input_container">
-          <i class="fas fa-envelope"></i>
+<!--          <i class="fas fa-envelope"></i>-->
           <mat-form-field [appearance]="form">
             <input
               matInput
@@ -49,12 +50,16 @@
               name="firstName"
               id="field_firstname"
               class="input_field"
-              formControlName="firstName"
+              [formControl]="firstName"
+              maxlength="17"
+              autocomplete="off"
+              required
             />
+            <mat-error *ngIf="firstName.invalid">{{getErrorMessageFirstName()}}</mat-error>
           </mat-form-field>
         </div>
         <div class="input_container">
-          <i class="fas fa-envelope"></i>
+<!--          <i class="fas fa-envelope"></i>-->
           <mat-form-field [appearance]="form">
             <input
               matInput
@@ -63,12 +68,16 @@
               name="lastName"
               id="field_lastname"
               class="input_field"
-              formControlName="lastName"
+              [formControl]="lastName"
+              maxlength="17"
+              autocomplete="off"
+              required
             />
+            <mat-error *ngIf="lastName.invalid">{{getErrorMessageLastName()}}</mat-error>
           </mat-form-field>
         </div>
         <div class="input_container">
-          <i class="fas fa-lock"></i>
+<!--          <i class="fas fa-lock"></i>-->
           <mat-form-field [appearance]="form">
             <input
               matInput
@@ -77,23 +86,30 @@
               name="password"
               id="field_password"
               class="input_field"
-              formControlName="password"
+              [formControl]="password"
+              autocomplete="off"
+              required
             />
+            <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
           </mat-form-field>
         </div>
-<!--        <div class="input_container">-->
+        <div class="input_container">
 <!--          <i class="fas fa-lock"></i>-->
-<!--          <mat-form-field [appearance]="form">-->
-<!--            <input-->
-<!--                  matInput-->
-<!--              placeholder="Confirm password"-->
-<!--              type="password"-->
-<!--              name="Password"-->
-<!--              id="field_confirm_password"-->
-<!--              class="input_field"-->
-<!--            />-->
-<!--          </mat-form-field>-->
-<!--        </div>-->
+          <mat-form-field [appearance]="form">
+            <input
+              matInput
+              placeholder="Confirm password"
+              type="password"
+              name="Password"
+              id="field_confirm_password"
+              class="input_field"
+              [formControl]="confirmPassword"
+              autocomplete="off"
+              required
+            />
+            <mat-error *ngIf="confirmPassword.invalid">{{getErrorMessageConfirmPassword()}}</mat-error>
+          </mat-form-field>
+        </div>
         <button mat-raised-button type="submit" id="button" class="button" [disabled]="!registerForm.valid">Sign up</button>
         <h3 style="color: gray">Already registered? <a routerLink="/login" routerLinkActive="active"> Sign in here!</a></h3>
       </div>
