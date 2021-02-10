@@ -22,6 +22,11 @@
   border-style: solid;
   border-radius: 30px 30px 30px 30px;
   margin: 10px 10px 10px 10px;
+  position: absolute;
+  top: 40px; /* Header Height */
+  bottom: 40px; /* Footer Height */
+  left: 40px;
+  width: 95%;
 }
 
 .footer{
