@@ -4,7 +4,7 @@
 html, body{
   margin: 0;
   height: 100%;
-  /*!*overflow: hidden;*! blokada scrolla*/
+  overflow: hidden;
   background-color: lightgray;
 }
 

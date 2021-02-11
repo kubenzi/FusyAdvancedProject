@@ -18,7 +18,7 @@
   /*Just for the moment*/
   display: grid;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 5vw;
+  grid-gap: 10vw;
   padding: 5vh 15px;
 }
 

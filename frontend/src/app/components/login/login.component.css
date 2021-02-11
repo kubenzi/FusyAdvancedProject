@@ -1,3 +1,4 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
 .body-login {
   height: 100vh;
   display: flex;
@@ -32,9 +33,9 @@
   height: 350px;
 }
 
-/*::ng-deep .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {*/
-/*  color: #FFFACD;*/
-/*}*/
+.ng-invalid.ng-dirty:not(form), .ng-invalid:not(form).form-submitted {
+  border: solid 0px;
+}
 
 .footer{
   width: 100%;
@@ -60,6 +61,12 @@
   display: flex;
   align-items: center;
   padding-left: 20px;
+}
+
+.input_container .mat-form-field{
+  font-size: 8pt;
+  float: right;
+  margin: 8px;
 }
 
 .input_container:hover {

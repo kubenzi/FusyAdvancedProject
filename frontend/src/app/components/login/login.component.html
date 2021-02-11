@@ -7,33 +7,37 @@
       <div id="form_right">
         <h1>Login</h1>
         <div class="input_container">
-          <i class="fas fa-envelope"></i>
+<!--          <i class="fas fa-envelope"></i>-->
           <mat-form-field [appearance]="form">
             <input
               matInput
-              type="text"
-              id="username"
               placeholder="Username"
+              type="text"
+              name="username"
+              id="field_username"
               class="input_field"
-              formControlName="username"
+              [formControl]="username"
               autocomplete="off"
               required
             />
+            <mat-error *ngIf="username.invalid">{{getErrorMessageUsername()}}</mat-error>
           </mat-form-field>
         </div>
         <div class="input_container">
-          <i class="fas fa-lock"></i>
+<!--          <i class="fas fa-lock"></i>-->
           <mat-form-field [appearance]="form">
             <input
               matInput
-              type="password"
-              id="password"
               placeholder="Password"
+              type="password"
+              name="password"
+              id="field_password"
               class="input_field"
-              formControlName="password"
+              [formControl]="password"
               autocomplete="off"
               required
             />
+            <mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
           </mat-form-field>
         </div>
         <button mat-raised-button type="submit" id="button" class="button" [disabled]="!loginForm.valid">Sign in</button>
@@ -44,7 +48,7 @@
       </div>
     </form>
   </div>
-  <div class="footer">
-    <h3>Jakub Chorążyk | Bartosz Jakimko | Krzysztof Chromiec</h3>
-  </div>
+<!--  <div class="footer">-->
+<!--    <h3>Jakub Chorążyk | Bartosz Jakimko | Krzysztof Chromiec</h3>-->
+<!--  </div>-->
 </div>

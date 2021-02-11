@@ -108,6 +108,7 @@
               required
             />
             <mat-error *ngIf="confirmPassword.invalid">{{getErrorMessageConfirmPassword()}}</mat-error>
+            <mat-error *ngIf="confirmPassword.hasError('notEquivalent')">Password do not match</mat-error>
           </mat-form-field>
         </div>
         <button mat-raised-button type="submit" id="button" class="button" [disabled]="!registerForm.valid">Sign up</button>
@@ -115,9 +116,9 @@
       </div>
     </form>
   </div>
-  <div class="footer">
-    <h3>Jakub Chorążyk | Bartosz Jakimko | Krzysztof Chromiec</h3>
-  </div>
+<!--  <div class="footer">-->
+<!--    <h3>Jakub Chorążyk | Bartosz Jakimko | Krzysztof Chromiec</h3>-->
+<!--  </div>-->
 </div>
 
 
