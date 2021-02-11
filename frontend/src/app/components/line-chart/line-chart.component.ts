@@ -12,7 +12,7 @@ export class LineChartComponent implements OnInit {
 
   lineChartData: Data[];
 
-  view: any[] = [800, 300];
+  view: any[] = [1030, 350];
 
   // options
   legend = true;

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {UserService} from '../../services/user-service';
 import {Data, Series, User} from '../../models/models';
 import {Observable} from 'rxjs';
+import {MatIconModule} from '@angular/material/icon';
 import {ActivatedRoute, ActivationStart, NavigationStart, Router} from '@angular/router';
 import {first} from 'rxjs/operators';
 import {AuthService} from '../../authentication/services/auth.service';
@@ -15,6 +16,7 @@ import {AuthService} from '../../authentication/services/auth.service';
 export class MenuComponent implements OnInit {
 
   user$: Observable<User>;
+  list: String[] = ["blue", "red", "gray", "black"];
   lineChartData: Data[];
   pieChartData: Series[] = [];
 
