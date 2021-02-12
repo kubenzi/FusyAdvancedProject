@@ -20,11 +20,16 @@ public class ValidationService {
     public Validator registrationDtoNullValidation(UserRegistrationDto registrationDto) {
 
         return Validator.of(registrationDto)
-                .validate(form -> form.getFirstName() != null, AT_LEAST_ONE_VALUE_IS_NULL)
-                .validate(form -> form.getLastName() != null, AT_LEAST_ONE_VALUE_IS_NULL)
-                .validate(form -> form.getUsername() != null, AT_LEAST_ONE_VALUE_IS_NULL)
-                .validate(form -> form.getPassword() != null, AT_LEAST_ONE_VALUE_IS_NULL)
-                .validate(form -> form.getEmail() != null, AT_LEAST_ONE_VALUE_IS_NULL);
+                .validate(form -> form.getFirstName() != null && !form.getFirstName().equalsIgnoreCase("null"),
+                        AT_LEAST_ONE_VALUE_IS_NULL)
+                .validate(form -> form.getLastName() != null && !form.getLastName().equalsIgnoreCase("null"),
+                        AT_LEAST_ONE_VALUE_IS_NULL)
+                .validate(form -> form.getUsername() != null && !form.getUsername().equalsIgnoreCase("null"),
+                        AT_LEAST_ONE_VALUE_IS_NULL)
+                .validate(form -> form.getPassword() != null && !form.getPassword().equalsIgnoreCase("null"),
+                        AT_LEAST_ONE_VALUE_IS_NULL)
+                .validate(form -> form.getEmail() != null && !form.getEmail().equalsIgnoreCase("null"),
+                        AT_LEAST_ONE_VALUE_IS_NULL);
     }
 
     public Validator registrationDtoDataValidation(UserRegistrationDto registrationDto) {

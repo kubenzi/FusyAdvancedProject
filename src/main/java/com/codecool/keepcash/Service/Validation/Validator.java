@@ -1,7 +1,6 @@
 package com.codecool.keepcash.Service.Validation;
 
 
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
@@ -20,8 +19,8 @@ public class Validator<T> {
     }
 
 
-    public Validator<T> validate(Predicate<T> validation, ValidationError validationError){
-        if(!validation.test(formToValidationData)){
+    public Validator<T> validate(Predicate<T> validation, ValidationError validationError) {
+        if (!validation.test(formToValidationData)) {
             validationErrors.add(validationError);
         }
         return this;
