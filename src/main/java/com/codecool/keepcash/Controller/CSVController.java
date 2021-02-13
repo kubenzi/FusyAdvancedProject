@@ -15,6 +15,7 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.CREATED;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class CSVController {
 

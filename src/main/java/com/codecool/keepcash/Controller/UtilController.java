@@ -6,15 +6,13 @@ import com.codecool.keepcash.Dto.Currency.CurrencyDto;
 import com.codecool.keepcash.Service.Account.AccountTypeService;
 import com.codecool.keepcash.Service.Bank.BankService;
 import com.codecool.keepcash.Service.Currency.CurrencyService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import static org.springframework.http.HttpStatus.OK;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/api/v1")
 public class UtilController {

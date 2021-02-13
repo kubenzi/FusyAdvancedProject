@@ -1,7 +1,15 @@
 <section>
+  <div class="container">
+    <div class="userInfo">
+      <div class="userInitial">
+        <h3>{{getInitial().toUpperCase()}}</h3>
+      </div>
+      <h3>{{(user$ | async)?.firstName.toUpperCase()}} {{(user$ | async)?.lastName.toUpperCase()}}</h3>
+    </div>
+    <button type="button" mat-raised-button color="primary" (click)="logout()">Logout</button>
+  </div>
+  <h3>ID: {{(user$ | async)?.id}}</h3>
 
-  <h3>User lastname:</h3>
-  {{(user$ | async)?.email}}
   <br>
 
 </section>
@@ -9,3 +17,27 @@
 <app-pie-chart>
 
 </app-pie-chart>
+
+<table style="width:100%; margin-top: 10px; height: 40%; border-color: black; border-style: dashed">
+  <tr>
+    <th>COL 1 </th>
+    <th>COL 2 </th>
+  </tr>
+  <tr>
+    <th>test </th>
+    <th>test </th>
+  </tr>
+  <tr>
+    <th>test </th>
+    <th>test </th>
+  </tr>
+  <tr>
+    <th>test </th>
+    <th>test </th>
+  </tr>
+  <tr>
+    <th>test </th>
+    <th>test </th>
+  </tr>
+
+</table>

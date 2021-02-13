@@ -16,7 +16,7 @@ export class NavigationComponent implements OnInit {
   user$: Observable<User>;
   username = new BehaviorSubject<User>({}).getValue().firstName;
 
-  constructor(private userService: UserService, private activatedRoute: Router, private authService: AuthService, private router: Router) {
+  constructor(private userService: UserService, private activatedRoute: Router, private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -35,14 +35,5 @@ export class NavigationComponent implements OnInit {
     });
   }
 
-  logout() {
-    this.authService.logout()
-      .subscribe(success => {
-        if (success) {
-          this.router.navigate(['/login']);
-        } else {
-          console.log('Logout not working');
-        }
-      });
-  }
+
 }

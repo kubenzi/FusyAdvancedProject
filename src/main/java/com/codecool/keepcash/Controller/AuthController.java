@@ -17,6 +17,7 @@ import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class AuthController {
     private AuthenticationService authenticationService;
@@ -25,14 +26,12 @@ public class AuthController {
         this.authenticationService = authenticationService;
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/register", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(CREATED)
     public void register(@RequestBody UserRegistrationDto userRegistrationDto) {
         authenticationService.register(userRegistrationDto);
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/login", consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(OK)
     public LoginData login(@RequestBody UserCredentialsDto userCredentialsDto) {
@@ -44,8 +43,7 @@ public class AuthController {
                 RequestContextHolder.currentRequestAttributes().getSessionId());
     }
 
-    @CrossOrigin(origins = "http://localhost:4200")
-    @PostMapping(value = "/logout")
+    @PostMapping(value = "/log-out")
     @ResponseStatus(OK)
     public void logout(HttpServletRequest request, HttpServletResponse response) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -54,7 +52,6 @@ public class AuthController {
         }
     }
 
-    @CrossOrigin(origins = "http://localhost:4200/hello")
     @GetMapping("/hello")
     public String hello(@CurrentSecurityContext(expression = "authentication?.username")
                                 String username) {

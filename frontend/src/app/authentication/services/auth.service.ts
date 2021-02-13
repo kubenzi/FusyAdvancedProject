@@ -4,6 +4,7 @@ import {of, Observable} from 'rxjs';
 import {environment} from '../../../environments/environment';
 import {catchError, mapTo, tap} from 'rxjs/operators';
 import {LoginData} from '../models/login-data';
+import { Cookie } from 'ng2-cookies';
 
 @Injectable({
   providedIn: 'root'
@@ -33,13 +34,13 @@ export class AuthService {
         tap((data: LoginData) => this.doLoginUser(data.username, data.sessionId, data.userId)),
         mapTo(true),
         catchError(error => {
-          alert(error.error);
+          console.log(error);
           return of(false);
         }));
   }
 
   logout() {
-    return this.http.post<any>(`${environment.apiUrl}/logout`, {}).pipe(
+    return this.http.post<any>(`${environment.apiUrl}/log-out`, {}).pipe(
       tap(() => this.doLogoutUser()),
       mapTo(true),
       catchError(error => {
@@ -60,12 +61,14 @@ export class AuthService {
   private doLoginUser(username: string, sessionId: string, userId: number) {
     this.loggedUser = username;
     this.storeSessionId(sessionId);
+    Cookie.set("JSESSIONID", sessionId);
     this.storeUserId(userId);
   }
 
   private doLogoutUser() {
     this.loggedUser = null;
     this.removeSessionId();
+    Cookie.delete("JSESSIONID", this.SESSION_ID);
     this.removeUserId();
   }
 

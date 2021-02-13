@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Data} from '../../models/models';
 import {UserService} from '../../services/user-service';
+import {AuthService} from '../../authentication/services/auth.service';
 
 @Component({
   selector: 'app-line-chart',
@@ -11,7 +12,7 @@ export class LineChartComponent implements OnInit {
 
   lineChartData: Data[];
 
-  view: any[] = [800, 300];
+  view: any[] = [1030, 350];
 
   // options
   legend = true;
@@ -24,6 +25,7 @@ export class LineChartComponent implements OnInit {
   xAxisLabel = 'Date';
   yAxisLabel = 'Total Balance';
   timeline = true;
+
 
 
   // showGridLines: true;

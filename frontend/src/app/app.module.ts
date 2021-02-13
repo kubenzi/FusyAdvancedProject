@@ -20,6 +20,7 @@ import { FileUploadComponent } from './components/file-upload/file-upload.compon
 import {AuthModule} from './authentication/auth.module';
 import { CookieService } from 'ngx-cookie-service';
 import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -36,18 +37,19 @@ import {MatButtonModule} from '@angular/material/button';
     AccountsComponent,
     FileUploadComponent
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    NgxChartsModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    AuthModule,
-    MatButtonModule
-  ],
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        NgxChartsModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        AuthModule,
+        MatButtonModule,
+        MatIconModule
+    ],
   providers: [CookieService],
   bootstrap: [AppComponent]
 })
