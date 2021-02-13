@@ -1,15 +1,22 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {UserService} from '../../services/user-service';
+import {AuthService} from '../../authentication/services/auth.service';
+import {Bank, User} from '../../models/models';
+import {tap} from 'rxjs/operators';
+
 @Injectable({
   providedIn: 'root'
 })
 export class FileUploadService {
 
   // API url
-  baseApiUrl = 'http://localhost:8080/operations';
+  baseApiUrl = 'http://localhost:8080/users/';
 
-  constructor(private http: HttpClient) { }
+
+  constructor(private http: HttpClient, private userService: UserService, private authService: AuthService) {
+  }
 
   // Returns an observable
   upload(file): Observable<any> {
@@ -23,6 +30,8 @@ export class FileUploadService {
 
     // Make http post request over api
     // with formData as req
-    return this.http.post(this.baseApiUrl, formData);
+    return this.http.post(this.baseApiUrl + this.authService.getUserId() + this.userService.address + '/post-from-csv', formData);
   }
+
+
 }

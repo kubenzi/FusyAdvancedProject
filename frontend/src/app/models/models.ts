@@ -55,3 +55,10 @@ export interface Data {
   name: string;
   series: Series[];
 }
+
+
+export interface Bank {
+  id: number,
+  name: string
+}
+

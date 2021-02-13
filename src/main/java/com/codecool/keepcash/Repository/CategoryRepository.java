@@ -10,6 +10,6 @@ import java.util.Optional;
 @Repository
 public interface CategoryRepository extends CrudRepository<Category, Long> {
 
-    @Query(value = "SELECT * FROM categories WHERE name = ?1 AND user_id = ?2 AND builin = true", nativeQuery = true)
+    @Query(value = "SELECT * FROM categories WHERE name = ?1 AND user_id = ?2 AND builtin = true", nativeQuery = true)
     Optional<Category> findByNameAndUserId(String name, Long userId);
 }

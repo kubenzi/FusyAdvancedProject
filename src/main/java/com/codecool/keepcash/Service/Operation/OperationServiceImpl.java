@@ -10,6 +10,7 @@ import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Repository.OperationRepository;
 import com.codecool.keepcash.Service.Account.AccountService;
 import com.codecool.keepcash.Service.Category.CategoryService;
+import com.codecool.keepcash.Service.User.UserService;
 import com.codecool.keepcash.util.converters.operation.OperationDtoToOperationConverter;
 import com.codecool.keepcash.util.converters.operation.OperationToOperationDtoConverter;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -26,14 +27,17 @@ public class OperationServiceImpl implements OperationService {
     private OperationRepository operationRepository;
     private AccountService accountService;
     private CategoryService categoryService;
+    private UserService userService;
 
 
     public OperationServiceImpl(OperationRepository operationRepository,
                                 AccountService accountService,
-                                CategoryService categoryService) {
+                                CategoryService categoryService,
+                                UserService userService) {
         this.operationRepository = operationRepository;
         this.accountService = accountService;
         this.categoryService = categoryService;
+        this.userService = userService;
     }
 
     @Override
@@ -88,9 +92,7 @@ public class OperationServiceImpl implements OperationService {
             }
         }
 
-        accountService.saveUpdatedAccount(account);
-        categoryService.saveUpdatedCategory(catIncome);
-        categoryService.saveUpdatedCategory(catUnassigned);
+        userService.saveUpdatedUserData(userService.getUserDataById(userId));
     }
 
     @Override

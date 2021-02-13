@@ -10,7 +10,7 @@ import {AuthService} from '../../authentication/services/auth.service';
 })
 export class LineChartComponent implements OnInit {
 
-  lineChartData: Data[];
+    lineChartData: Data[];
 
   view: any[] = [1030, 350];
 

@@ -5,6 +5,7 @@ import com.codecool.keepcash.Service.CSV.CSVService;
 import com.codecool.keepcash.Service.CSV.CSVServiceINGImpl;
 import com.codecool.keepcash.Service.CSV.CSVServiceMilleniumImpl;
 import com.codecool.keepcash.Service.Operation.OperationService;
+import com.codecool.keepcash.Service.User.UserService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;

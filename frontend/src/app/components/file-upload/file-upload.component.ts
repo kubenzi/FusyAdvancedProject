@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FileUploadService } from './file-upload.service';
+import {Bank} from '../../models/models';
+import {HttpClient} from '@angular/common/http';
+import {UserService} from '../../services/user-service';
 
 @Component({
   selector: 'app-file-upload',
@@ -12,11 +15,13 @@ export class FileUploadComponent implements OnInit {
   shortLink = '';
   loading = false; // Flag variable
   file: File = null; // Variable to store file
+  banks$: Bank[];
 
   // Inject service
-  constructor(private fileUploadService: FileUploadService) { }
+  constructor(private fileUploadService: FileUploadService, private http: HttpClient, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.setBanks$();
   }
 
   // On file Select
@@ -40,4 +45,10 @@ export class FileUploadComponent implements OnInit {
       }
     );
   }
+
+  setBanks$(): void {
+    const url = 'http://localhost:8080/api/v1/banks';
+    this.http.get<Bank[]>(url).subscribe(value => this.banks$ = value);
+  }
+
 }

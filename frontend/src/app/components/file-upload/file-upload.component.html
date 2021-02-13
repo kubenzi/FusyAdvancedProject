@@ -1,6 +1,12 @@
 <div class="text-center">
   <input class="form-control" type="file" accept="text/csv" (change)="onChange($event)">
 
+  <li *ngFor="let bank of banks$" class="repo">
+    <!--      <h3>Account type:</h3>-->
+    {{bank.name}}
+    <br><br>
+  </li>
+
   <button (click)="onUpload()" class="btn btn-success">
     Upload
   </button>
