@@ -1,18 +1,32 @@
 <div class="text-center">
-  <input class="form-control" type="file" accept="text/csv" (change)="onChange($event)">
+<!--  <input class="form-control" list="banks" placeholder="Choose bank">-->
+<!--  <li *ngFor="let bank of banks$" class="repo">-->
+<!--    &lt;!&ndash;      <h3>Account type:</h3>&ndash;&gt;-->
+<!--    {{bank.name}}-->
+<!--    <br><br>-->
+<!--  </li>-->
+<!--  <datalist id="banks">-->
+<!--    <option *ngFor="let bank of banks$">-->
+<!--      {{bank.name}}-->
+<!--    </option>-->
+<!--  </datalist>-->
+  <form class="form-control">
+    <label id="banks">Choose bank</label>
+    <select name="banks">
+      <option *ngFor="let bank of banks$">
+        {{bank.name}}
+      </option>
+    </select>
+    <input class="form-control" type="file" accept="text/csv">
+  </form>
 
-  <li *ngFor="let bank of banks$" class="repo">
-    <!--      <h3>Account type:</h3>-->
-    {{bank.name}}
-    <br><br>
-  </li>
 
-  <button (click)="onUpload()" class="btn btn-success">
+  <button (click)="onUpload()" class="btn btn-success" (change)="onChange($event)">
     Upload
   </button>
 </div>
 
-<!-- Shareable short link of  uoloaded file -->
+<!-- Shareable short link of  uploaded file -->
 <div class="container text-center jumbotron"
      *ngIf="shortLink">
   <h2> Visit Here</h2>

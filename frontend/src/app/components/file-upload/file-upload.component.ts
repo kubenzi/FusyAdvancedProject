@@ -16,6 +16,7 @@ export class FileUploadComponent implements OnInit {
   loading = false; // Flag variable
   file: File = null; // Variable to store file
   banks$: Bank[];
+  bank: Bank;
 
   // Inject service
   constructor(private fileUploadService: FileUploadService, private http: HttpClient, private userService: UserService) { }
@@ -26,6 +27,7 @@ export class FileUploadComponent implements OnInit {
 
   // On file Select
   onChange(event): void {
+    // this.bank = event.target.files[0];
     this.file = event.target.files[0];
   }
 

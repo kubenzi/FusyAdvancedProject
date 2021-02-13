@@ -13,7 +13,7 @@ export class RegisterComponent implements OnInit {
   registerForm: FormGroup;
   unamePattern = "^(?=.*[a-z])[a-zA-Z\d]{2,50}$";
   flnamePattern = "^[a-zA-Z-]{2,50}$";
-  passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d!@#$%^&*()_-?]{5,15}$";
+  passwordPattern = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9!@#$%^&*_?]{5,15}$";
   email = new FormControl('', [Validators.required, Validators.email]);
   username = new FormControl('', [Validators.required, Validators.pattern(this.unamePattern)]);
   password = new FormControl('', [Validators.required, Validators.pattern(this.passwordPattern)]);

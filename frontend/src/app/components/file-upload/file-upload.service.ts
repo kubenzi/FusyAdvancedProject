@@ -19,12 +19,13 @@ export class FileUploadService {
   }
 
   // Returns an observable
-  upload(file): Observable<any> {
+  upload(file, bank): Observable<any> {
 
     // Create form data
     const formData = new FormData();
 
     // Store form name as "file" with file data
+    formData.append('bank', bank);
     formData.append('file', file, 'newcsv.txt');
     console.log(file.name);
 
