@@ -77,24 +77,6 @@ public class StatisticsLineChartServiceImpl implements StatisticsLineChartServic
                 new DataSeriesDto("spending", seriesDtosSpending));
     }
 
-//    private List<DataSeriesDto> getDataSeriesForPeriodLineChart(List<OperationDto> operationDtos,
-//                                                                Integer period, Double balance, Long userId)
-//    /*
-//    Makes two data DataSeriesDto for line chart named: balance and spending.
-//    We have to put parameter spending: false or true - boolean is used in two methods,
-//    to distinguish how to calculate balance or spending. If it is used to calculate SPENDING SET TRUE.
-//    */ {
-//        List<SeriesDto> seriesDtosBalance = getAllSeriesDtoForPeriod(
-//                operationDtos, period, balance, false);
-//
-//        List<SeriesDto> seriesDtosSpending = getAllSeriesDtoForPeriod(operationDtos, period,
-//                0.0, true);
-//
-//        return Arrays.asList(new DataSeriesDto("balance", seriesDtosBalance),
-//                new DataSeriesDto("spending", seriesDtosSpending));
-//    }
-
-
     private List<SeriesDto> getAllSeriesDtoForPeriod(List<OperationDto> operationDtos, Integer period,
                                                      Double balance, Boolean spending) {
         Map<String, List<OperationDto>> dayMapForPeriod = createDayMapForPeriod(operationDtos, spending);
@@ -109,14 +91,6 @@ public class StatisticsLineChartServiceImpl implements StatisticsLineChartServic
         return convertMapToDataSeriesDto(sortedMapWithBalance);
     }
 
-//    private List<SeriesDto> getAllSeriesDtoForPeriodSpenging(List<OperationDto> operationDtos, Integer period,
-//                                                             Double balance, Boolean spending) {
-//        Map<String, List<OperationDto>> dayMapForPeriod = createDayMapForPeriod(operationDtos, spending);
-//        Map<String, Double> transformDayMapForPeriod = transformDayMapForPeriod(dayMapForPeriod);
-//        Map<String, Double> filledMapWithEmptyDay = fillMapWithEmptyDay(transformDayMapForPeriod, period);
-//        Map<String, Double> sortedMapWithBalance = sortMapWithBalanceForSpending(filledMapWithEmptyDay, balance);
-//        return convertMapToDataSeriesDto(sortedMapWithBalance);
-//    }
 
     private Map<String, List<OperationDto>> createDayMapForPeriod(List<OperationDto> operationDtos,
                                                                   Boolean spending) {

@@ -15,7 +15,7 @@ export class FileUploadComponent implements OnInit {
   shortLink = '';
   loading = false; // Flag variable
   file: File = null; // Variable to store file
-  bankName: Bank = null;
+  bankName: Bank;
   banks$: Bank[];
 
   // Inject service
