@@ -15,6 +15,7 @@ export class FileUploadComponent implements OnInit {
   shortLink = '';
   loading = false; // Flag variable
   file: File = null; // Variable to store file
+  bankName: Bank = null;
   banks$: Bank[];
 
   // Inject service
@@ -25,15 +26,19 @@ export class FileUploadComponent implements OnInit {
   }
 
   // On file Select
-  onChange(event): void {
+  onFileChange(event): void {
     this.file = event.target.files[0];
+  }
+
+  onBankChange(event): void {
+    this.bankName = event.target.value;
   }
 
   // OnClick of button Upload
   onUpload(): void {
     this.loading = !this.loading;
     console.log(this.file);
-    this.fileUploadService.upload(this.file).subscribe(
+    this.fileUploadService.upload(this.file, this.bankName).subscribe(
       (event: any) => {
         if (typeof (event) === 'object') {
 
@@ -44,6 +49,9 @@ export class FileUploadComponent implements OnInit {
         }
       }
     );
+
+    this.file = null;
+    this.bankName = null;
   }
 
   setBanks$(): void {

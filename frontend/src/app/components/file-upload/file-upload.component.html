@@ -1,25 +1,26 @@
 <div class="text-center">
-  <input class="form-control" type="file" accept="text/csv" (change)="onChange($event)">
+  <input class="form-control" type="file"
+         accept="text/csv" (change)="onFileChange($event)">
 
-  <li *ngFor="let bank of banks$" class="repo">
-    <!--      <h3>Account type:</h3>-->
-    {{bank.name}}
-    <br><br>
-  </li>
+  <select id="selectedBank" (change)="onBankChange($event)">
+    <option *ngFor="let bank of banks$">
+      {{bank.name}}
+    </option>
+  </select>
 
   <button (click)="onUpload()" class="btn btn-success">
     Upload
   </button>
 </div>
 
-<!-- Shareable short link of  uoloaded file -->
-<div class="container text-center jumbotron"
-     *ngIf="shortLink">
-  <h2> Visit Here</h2>
-  <a href="{{shortLink}}">{{shortLink}}</a>
-</div>
+<!--&lt;!&ndash; Shareable short link of  uploaded file &ndash;&gt;-->
+<!--<div class="container text-center jumbotron"-->
+<!--     *ngIf="shortLink">-->
+<!--  <h2> Visit Here</h2>-->
+<!--  <a href="{{shortLink}}">{{shortLink}}</a>-->
+<!--</div>-->
 
-<!--Flag variable is used here-->
-<div class="container" *ngIf="loading">
-  <h3>Loading ...</h3>
-</div>
+<!--&lt;!&ndash;Flag variable is used here&ndash;&gt;-->
+<!--<div class="container" *ngIf="loading">-->
+<!--  <h3>Loading ...</h3>-->
+<!--</div>-->
