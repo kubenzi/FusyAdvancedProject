@@ -57,10 +57,14 @@ public class StatisticsPieChartServiceImpl implements StatisticsPieChartService 
 
         Double spending = filterOperationIfSpending(operationDtosCategory);
 
-        Double revenue = filterOperationIfSpending(operationDtosCategoryTotal);
+        Double totalSpending = filterOperationIfSpending(operationDtosCategoryTotal);
 
-        return Arrays.asList(new SeriesDto("Total Spending", revenue),
-                new SeriesDto("Spending", spending));
+        Double spendingPercent = spending * 100 / totalSpending;
+
+        Double totalSpendingPercent = 100 - spendingPercent;
+
+        return Arrays.asList(new SeriesDto("Total Spending", totalSpendingPercent),
+                new SeriesDto("Spending Percent", spendingPercent));
     }
 
     private Double filterOperationIfSpending(List<OperationDto> operationDtos) {
