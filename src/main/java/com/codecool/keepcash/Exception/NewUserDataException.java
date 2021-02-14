@@ -6,6 +6,4 @@ public class NewUserDataException extends RuntimeException {
 
         super("List of registration errors: " + getConcatenatedListOfErrors);
     }
-
-
 }

@@ -57,13 +57,11 @@ public class AuthenticationService implements UserDetailsService {
     }
 
     public void register(UserRegistrationDto userRegistrationDto) {
-        try {
-            if (isNewDataValid(userRegistrationDto)) {
-                createNewUser(userRegistrationDto);
-            }
-        } catch (NewUserDataException e) {
-            System.out.println(e.getMessage());
+
+        if (isNewDataValid(userRegistrationDto)) {
+            createNewUser(userRegistrationDto);
         }
+
     }
 
     @Transactional

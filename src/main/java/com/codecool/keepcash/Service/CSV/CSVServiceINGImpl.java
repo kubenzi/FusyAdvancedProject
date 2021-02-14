@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CSVServiceINGImpl extends CSVImplementer {
+public class CSVServiceINGImpl implements CSVService {
 
     public CSVServiceINGImpl() {
     }
@@ -45,7 +45,8 @@ public class CSVServiceINGImpl extends CSVImplementer {
 
         // ING .csv operation value separator is ',' - it has to be replaced with '.'
         // date format defined in interface field
-        Operation operation = new Operation(row[operationNameIndex],
+        Operation operation = new Operation(row[operationNameIndex].replace("\" ", "").
+                replace(" \"", ""),
                 Double.parseDouble(row[operationValueIndex].replace(',', '.')),
                 formatter.parse(row[operationDateIndex]));
 
