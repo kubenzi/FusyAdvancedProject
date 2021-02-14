@@ -17,6 +17,7 @@ public class Account {
 
     private String name;
 
+    // to be changed to BigDecimal
     private Double balance;
 
     private String accountNumber;

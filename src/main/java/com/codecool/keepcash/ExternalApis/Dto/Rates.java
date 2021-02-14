@@ -3,6 +3,9 @@ package com.codecool.keepcash.ExternalApis.Dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Rates {
 
@@ -28,6 +31,16 @@ public class Rates {
 
     public double getGbp() {
         return gbp;
+    }
+
+    public Map<String, Double> createMapOfRates() {
+        Map<String, Double> mapOfRates = new HashMap<>();
+        mapOfRates.put("PLN", 1.0);
+        mapOfRates.put("USD", this.getUsd());
+        mapOfRates.put("EUR", this.getEur());
+        mapOfRates.put("GBP", this.getGbp());
+
+        return mapOfRates;
     }
 
     @Override

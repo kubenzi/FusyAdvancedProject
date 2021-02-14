@@ -5,6 +5,9 @@ import com.codecool.keepcash.Dto.User.UserDataDto;
 import com.codecool.keepcash.Entity.User;
 import com.codecool.keepcash.Entity.UserData;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -15,4 +18,5 @@ public interface UserService {
     void updateUserEmail(Long userId, NewEmailDto newEmailDto);
     Optional<User> findByUserName(String username);
     Optional<UserData> findByEmail(String email);
+    Double calculateTotalBalanceInPLN(Long userId) throws InterruptedException, IOException, URISyntaxException;
 }

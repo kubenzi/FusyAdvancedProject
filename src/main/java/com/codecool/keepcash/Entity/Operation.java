@@ -14,6 +14,7 @@ public class Operation {
 
     private String description;
 
+    // to be changed to BigDecimal
     private Double value;
 
     @Temporal(TemporalType.DATE)

@@ -5,6 +5,9 @@ import com.codecool.keepcash.Dto.User.UserDataDto;
 import com.codecool.keepcash.Service.User.UserService;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
+
 import static org.springframework.http.HttpStatus.*;
 
 @CrossOrigin(origins = "http://localhost:4200")
@@ -34,5 +37,11 @@ public class UserController {
     @ResponseStatus(CREATED)
     public void updateUserEmail(@PathVariable Long id, @RequestBody NewEmailDto newEmailDto) {
         userService.updateUserEmail(id, newEmailDto);
+    }
+
+    @GetMapping("/users/{id}/get-total-balance")
+    @ResponseStatus(OK)
+    public Double getTotalBalance(@PathVariable Long id) throws InterruptedException, IOException, URISyntaxException {
+        return userService.calculateTotalBalanceInPLN(id);
     }
 }

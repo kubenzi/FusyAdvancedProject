@@ -16,12 +16,12 @@ public class ExchangeRatesController {
         this.exchangeRatesClient = exchangeRatesClient;
     }
 
-    @GetMapping("/exchangeRates")
+    @GetMapping("/exchange-rates")
     public String getRates() throws InterruptedException, IOException, URISyntaxException {
         return exchangeRatesClient.getCurrencies().toString();
     }
 
-    @GetMapping("/historicalExchangeRates")
+    @GetMapping("/historical-exchange-rates")
     public String getHistoricalRates() throws InterruptedException, IOException, URISyntaxException {
         return exchangeRatesClient.getHistoricalCurrencies().toString();
     }
