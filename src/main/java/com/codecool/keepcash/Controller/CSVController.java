@@ -1,6 +1,7 @@
 package com.codecool.keepcash.Controller;
 
 import com.codecool.keepcash.Entity.Operation;
+import com.codecool.keepcash.Service.CSV.CSVImplementer;
 import com.codecool.keepcash.Service.CSV.CSVService;
 import com.codecool.keepcash.Service.CSV.CSVServiceINGImpl;
 import com.codecool.keepcash.Service.CSV.CSVServiceMilleniumImpl;
@@ -20,14 +21,14 @@ import static org.springframework.http.HttpStatus.CREATED;
 @RestController
 public class CSVController {
 
-    private CSVService CSVServiceING;
+    private CSVService CSVService;
     private CSVService CSVServiceMillenium;
     private OperationService operationService;
 
-    public CSVController(CSVServiceINGImpl CSVServiceING,
+    public CSVController(CSVServiceINGImpl CSVService,
                          CSVServiceMilleniumImpl CSVServiceMillenium,
                          OperationService operationService) {
-        this.CSVServiceING = CSVServiceING;
+        this.CSVService = CSVService;
         this.CSVServiceMillenium = CSVServiceMillenium;
         this.operationService = operationService;
     }
@@ -39,7 +40,7 @@ public class CSVController {
                                         @PathVariable("userId") Long userId,
                                         @PathVariable("accountId") Long accountId) throws IOException, ParseException {
 
-        List<Operation> operations = CSVServiceING.parseCSVToOperations(file);
+        List<Operation> operations =  CSVImplementer.execute(new CSVServiceINGImpl(), file);
 
         operationService.addNewCSVOperations(operations, userId, accountId);
     }

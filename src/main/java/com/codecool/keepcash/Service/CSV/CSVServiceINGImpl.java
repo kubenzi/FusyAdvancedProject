@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class CSVServiceINGImpl implements CSVService {
+public class CSVServiceINGImpl extends CSVImplementer {
 
     public CSVServiceINGImpl() {
     }

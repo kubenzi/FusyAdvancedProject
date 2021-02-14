@@ -20,23 +20,22 @@ public interface CSVService {
 
     Operation createOperationFromSingleRow(String[] row) throws ParseException;
 
-    default List<Operation> createListOfOperations(List<String[]> operationArrays) throws ParseException {
-        List<Operation> newOperations = new ArrayList<>();
-
-        for (String[] row : operationArrays) {
-            Operation operation = createOperationFromSingleRow(row);
-            newOperations.add(operation);
-        }
-
-        return newOperations;
-    }
-
-    default List<String[]> readCSVFile(String fileContent) throws IOException {
-        CSVReader csvReader = new CSVReader(new StringReader(fileContent));
-        List<String[]> list = csvReader.readAll();
-        csvReader.close();
-
-        return list;
-    }
-
+//    default List<Operation> createListOfOperations(List<String[]> operationArrays) throws ParseException {
+//        List<Operation> newOperations = new ArrayList<>();
+//
+//        for (String[] row : operationArrays) {
+//            Operation operation = createOperationFromSingleRow(row);
+//            newOperations.add(operation);
+//        }
+//
+//        return newOperations;
+//    }
+//
+//    default List<String[]> readCSVFile(String fileContent) throws IOException {
+//        CSVReader csvReader = new CSVReader(new StringReader(fileContent));
+//        List<String[]> list = csvReader.readAll();
+//        csvReader.close();
+//
+//        return list;
+//    }
 }
