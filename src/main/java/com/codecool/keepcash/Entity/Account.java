@@ -1,17 +1,15 @@
 package com.codecool.keepcash.Entity;
 
-import javax.persistence.CascadeType;
 import javax.persistence.*;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-@Entity(name="accounts")
+@Entity(name = "accounts")
 public class Account {
 
     @Id
-    @SequenceGenerator(name= "account_id_generator", initialValue = 10, allocationSize = 1)
+    @SequenceGenerator(name = "account_id_generator", initialValue = 10, allocationSize = 1)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account_id_generator")
     private Long id;
 
@@ -28,6 +26,9 @@ public class Account {
     @OneToOne
     private Currency currency;
 
+    @Temporal(TemporalType.DATE)
+    private Date creationDate;
+
     private boolean builtin;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
@@ -42,13 +43,16 @@ public class Account {
                    String accountNumber,
                    AccountType accountType,
                    Currency currency,
+                   Date creationDate,
                    boolean builtin) {
         this.name = name;
         this.balance = balance;
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.currency = currency;
+        this.creationDate = creationDate;
         this.builtin = builtin;
+
     }
 
     public Account(String name,
@@ -67,12 +71,31 @@ public class Account {
         this.operations = operations;
     }
 
+    public Account(String name,
+                   Double balance,
+                   String accountNumber,
+                   AccountType accountType,
+                   Currency currency,
+                   Date creationDate,
+                   boolean builtin,
+                   List<Operation> operations) {
+        this.name = name;
+        this.balance = balance;
+        this.accountNumber = accountNumber;
+        this.accountType = accountType;
+        this.currency = currency;
+        this.creationDate = creationDate;
+        this.builtin = builtin;
+        this.operations = operations;
+    }
+
     public Account(Long id,
                    String name,
                    Double balance,
                    String accountNumber,
                    AccountType accountType,
                    Currency currency,
+                   Date creationDate,
                    boolean builtin,
                    List<Operation> operations) {
         this.id = id;
@@ -81,6 +104,7 @@ public class Account {
         this.accountNumber = accountNumber;
         this.accountType = accountType;
         this.currency = currency;
+        this.creationDate = creationDate;
         this.builtin = builtin;
         this.operations = operations;
     }
@@ -147,5 +171,13 @@ public class Account {
 
     public void setOperations(List<Operation> operations) {
         this.operations = operations;
+    }
+
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
     }
 }

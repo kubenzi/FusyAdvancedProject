@@ -15,4 +15,5 @@ public interface AccountService {
     void addNewAccount(NewAccountDto newAccountDto, Long userId);
     void saveUpdatedAccount(Account account);
     void deleteAccountById(Long accountId);
+    Double getBalanceByAccountId(Long accountId);
 }

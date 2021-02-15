@@ -3,6 +3,7 @@ package com.codecool.keepcash.Dto.Operation;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.xml.crypto.Data;
 import java.util.Date;
 
 public class NewOperationDto {
@@ -21,12 +22,14 @@ public class NewOperationDto {
     public NewOperationDto(@JsonProperty("description") String description,
                            @JsonProperty("value") Double value,
                            @JsonProperty("accountId") Long accountId,
-                           @JsonProperty("categoryId") Long categoryId
+                           @JsonProperty("categoryId") Long categoryId,
+                           @JsonProperty("date") Date date
     ) {
         this.description = description;
         this.value = value;
         this.accountId = accountId;
         this.categoryId = categoryId;
+        this.date = date;
     }
 
     public String getDescription() {

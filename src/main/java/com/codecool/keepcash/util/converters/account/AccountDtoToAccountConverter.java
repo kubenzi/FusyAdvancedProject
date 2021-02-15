@@ -9,6 +9,7 @@ import com.codecool.keepcash.util.converters.currency.CurrencyDtoToCurrencyConve
 import com.codecool.keepcash.util.converters.operation.OperationDtoToOperationConverter;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -42,6 +43,7 @@ public class AccountDtoToAccountConverter {
                     newAccountDto.getAccountNumber(),
                     accountType,
                     currency,
+                    new Date(System.currentTimeMillis()),
                     false);
     }
 }

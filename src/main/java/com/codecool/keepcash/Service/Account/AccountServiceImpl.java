@@ -16,6 +16,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,6 +70,7 @@ public class AccountServiceImpl implements AccountService {
                 "00 0000 0000 0000 0000",
                 accountTypeService.getAccountTypeById(2L),
                 currencyService.getCurrencyById(2L),
+                new Date(System.currentTimeMillis()),
                 true);
     }
 
@@ -99,5 +101,10 @@ public class AccountServiceImpl implements AccountService {
         } catch (EmptyResultDataAccessException e) {
             throw new IdNotFoundException(accountId, Account.class.getSimpleName());
         }
+    }
+
+    @Override
+    public Double getBalanceByAccountId(Long accountId) {
+        return getAccountDtoById(accountId).getBalance();
     }
 }

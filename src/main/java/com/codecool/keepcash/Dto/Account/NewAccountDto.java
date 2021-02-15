@@ -10,7 +10,6 @@ public class NewAccountDto {
         private String accountNumber;
         private Long accountTypeId;
         private Long currencyId;
-        private boolean builtin;
 
         public NewAccountDto() {
         }

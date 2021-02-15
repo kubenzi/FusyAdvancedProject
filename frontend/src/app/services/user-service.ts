@@ -38,7 +38,7 @@ export class UserService {
   }
 
   getLineChartDataForInit30(): Observable<Data[]> {
-    const url = 'http://localhost:8080/api/v1/users/' +  + '/line-chart/' + 30;
+    const url = 'http://localhost:8080/api/v1/users/' + +'/line-chart/' + 30;
     return this.http.get<Data[]>(url);
   }
 
@@ -60,27 +60,10 @@ export class UserService {
     }
   }
 
-
   getPieChartDataStart(): Observable<Series[]> {
     const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/pie-chart/30';
     return this.http.get<Series[]>(url);
   }
-
-  // getPieChartDataStartForPeriod(period: number): Observable<Series[]> {
-  //   const url = 'http://localhost:8080/api/v1/users/' + '2' + '/pie-chart/' + period;
-  //   return this.http.get<Series[]>(url);
-  // }
-  //
-  // getPieChartData(addressUrl: string): Observable<Series[]> {
-  //   console.log(addressUrl);
-  //   if (addressUrl === undefined) {
-  //     const url = 'http://localhost:8080/api/v1/users/' + '2' + '/pie-chart/30';
-  //     return this.http.get<Series[]>(url);
-  //   } else {
-  //     const url = 'http://localhost:8080/api/v1/' + addressUrl + '/pie-chart/60';
-  //     return this.http.get<Series[]>(url);
-  //   }
-  // }
 
   getPieChartDataStartForPeriod(addressUrl: string, period: number): Observable<Series[]> {
     if (addressUrl === undefined) {
@@ -95,7 +78,7 @@ export class UserService {
       const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/pie-chart/' + period;
       return this.http.get<Series[]>(url);
     } else {
-      const url = 'http://localhost:8080/api/v1/users/'+ this.authService.getUserId() +'/pie-chart' + addressUrl + '/period/' + period;
+      const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/pie-chart' + addressUrl + '/period/' + period;
       return this.http.get<Series[]>(url);
     }
   }

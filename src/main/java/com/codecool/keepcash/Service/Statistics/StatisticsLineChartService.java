@@ -12,6 +12,5 @@ public interface StatisticsLineChartService {
 
     List<DataSeriesDto> getDataSeriesForLineChartByCategoryIdIdAndPeriod(Long categoryId, Integer period,
                                                                          Double balance, Long userId);
-    List<DataSeriesDto> getDataSeriesForLineChartByAccountIdIdAndPeriod(Long categoryId, Integer period,
-                                                                                       Double balance, Long userId);
+    List<DataSeriesDto> getDataSeriesForLineChartByAccountIdIdAndPeriod(Long categoryId, Integer period,Long userId);
 }
