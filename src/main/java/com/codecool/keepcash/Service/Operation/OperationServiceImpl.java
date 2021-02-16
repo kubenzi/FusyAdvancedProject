@@ -58,7 +58,7 @@ public class OperationServiceImpl implements OperationService {
 
     @Override
     @Transactional
-    public void addTransaction(NewOperationDto newOperationDto) {
+    public void addTransaction(NewOperationDto newOperationDto, Long userId) {
         newOperationDto.setDate(new Date(System.currentTimeMillis()));
 
         Operation newOperation = operationRepository.save(
@@ -68,12 +68,15 @@ public class OperationServiceImpl implements OperationService {
 
         Account account = accountService.getAccountById(newOperationDto.getAccountId());
         account.getOperations().add(newOperation);
-        account.setBalance(account.getBalance() - newOperation.getValue());
-        accountService.saveUpdatedAccount(account);
+
+        if (account.getCreationDate().compareTo(newOperation.getDate()) < 0) {
+            account.setBalance(account.getBalance() + newOperation.getValue());
+        }
 
         Category category = categoryService.getCategoryById(newOperationDto.getCategoryId());
         category.getOperations().add(newOperation);
-        categoryService.saveUpdatedCategory(category);
+
+        userService.saveUpdatedUserData(userService.getUserDataById(userId));
     }
 
     @Override
@@ -84,6 +87,10 @@ public class OperationServiceImpl implements OperationService {
 
         for (Operation operation : csvOperations) {
             account.getOperations().add(operation);
+
+            if(account.getCreationDate().compareTo(operation.getDate()) < 0) {
+                account.setBalance(account.getBalance() + operation.getValue());
+            }
 
             if (operation.getValue() > 0) {
                 catIncome.getOperations().add(operation);

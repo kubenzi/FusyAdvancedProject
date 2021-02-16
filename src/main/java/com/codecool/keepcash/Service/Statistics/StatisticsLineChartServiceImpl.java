@@ -39,19 +39,19 @@ public class StatisticsLineChartServiceImpl implements StatisticsLineChartServic
 
     @Override
     public List<DataSeriesDto> getDataSeriesForLineChartByAccountIdIdAndPeriod(Long accountId, Integer period,
-                                                                               Double balance, Long userId) {
+                                                                                Long userId) {
         return getDataSeriesForPeriodLineChart(
                 new OperationBuilder.Builder()
                         .spending(operationService.findAllByAccountIdAndPeriod(accountId, period)).build(),
                 period,
                 accountService.getAccountById(accountId).getBalance(), userId);
-//                operationService.findAllByAccountIdAndPeriod(accountId, period), period,
+
     }
 
 
     @Override
     public List<DataSeriesDto> getAllDataSeriesDtoForPeriodByUserId(Long userId, Integer period, Double balance) {
-//        operationService.findAllByUserIdAndPeriod(userId, period)
+
         return getDataSeriesForPeriodLineChart(
                 new OperationBuilder.Builder().spending(
                         operationService.findAllByUserIdAndPeriod(userId, period)).build(),

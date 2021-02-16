@@ -41,8 +41,8 @@ public class OperationsController {
 
     @PostMapping("/users/{userId}/operations")
     @ResponseStatus(CREATED)
-    public void createNewOperation(@RequestBody NewOperationDto operationDto) {
-        operationService.addTransaction(operationDto);
+    public void createNewOperation(@RequestBody NewOperationDto operationDto, @PathVariable Long userId) {
+        operationService.addTransaction(operationDto, userId);
     }
 
 }
