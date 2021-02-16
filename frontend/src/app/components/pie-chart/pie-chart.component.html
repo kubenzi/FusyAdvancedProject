@@ -1,19 +1,31 @@
-<ngx-charts-pie-chart
-  *ngIf="pieChartData.length"
-  [view]="view"
-  [scheme]="colorScheme"
-  [results]="pieChartData"
-  [gradient]="gradient"
-  [legend]="showLegend"
-  [legendPosition]="legendPosition"
-  [labels]="showLabels"
-  [doughnut]="isDoughnut"
-  [explodeSlices]="explodeSlices"
-  (select)="onSelect($event)"
-  (activate)="onActivate($event)"
-  (deactivate)="onDeactivate($event)"
->
-</ngx-charts-pie-chart>
+<span class="test2" *ngIf="pieChartData[0]?.value === 0">
+  <span class="test2" *ngIf="pieChartData[1]?.value === 0">
+    No chart
+  </span>
+</span>
+
+
+<span class="test" *ngIf="pieChartData[0]?.value !== 0">
+  <ngx-charts-pie-chart
+    *ngIf="pieChartData.length"
+    [view]="view"
+    [scheme]="colorScheme"
+    [results]="pieChartData"
+    [gradient]="gradient"
+    [legend]="showLegend"
+    [legendPosition]="legendPosition"
+    [labels]="showLabels"
+    [doughnut]="isDoughnut"
+    [explodeSlices]="explodeSlices"
+    (select)="onSelect($event)"
+    (activate)="onActivate($event)"
+    (deactivate)="onDeactivate($event)"
+  >
+
+  </ngx-charts-pie-chart>
+</span>
+
+
 
 <button class="button" (click)="setPeriod(30)">30 days</button>
 <br>

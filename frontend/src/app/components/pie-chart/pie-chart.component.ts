@@ -15,6 +15,8 @@ export class PieChartComponent implements OnInit {
   userId: number;
   pieChartData: Series[] = [];
   period = 30;
+  revenue: number;
+
 
   view: any[] = [400, 300];
 
@@ -65,5 +67,9 @@ export class PieChartComponent implements OnInit {
     this.userService.getPieChartDataStartForPeriod(
       this.userService.address, this.period).subscribe(
       value => this.pieChartData = value);
+  }
+
+  checkRevenue(): boolean{
+    return this.pieChartData[0].value === 0 && this.pieChartData[1].value === 0;
   }
 }
