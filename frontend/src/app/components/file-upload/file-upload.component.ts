@@ -40,13 +40,13 @@ export class FileUploadComponent implements OnInit {
     console.log(this.file);
     this.fileUploadService.upload(this.file, this.bankName).subscribe(
       (event: any) => {
-        if (typeof (event) === 'object') {
-
-          // Short link via api response
-          this.shortLink = event.link;
-
-          this.loading = false; // Flag variable
-        }
+        // if (typeof (event) === 'object') {
+        //
+        //   // Short link via api response
+        //   this.shortLink = event.link;
+        //
+        //   this.loading = false; // Flag variable
+        // }
       }
     );
 

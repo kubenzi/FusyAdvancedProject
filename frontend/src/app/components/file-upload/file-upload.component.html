@@ -4,6 +4,7 @@
          accept="text/csv" (change)="onFileChange($event)">
 
   <select id="selectedBank" (change)="onBankChange($event)">
+    <option> --- </option>
     <option *ngFor="let bank of banks$">
       {{bank.name}}
     </option>
