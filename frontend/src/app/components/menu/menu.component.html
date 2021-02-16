@@ -1,5 +1,7 @@
-<h2>Categories</h2>
-<button type="button" mat-raised-button color="primary" ><mat-icon>add_circle</mat-icon> Add category</button>
+<div class="categories-header">
+  <h2>Categories</h2>
+  <button type="button" mat-raised-button color="primary" ><mat-icon>add_circle</mat-icon> Add category</button>
+</div>
 <div class="category-container">
   <br>
   <li *ngFor="let category of (user$ | async)?.categories" class="repo">
@@ -16,10 +18,12 @@
   </li>
 </div>
 
-<h2>Account</h2>
-<button type="button" mat-raised-button color="primary"><mat-icon>add_circle</mat-icon> Add account</button>
-<div class="account-container">
+<div class="accounts-header">
+  <h2>Account</h2>
+  <button type="button" mat-raised-button color="primary"><mat-icon>add_circle</mat-icon> Add account</button>
+</div>
 
+<div class="account-container">
   <br>
   <li *ngFor="let account of (user$ | async)?.accounts " class="repo">
     <a class="account" [routerLink]="['/accounts', account.id]">

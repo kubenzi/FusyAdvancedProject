@@ -21,6 +21,10 @@ import {AuthModule} from './authentication/auth.module';
 import { CookieService } from 'ngx-cookie-service';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatNativeDateModule} from '@angular/material/core';
+import {MatInputModule} from '@angular/material/input';
 
 
 @NgModule({
@@ -35,21 +39,25 @@ import {MatIconModule} from '@angular/material/icon';
     CategoriesComponent,
     ScheduledComponent,
     AccountsComponent,
-    FileUploadComponent
+    FileUploadComponent,
   ],
-    imports: [
-        BrowserModule,
-        HttpClientModule,
-        AppRoutingModule,
-        HttpClientModule,
-        FormsModule,
-        NgxChartsModule,
-        FormsModule,
-        BrowserAnimationsModule,
-        AuthModule,
-        MatButtonModule,
-        MatIconModule
-    ],
+  imports: [
+    BrowserModule,
+    HttpClientModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    NgxChartsModule,
+    FormsModule,
+    BrowserAnimationsModule,
+    AuthModule,
+    MatButtonModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule
+  ],
   providers: [CookieService],
   bootstrap: [AppComponent]
 })
