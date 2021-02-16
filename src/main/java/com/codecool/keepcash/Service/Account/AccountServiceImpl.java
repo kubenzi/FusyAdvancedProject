@@ -82,6 +82,7 @@ public class AccountServiceImpl implements AccountService {
 
         Account newAccount = AccountDtoToAccountConverter
                 .convertNewAccountToAccount(newAccountDto, accountType, currency);
+        newAccount.setCreationDate(new Date(System.currentTimeMillis()));
         accountRepository.save(newAccount);
 
         UserData userData = userService.getUserDataById(userId);

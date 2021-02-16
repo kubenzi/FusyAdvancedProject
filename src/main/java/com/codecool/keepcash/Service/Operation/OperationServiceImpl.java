@@ -59,7 +59,6 @@ public class OperationServiceImpl implements OperationService {
     @Override
     @Transactional
     public void addTransaction(NewOperationDto newOperationDto, Long userId) {
-        newOperationDto.setDate(new Date(System.currentTimeMillis()));
 
         Operation newOperation = operationRepository.save(
                 OperationDtoToOperationConverter
