@@ -1,0 +1,34 @@
+<div class="container">
+  <app-navigation *ngIf="authService.isLoggedIn()" >
+
+  </app-navigation>
+
+  <div class="main-view" >
+    <!--  <app-menu-->
+    <!--    [accounts]="user.accounts"-->
+    <!--    [categories]="user.categories"-->
+    <!--  >-->
+    <!--  </app-menu>-->
+    <router-outlet>
+
+    </router-outlet>
+
+  </div>
+
+  <section *ngIf="authService.isLoggedIn()">
+    <app-section>
+    </app-section>
+
+  <!--  <router-outlet name="nav">-->
+
+  <!--  </router-outlet>-->
+  <!--  http://localhost:4200/categories/2(nav:navigation)-->
+  </section>
+</div>
+<div class="footer">
+  <h3>Jakub Chorążyk | Bartosz Jakimko | Krzysztof Chromiec</h3>
+</div>
+
+<!--<app-simulation (onSimulationChange)="onSimulationChange($event)">  -->
+<!--  // this.onSimulationChange.emit(value);-->
+<!--  // @Output() onSimulationChange = new EventEmitter<Simulation>();-->
