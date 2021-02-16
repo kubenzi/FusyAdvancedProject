@@ -1,0 +1,17 @@
+.transactions {
+  width:100%;
+  margin-top: 10px;
+  overflow-y:scroll;
+  height:300px;
+  display:block;
+  border-color: black;
+  border-style: dashed;
+  line-height: 2em;
+  margin-bottom: 50px;
+}
+
+.table-header{
+  display: block;
+  overflow-y: visible;
+}
+

@@ -29,7 +29,7 @@ export class MenuComponent implements OnInit {
     this.userService.reEmitUser();
     // this.activatedRoute.events.pipe(first(event => !!event)).subscribe((
     //   navigationStart: NavigationStart) => this.userService.setAddress(navigationStart.url));
-    // this.userService.getAddress();
+    // this.userService.getAddress();h
 
       // navigationStart: NavigationStart) => console.log(navigationStart.url));
   }
