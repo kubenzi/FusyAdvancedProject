@@ -25,6 +25,8 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
+import {MatTableModule} from "@angular/material/table";
+import {MatSortModule} from "@angular/material/sort";
 
 
 @NgModule({
@@ -53,12 +55,15 @@ import {MatInputModule} from '@angular/material/input';
     AuthModule,
     MatButtonModule,
     MatIconModule,
-    MatFormFieldModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatInputModule
+    MatTableModule,
+    MatSortModule
+
   ],
-  providers: [CookieService],
+  providers: [CookieService, MatInputModule,
+    MatTableModule,
+    MatSortModule, MatFormFieldModule,
+    MatDatepickerModule,
+    MatNativeDateModule],
   bootstrap: [AppComponent]
 })
 export class AppModule {

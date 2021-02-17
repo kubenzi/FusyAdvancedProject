@@ -35,6 +35,7 @@
 .categories-header, .accounts-header{
   display: flex;
   flex-direction: row;
+  padding-left: 30px;
 }
 
 
@@ -97,11 +98,15 @@ h2{
   position: relative;
   /*left: -1px;*/
   /*top: -4px;*/
-  margin: .8em;
+  margin: .8em .8em .8em .8em;
   border-radius: 8px 8px 8px 8px;
   padding: 10px;
   text-decoration: none;
 }
+.category{
+  margin: 1.5em .8em .8em .8em;
+}
+
 .account {
   width: 200px;
   font-size: 20px;

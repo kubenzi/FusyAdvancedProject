@@ -54,6 +54,8 @@ export class LoginComponent implements OnInit {
         } else {
           console.log('Login failed, display error to user');
         }
+      }, (error: any) => {
+        console.log(error);
       });
   }
 }

@@ -62,3 +62,9 @@ export interface Bank {
   name: string
 }
 
+export interface ExchangeRate {
+  eur: number,
+  usd: number,
+  gbp: number
+}
+

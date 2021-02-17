@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {tap} from 'rxjs/operators';
-import {Data, Series, User} from '../models/models';
+import {switchMap, tap} from 'rxjs/operators';
+import {Data, Series, User, Account} from '../models/models';
 import {AuthService} from '../authentication/services/auth.service';
 
 
@@ -11,6 +11,7 @@ import {AuthService} from '../authentication/services/auth.service';
 })
 export class UserService {
   user$ = new BehaviorSubject<User>({});
+  flag = new BehaviorSubject<boolean>(true);
   address: string;
   addressChange$ = new Subject<boolean>();
 
@@ -45,18 +46,27 @@ export class UserService {
   getLineChartDataForPeriod(addressUrl: string, period: number): Observable<Data[]> {
     if (addressUrl === undefined) {
       const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/line-chart/' + period;
-      return this.http.get<Data[]>(url);
+      return this.flag.asObservable().pipe(
+        switchMap(() => this.http.get<Data[]>(url))
+      )
+      // return this.http.get<Data[]>(url);
     }
     if (addressUrl === '/dashboard') {
       const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/line-chart/' + period;
-      return this.http.get<Data[]>(url);
+      return this.flag.asObservable().pipe(
+        switchMap(() => this.http.get<Data[]>(url))
+      )
     }
     if (addressUrl === '/scheduled') {
       const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/line-chart/' + period;
-      return this.http.get<Data[]>(url);
+      return this.flag.asObservable().pipe(
+        switchMap(() => this.http.get<Data[]>(url))
+      )
     } else { //if addressUrl = login
       const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/line-chart' + addressUrl + '/period/' + period;
-      return this.http.get<Data[]>(url);
+      return this.flag.asObservable().pipe(
+        switchMap(() => this.http.get<Data[]>(url))
+      )
     }
   }
 
@@ -86,6 +96,10 @@ export class UserService {
   setAddress(addressUrl: string): void {
     this.address = addressUrl;
     this.addressChange$.next(true);
+  }
+
+  getAccountInfo(userId: number, accountId: number): Observable<Account>{
+    return this.http.get<Account>('http://localhost:8080/api/v1/users/' + userId + '/accounts/' + accountId);
   }
 
   // getAddress(): string {

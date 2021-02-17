@@ -47,6 +47,8 @@ export class FileUploadComponent implements OnInit {
         //
         //   this.loading = false; // Flag variable
         // }
+        this.userService.reEmitUser();
+        this.userService.flag.next(true);
       }
     );
 

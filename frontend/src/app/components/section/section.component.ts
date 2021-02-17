@@ -41,6 +41,6 @@ export class SectionComponent implements OnInit {
   }
 
   getInitial(){
-    return this.userService.user$.getValue().firstName.charAt(0);
+    return this.userService.user$.getValue()?.firstName.charAt(0);
   }
 }
