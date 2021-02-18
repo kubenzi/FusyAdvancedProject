@@ -13,14 +13,19 @@ import {Operation} from '../../models/models';
 export class SortTableComponent implements AfterViewInit{
 
 
-  operationList: Operation[] = [{id: 1, description: "dsc 1", value: -20, date: "2021-05-01"},
-    {id: 2, description: "dsc 2", value: 20, date: "2020-02-04"},
-    {id: 2, description: "dsc 2", value: 20, date: "2021-01-10"},
-    {id: 2, description: "dsc 2", value: 20, date: "2021-05-10"}];
-  // @Input() operationList: Operation[] = [];
+  // operationList: Operation[] = [{id: 1, description: "xdddddd", value: -20, date: "2021-05-01"},
+  //   {id: 2, description: "dsc 2", value: 20, date: "2020-02-04"},
+  //   {id: 2, description: "dsc 2", value: 20, date: "2021-01-10"},
+  //   {id: 2, description: "dsc 2", value: 20, date: "2021-05-10"}];
+  _operationList: Operation[];
+  dataSource: MatTableDataSource<Operation>;
+
+  @Input() set operationList(operationList: Operation[]){
+    this._operationList = operationList;
+    this.dataSource = new MatTableDataSource(this._operationList);
+  }
 
   displayedColumns: string[] = ['id', 'description', 'value', 'date'];
-  dataSource = new MatTableDataSource(this.operationList);
 
   @ViewChild(MatSort) sort: MatSort;
 

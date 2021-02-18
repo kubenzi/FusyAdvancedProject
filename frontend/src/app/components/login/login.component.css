@@ -7,9 +7,9 @@
 
 #form_wrapper {
   width: 1400px;
-  height: 700px;
+  height: 900px;
   margin: auto;
-  background-color: #ffffff;
+  /*background-color: #ffffff;*/
   border-radius: 30px;
   /*Just for a moment*/
   /*border-color: #d6d6d6;*/
@@ -49,7 +49,7 @@
 }
 
 #form_right {
-  margin-top: 100px;
+  margin-top: 200px;
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 20px;
@@ -76,7 +76,7 @@
 }
 
 .input_container, #input_submit, #button{
-  height: 60px;
+  height: 70px;
   border-radius: 30px;
   width: 100%;
 }

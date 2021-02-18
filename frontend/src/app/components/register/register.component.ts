@@ -61,14 +61,14 @@ export class RegisterComponent implements OnInit {
     if (this.username.hasError('required')) {
       return 'You must enter an username';
     }
-    return this.username.hasError('pattern') ? 'Username length range: 5 - 15' : '';
+    return this.username.hasError('pattern') ? 'Username length range: 5-15 [A-Z/a-z]' : '';
   }
 
   getErrorMessagePassword() {
     if (this.password.hasError('required')) {
       return 'You must enter a password';
     }
-    return this.password.hasError('pattern') ? 'Password length range: 6 - 12' : '';
+    return this.password.hasError('pattern') ? 'Password length range: 5-15 [A-Z/a-z/1-9]' : '';
   }
 
   getErrorMessageConfirmPassword() {
