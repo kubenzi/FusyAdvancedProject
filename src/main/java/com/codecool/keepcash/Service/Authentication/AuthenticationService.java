@@ -5,13 +5,11 @@ import com.codecool.keepcash.Dto.Authentication.UserRegistrationDto;
 import com.codecool.keepcash.Entity.Category;
 import com.codecool.keepcash.Entity.User;
 import com.codecool.keepcash.Entity.UserData;
-import com.codecool.keepcash.Exception.NewUserDataException;
 import com.codecool.keepcash.Repository.UserDataRepository;
 import com.codecool.keepcash.Repository.UserRepository;
 import com.codecool.keepcash.Service.Account.AccountService;
 import com.codecool.keepcash.Service.Category.CategoryService;
-import com.codecool.keepcash.Service.Validation.ValidationError;
-import com.codecool.keepcash.Service.Validation.ValidationService;
+import com.codecool.keepcash.Service.Validation.NewUserValidationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -23,9 +21,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class AuthenticationService implements UserDetailsService {
@@ -42,26 +38,37 @@ public class AuthenticationService implements UserDetailsService {
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    private AccountService accountService;
+    private final AccountService accountService;
 
-    private CategoryService categoryService;
+    private final CategoryService categoryService;
 
-    private ValidationService validationService;
+    private final NewUserValidationService newUserValidationService;
 
     public AuthenticationService(AccountService accountService,
                                  CategoryService categoryService,
-                                 ValidationService validationService) {
+                                 NewUserValidationService newUserValidationService) {
         this.accountService = accountService;
         this.categoryService = categoryService;
-        this.validationService = validationService;
+        this.newUserValidationService = newUserValidationService;
     }
 
     public void register(UserRegistrationDto userRegistrationDto) {
 
-        if (isNewDataValid(userRegistrationDto)) {
+        if (newUserValidationService.isNewUserDataValid(userRegistrationDto)) {
             createNewUser(userRegistrationDto);
         }
+    }
 
+    public Authentication login(UserCredentialsDto userCredentialsDto) {
+        return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userCredentialsDto.getUsername(),
+                userCredentialsDto.getPassword()));
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username)
+                .orElseThrow(() -> new UsernameNotFoundException
+                        (String.format("User with username %s not found.", username)));
     }
 
     @Transactional
@@ -77,49 +84,9 @@ public class AuthenticationService implements UserDetailsService {
                 user);
 
         List<Category> inbuiltCategories = categoryService.createBuiltinCategories();
-        inbuiltCategories.stream().forEach(category -> userData.getCategories().add(category));
+        inbuiltCategories.forEach(category -> userData.getCategories().add(category));
 
         userData.getAccounts().add(accountService.createBuiltinAccounts());
         userDataRepository.save(userData);
-    }
-
-    private List<ValidationError> newUserDataValidation(UserRegistrationDto userRegistrationDto) {
-        List<List<ValidationError>> listsOfErrors = new ArrayList<>();
-
-        listsOfErrors.add(validationService.registrationDtoNullValidation(userRegistrationDto).getErrors());
-        List<ValidationError> nullErrors = listsOfErrors.get(0);
-
-        if (nullErrors.size() == 0) {
-            listsOfErrors.add(validationService.registrationDtoDataValidation(userRegistrationDto).getErrors());
-            listsOfErrors.add(validationService.registrationDtoUsernameAndEmailDuplicateValidation(userRegistrationDto)
-                    .getErrors());
-        }
-
-        return listsOfErrors.stream().flatMap(errors -> errors.stream()).collect(Collectors.toList());
-    }
-
-    private boolean isNewDataValid(UserRegistrationDto userRegistrationDto) throws NewUserDataException {
-        List<ValidationError> validationErrors = newUserDataValidation(userRegistrationDto);
-
-        if (validationErrors.size() != 0) {
-            throw new NewUserDataException(
-                    validationErrors.stream().map(error -> error.name())
-                            .collect(Collectors.joining(", "))
-            );
-        }
-
-        return validationErrors.size() == 0;
-    }
-
-    public Authentication login(UserCredentialsDto userCredentialsDto) {
-        return authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(userCredentialsDto.getUsername(),
-                userCredentialsDto.getPassword()));
-    }
-
-    @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException
-                        (String.format("User with username %s not found.", username)));
     }
 }

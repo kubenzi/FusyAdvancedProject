@@ -6,8 +6,6 @@ import com.codecool.keepcash.Entity.User;
 import com.codecool.keepcash.Entity.UserData;
 import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.ExternalApis.Client.ExchangeRatesClient;
-import com.codecool.keepcash.ExternalApis.Controller.ExchangeRatesController;
-import com.codecool.keepcash.ExternalApis.Dto.ExchangeRatesDto;
 import com.codecool.keepcash.ExternalApis.Dto.Rates;
 import com.codecool.keepcash.Repository.UserDataRepository;
 import com.codecool.keepcash.Repository.UserRepository;
@@ -18,8 +16,6 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 @Service
