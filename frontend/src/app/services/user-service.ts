@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {switchMap, tap} from 'rxjs/operators';
-import {Data, Series, User, Account} from '../models/models';
+import {Data, Series, User, Account, Category} from '../models/models';
 import {AuthService} from '../authentication/services/auth.service';
 
 
@@ -100,6 +100,10 @@ export class UserService {
 
   getAccountInfo(userId: number, accountId: number): Observable<Account>{
     return this.http.get<Account>('http://localhost:8080/api/v1/users/' + userId + '/accounts/' + accountId);
+  }
+
+  getCategoryInfo(userId: number, categoryId: number): Observable<Category>{
+    return this.http.get<Category>('http://localhost:8080/api/v1/users/' + userId + '/categories/' + categoryId);
   }
 
   // getAddress(): string {

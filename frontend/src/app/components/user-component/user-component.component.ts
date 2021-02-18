@@ -11,6 +11,7 @@ import {Observable, Subject} from "rxjs";
 })
 export class UserComponentComponent implements OnInit {
 
+
   user$ = new Observable<User>();
   totalBalance = 0;
 

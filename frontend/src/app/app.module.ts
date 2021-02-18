@@ -27,6 +27,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
+import { SortTableComponent } from './components/sort-table/sort-table.component';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import {MatSortModule} from "@angular/material/sort";
     ScheduledComponent,
     AccountsComponent,
     FileUploadComponent,
+    SortTableComponent,
   ],
   imports: [
     BrowserModule,
