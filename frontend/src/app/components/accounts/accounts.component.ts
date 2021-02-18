@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from 'rxjs';
-import {User, Account, Operation} from '../../models/models';
+import {User, Account, Operation, Category, Bank} from '../../models/models';
 import {UserService} from '../../services/user-service';
 import {ActivatedRoute} from '@angular/router';
-import {switchMap} from 'rxjs/operators';
-import {MatSort, Sort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
+import {filter, switchMap} from 'rxjs/operators';
+import {AuthService} from '../../authentication/services/auth.service';
+import {FileUploadService} from '../file-upload/file-upload.service';
+import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-accounts',
@@ -13,54 +14,30 @@ import {MatTableDataSource} from '@angular/material/table';
   styleUrls: ['./accounts.component.css']
 })
 export class AccountsComponent implements OnInit {
+
   user$: Observable<User>;
+  categories$: Category[];
   account: Observable<Account>;
   accountId: number;
-  // operations: Operation[];
-  // sortedOperations: Operation[];
 
-  constructor(private route: ActivatedRoute, private userService: UserService) {
+  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private http: HttpClient) {
   }
 
   ngOnInit(): void {
     this.accountId = Number(this.route.snapshot.paramMap.get('id'));
     this.user$ = this.userService.getUser$();
-    this.account = this.user$.pipe(
+    this.setCategories$();
+    this.account = this.userService.getUser$().pipe(
+      filter(user => !!user),
       switchMap(
         user$ => this.userService.getAccountInfo(user$.id, this.accountId)
       )
     )
   }
 
-  // getOp(accountId: number): Operation[] {
-  //   return this.operations = this.account[accountId].operations;
-  // }
-  //
-  // sortData(sort: Sort) {
-  //   this.operations = this.getOp(this.accountId);
-  //   const data = this.operations.slice();
-  //   if (!sort.active || sort.direction === '') {
-  //     this.sortedOperations = data;
-  //     return;
-  //   }
-  //
-  //   this.sortedOperations = data.sort((a, b) => {
-  //     const isAsc = sort.direction === 'asc';
-  //     switch (sort.active) {
-  //       case a[0] : return this.compare(a.date, b.date, isAsc);
-  //       // case 'calories': return compare(a.calories, b.calories, isAsc);
-  //       // case 'fat': return compare(a.fat, b.fat, isAsc);
-  //       default: return 0;
-  //     }
-  //   });
-  // }
-  //
-  //
-  //   compare(a: number | string, b: number | string, isAsc: boolean) {
-  //     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
-  //   }
-
-
-
+  setCategories$(): void{
+    const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + "/categories";
+    this.http.get<Category[]>(url).subscribe(value => this.categories$ = value);
+  }
 
 }

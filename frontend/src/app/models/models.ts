@@ -5,6 +5,14 @@ export interface Operation {
   date: string;
 }
 
+export interface OperationDto{
+  description: string;
+  value: number;
+  date: string;
+  categoryId: number;
+  accountId: number;
+}
+
 export interface Category {
   id: number;
   name: string;

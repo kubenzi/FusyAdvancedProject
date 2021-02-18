@@ -15,10 +15,9 @@ export class CategoriesComponent implements OnInit {
   user$: Observable<User>;
   category: Observable<Category>;
   categoryId: number;
-  operations: Operation[] = [{id: 1, description: "dsc", value: -20, date: "2020-20-01"},
-    {id: 2, description: "dsc 2", value: 20, date: "2020-20-04"}];
 
-  constructor(private route: ActivatedRoute, private userService: UserService) { }
+  constructor(private route: ActivatedRoute, private userService: UserService) {
+  }
 
   ngOnInit(): void {
     this.categoryId = Number(this.route.snapshot.paramMap.get('id'));
@@ -29,6 +28,6 @@ export class CategoriesComponent implements OnInit {
         user$ => this.userService.getCategoryInfo(user$.id, this.categoryId)
       )
     )
-    this.category.subscribe(value => console.log(value))
+    // this.category.subscribe(value => console.log(value))
   }
 }
