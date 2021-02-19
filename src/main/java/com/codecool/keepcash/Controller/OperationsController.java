@@ -2,7 +2,10 @@ package com.codecool.keepcash.Controller;
 
 import com.codecool.keepcash.Dto.Operation.NewOperationDto;
 import com.codecool.keepcash.Dto.Operation.OperationDto;
+import com.codecool.keepcash.Exception.NewOperationDtoValidationException;
 import com.codecool.keepcash.Service.Operation.OperationService;
+import com.codecool.keepcash.Service.Validation.NewOperationValidation.NewOperationDtoService;
+import com.codecool.keepcash.Service.Validation.ValidationError;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,9 +19,11 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 public class OperationsController {
 
     private OperationService operationService;
+    private NewOperationDtoService newOperationDtoService;
 
-    public OperationsController(OperationService operationService) {
+    public OperationsController(OperationService operationService, NewOperationDtoService newOperationDtoService) {
         this.operationService = operationService;
+        this.newOperationDtoService = newOperationDtoService;
     }
 
     @GetMapping("/users/{userId}/operations")
@@ -42,7 +47,17 @@ public class OperationsController {
     @PostMapping("/users/{userId}/operations")
     @ResponseStatus(CREATED)
     public void createNewOperation(@RequestBody NewOperationDto operationDto, @PathVariable Long userId) {
-        operationService.addTransaction(operationDto, userId);
+
+        List<ValidationError> validationErrors = newOperationDtoService.validateNewOperationDto(operationDto);
+        if(validationErrors.isEmpty()){
+            operationService.addTransaction(operationDto, userId);
+        }else {
+            throw new NewOperationDtoValidationException(
+                    validationErrors.toString()
+            );
+        }
+
+
     }
 
 }
