@@ -25,4 +25,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(exception.getMessage(), NOT_ACCEPTABLE);
     }
 
+    @ExceptionHandler({NewCategoryValidationException.class})
+    public ResponseEntity<String> wrongNewCategoryData(NewCategoryValidationException exception) {
+        return new ResponseEntity<>(exception.getMessage(), NOT_ACCEPTABLE);
+    }
+
 }
