@@ -84,7 +84,7 @@ public class AccountServiceImpl implements AccountService {
     public void addNewAccount(NewAccountDto newAccountDto, Long userId) {
         prepareNewAccountDtoToDbUpload(newAccountDto);
 
-        if (newAccountFormValidationService.isNewAccountFormValid(newAccountDto)) {
+        if (newAccountFormValidationService.isNewAccountFormValid(newAccountDto, userId)) {
             AccountType accountType = accountTypeService.getAccountTypeById(newAccountDto.getAccountTypeId());
             Currency currency = currencyService.getCurrencyById(newAccountDto.getCurrencyId());
 
