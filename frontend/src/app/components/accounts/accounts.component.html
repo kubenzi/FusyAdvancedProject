@@ -1,13 +1,11 @@
 <div class="account-container">
   <div class="account-view">
     <div class="account-details">
-      <div class="first">
-        <div class="account-type-name">
-          <h3>{{(account | async)?.accountType.name}}</h3>
-        </div>
-        <div class="account-balance">
-          <h3>{{(account | async)?.balance}} PLN</h3>
-        </div>
+      <div class="account-type-name">
+        <h3>{{(account | async)?.accountType.name}}</h3>
+      </div>
+      <div class="account-balance">
+        <h3>{{(account | async)?.balance}} PLN</h3>
       </div>
       <div class="account-name">
         <h3>{{(account | async)?.name}}</h3>
@@ -16,70 +14,41 @@
         <h3>{{(account | async)?.accountNumber}}</h3>
       </div>
     </div>
-    <div class="new-transaction">
-
-    </div>
-    <div class="file-upload">
-      <app-file-upload></app-file-upload>
+    <div class="row">
+      <div class="new-transaction">
+        <h2>New single transaction</h2>
+        <div class="form-transaction">
+          <div class="form-left">
+            <input type="text" placeholder="Description">
+            <input type="number" placeholder="Value">
+            <input type="date" name="begin"
+                   placeholder="dd-mm-yyyy" value=""
+                   min="1997-01-01" max="2030-12-31">
+          </div>
+          <div class="form-right">
+            <select class="selected-account-type">
+              <option> --- </option>
+              <option *ngFor="let category of categories$">
+                {{category.name}}
+              </option>
+            </select>
+            <select class="selected-transaction-type">
+              <option> --- </option>
+              <option> Outgo </option>
+              <option> Income </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      <div class="file-upload">
+        <app-file-upload></app-file-upload>
+      </div>
     </div>
   </div>
-
-<!--  <table matSort (matSortChange)="sortData($event)">-->
-<!--    <tr>-->
-<!--      <th mat-sort-header="date">DATE</th>-->
-<!--      <th mat-sort-header="description">DESCRIPTION</th>-->
-<!--      <th mat-sort-header="amount">AMOUNT</th>-->
-<!--    </tr>-->
-
-<!--    <tr *ngFor="let operation of sortedOperations">-->
-<!--      <td>{{operation.date}}</td>-->
-<!--&lt;!&ndash;      <td>{{dessert.calories}}</td>&ndash;&gt;-->
-<!--&lt;!&ndash;      <td>{{dessert.fat}}</td>&ndash;&gt;-->
-<!--&lt;!&ndash;      <td>{{dessert.carbs}}</td>&ndash;&gt;-->
-<!--&lt;!&ndash;      <td>{{dessert.protein}}</td>&ndash;&gt;-->
-<!--    </tr>-->
-<!--  </table>-->
-
-<!--  <table mat-table *ngFor="let operation of (account | async)?.operations" matSort class="mat-elevation-z8">-->
-<!--    &lt;!&ndash; Position Column &ndash;&gt;-->
-<!--    <ng-container matColumnDef="position">-->
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> No. </th>-->
-<!--      <td mat-cell *matCellDef="let operation"> {{operation}} </td>-->
-<!--    </ng-container>-->
-
-<!--    &lt;!&ndash; Name Column &ndash;&gt;-->
-<!--    <ng-container matColumnDef="name">-->
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>-->
-<!--      <td mat-cell *matCellDef="let element"> {{element.name}} </td>-->
-<!--    </ng-container>-->
-
-<!--    &lt;!&ndash; Weight Column &ndash;&gt;-->
-<!--    <ng-container matColumnDef="weight">-->
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Weight </th>-->
-<!--      <td mat-cell *matCellDef="let element"> {{element.weight}} </td>-->
-<!--    </ng-container>-->
-
-<!--    &lt;!&ndash; Symbol Column &ndash;&gt;-->
-<!--    <ng-container matColumnDef="symbol">-->
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Symbol </th>-->
-<!--      <td mat-cell *matCellDef="let element"> {{element.symbol}} </td>-->
-<!--    </ng-container>-->
-
-<!--    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
-<!--    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>-->
-<!--  </table>-->
-  <table class="table-header">
-    <th class="date-header">DATE</th>
-    <th class="description-header">DESCRIPTION</th>
-    <th class="amount-header">AMOUNT</th>
-  </table>
-  <table class="transactions" >
-    <tr *ngFor="let operation of (account | async)?.operations">
-      <th class="op-date">{{operation.date}}</th>
-      <th class="op-description">{{operation.description}}</th>
-      <th class="op-value">{{operation.value}} {{(account | async)?.currency.signature}}</th>
-    </tr>
-  </table>
 </div>
+<app-sort-table [operationList]="(account | async).operations">
+
+</app-sort-table>
+
 
 <app-line-chart></app-line-chart>

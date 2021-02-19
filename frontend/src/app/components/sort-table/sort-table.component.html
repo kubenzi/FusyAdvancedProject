@@ -1,39 +1,57 @@
-
-
-
-{{operationList[0]?.id}}<br>
-{{operationList[0]?.description}}<br>
-{{operationList[0]?.value}}<br>
-{{operationList[0]?.date}}<br>
-
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-
-  <!-- Id Column -->
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>
-    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
   </ng-container>
 
-  <!-- Description Column -->
   <ng-container matColumnDef="description">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
-    <td mat-cell *matCellDef="let element"> {{element.description}} </td>
   </ng-container>
 
-  <!-- Value Column -->
   <ng-container matColumnDef="value">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>
-    <td mat-cell *matCellDef="let element"> {{element.value}} </td>
   </ng-container>
 
-  <!-- Date Column -->
   <ng-container matColumnDef="date">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
-    <td mat-cell *matCellDef="let element"> {{element.date}} </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
+
+
+
+<div class="test">
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+
+    <!-- Id Column -->
+    <ng-container matColumnDef="id">
+<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>-->
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Description Column -->
+    <ng-container matColumnDef="description">
+<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>-->
+      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+    </ng-container>
+
+    <!-- Value Column -->
+    <ng-container matColumnDef="value">
+<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>-->
+      <td mat-cell *matCellDef="let element"> {{element.value}} </td>
+    </ng-container>
+
+    <!-- Date Column -->
+    <ng-container matColumnDef="date">
+<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>-->
+      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+
+<!--    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+</div>
+
 
 

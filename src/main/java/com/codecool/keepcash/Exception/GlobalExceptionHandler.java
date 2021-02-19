@@ -20,4 +20,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(exception.getMessage(), NOT_ACCEPTABLE);
     }
 
+    @ExceptionHandler({NewOperationDtoValidationException.class})
+    public ResponseEntity<String> wrongNewOperationData(NewOperationDtoValidationException exception) {
+        return new ResponseEntity<>(exception.getMessage(), NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler({NewCategoryValidationException.class})
+    public ResponseEntity<String> wrongNewCategoryData(NewCategoryValidationException exception) {
+        return new ResponseEntity<>(exception.getMessage(), NOT_ACCEPTABLE);
+    }
+
 }

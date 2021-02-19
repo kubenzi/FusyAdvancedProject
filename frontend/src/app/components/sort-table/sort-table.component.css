@@ -1,7 +1,18 @@
 table {
-  width: 100%;
+  width: 95%;
+
 }
 
 th.mat-sort-header-sorted {
   color: black;
 }
+
+.test{
+  overflow: scroll;
+  max-height: 220px;
+}
+
+th{
+  position: sticky;
+}
+
