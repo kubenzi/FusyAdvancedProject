@@ -2,7 +2,7 @@ package com.codecool.keepcash.Service.Validation;
 
 import com.codecool.keepcash.Dto.User.NewEmailDto;
 import com.codecool.keepcash.Entity.UserData;
-import com.codecool.keepcash.Exception.NewEmailFormException;
+import com.codecool.keepcash.Exception.InvalidNewEmailDtoException;
 import com.codecool.keepcash.Service.User.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 import static com.codecool.keepcash.Service.Validation.ValidationError.*;
 
 @Service
-public class EmailUpdateFormValidationService {
+public class NewEmailFormValidationService {
 
     @Autowired
     private UserService userService;
@@ -26,15 +26,14 @@ public class EmailUpdateFormValidationService {
     @Autowired
     private PasswordEncoder bCryptPasswordEncoder;
 
-    public EmailUpdateFormValidationService() {
+    public NewEmailFormValidationService() {
     }
 
-    public boolean isNewEmailFormValid(NewEmailDto newEmailForm,
-                                       Long userId) {
+    public boolean isNewEmailFormValid(NewEmailDto newEmailForm, Long userId) {
         List<ValidationError> validationErrors = validateNewEmailForm(newEmailForm, userId);
 
         if (validationErrors.size() != 0) {
-            throw new NewEmailFormException(
+            throw new InvalidNewEmailDtoException(
                     validationErrors.stream().map(error -> error.name())
                             .collect(Collectors.joining(", "))
             );
@@ -43,8 +42,7 @@ public class EmailUpdateFormValidationService {
         return true;
     }
 
-    private List<ValidationError> validateNewEmailForm(NewEmailDto newEmailForm,
-                                                       Long userId) {
+    private List<ValidationError> validateNewEmailForm(NewEmailDto newEmailForm, Long userId) {
         List<List<ValidationError>> listOfErrors = new ArrayList<>();
 
         listOfErrors.add(checkNewEmailFormForNullFields(newEmailForm).getErrors());
@@ -59,8 +57,8 @@ public class EmailUpdateFormValidationService {
                 .flatMap(errors -> errors.stream()).collect(Collectors.toList());
     }
 
-    private Validator checkNewEmailFormForNullFields(NewEmailDto newEmailDto) {
-        return Validator.of(newEmailDto)
+    private Validator checkNewEmailFormForNullFields(NewEmailDto newEmailForm) {
+        return Validator.of(newEmailForm)
                 .validate(form -> form.getOldEmail() != null && !form.getOldEmail().equalsIgnoreCase("null"),
                         AT_LEAST_ONE_VALUE_IS_NULL)
                 .validate(form -> form.getOldEmail() != null && !form.getOldEmail().equalsIgnoreCase("null"),
@@ -71,15 +69,14 @@ public class EmailUpdateFormValidationService {
                         AT_LEAST_ONE_VALUE_IS_NULL);
     }
 
-    private Validator checkNewEmailFormData(NewEmailDto newEmailDto,
-                                            Long userId) {
+    private Validator checkNewEmailFormData(NewEmailDto newEmailForm, Long userId) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         String password = userDetails.getPassword();
 
         UserData userData = userService.getUserDataById(userId);
 
-        return Validator.of(newEmailDto)
+        return Validator.of(newEmailForm)
                 .validate(form -> form.getOldEmail().equals(userData.getEmail()),
                         OLD_EMAIL_DOESNT_MATCH)
                 .validate(form -> Pattern.matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$",
@@ -90,9 +87,9 @@ public class EmailUpdateFormValidationService {
                         WRONG_PASSWORD_FOR_GIVEN_USER);
     }
 
-    private Validator checkIfNewEmailAlreadyInDatabase(NewEmailDto newEmailDto) {
+    private Validator checkIfNewEmailAlreadyInDatabase(NewEmailDto newEmailForm) {
 
-        return Validator.of(newEmailDto)
+        return Validator.of(newEmailForm)
                 .validate(form -> !userService.findByEmail(form.getNewEmail()).isPresent(),
                         EMAIL_ALREADY_IN_DB)
                 .validate(form -> !form.getOldEmail().equals(form.getNewEmail()),

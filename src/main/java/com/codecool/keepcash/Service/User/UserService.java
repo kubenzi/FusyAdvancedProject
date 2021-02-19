@@ -1,6 +1,7 @@
 package com.codecool.keepcash.Service.User;
 
 import com.codecool.keepcash.Dto.User.NewEmailDto;
+import com.codecool.keepcash.Dto.User.NewPasswordDto;
 import com.codecool.keepcash.Dto.User.UserDataDto;
 import com.codecool.keepcash.Entity.User;
 import com.codecool.keepcash.Entity.UserData;
@@ -19,6 +20,8 @@ public interface UserService {
     void saveUpdatedUserData(UserData userData);
 
     void updateUserEmail(Long userId, NewEmailDto newEmailDto);
+
+    void updateUserPassword(NewPasswordDto newPasswordDto);
 
     User findById(Long userId);
 

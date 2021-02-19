@@ -1,6 +1,7 @@
 package com.codecool.keepcash.Service.User;
 
 import com.codecool.keepcash.Dto.User.NewEmailDto;
+import com.codecool.keepcash.Dto.User.NewPasswordDto;
 import com.codecool.keepcash.Dto.User.UserDataDto;
 import com.codecool.keepcash.Entity.User;
 import com.codecool.keepcash.Entity.UserData;
@@ -9,10 +10,13 @@ import com.codecool.keepcash.ExternalApis.Client.ExchangeRatesClient;
 import com.codecool.keepcash.ExternalApis.Dto.Rates;
 import com.codecool.keepcash.Repository.UserDataRepository;
 import com.codecool.keepcash.Repository.UserRepository;
-import com.codecool.keepcash.Service.Validation.EmailUpdateFormValidationService;
+import com.codecool.keepcash.Service.Validation.NewEmailFormValidationService;
+import com.codecool.keepcash.Service.Validation.NewPasswordFormValidationService;
 import com.codecool.keepcash.util.converters.user.UserDataToUserDataDtoConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -24,7 +28,13 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    private EmailUpdateFormValidationService emailUpdateFormValidationService;
+    private NewEmailFormValidationService newEmailFormValidationService;
+
+    @Autowired
+    private NewPasswordFormValidationService newPasswordFormValidationService;
+
+    @Autowired
+    private PasswordEncoder bCryptPasswordEncoder;
 
     private final UserRepository userRepository;
     private final UserDataRepository userDataRepository;
@@ -73,9 +83,19 @@ public class UserServiceImpl implements UserService {
     public void updateUserEmail(Long userId, NewEmailDto newEmailForm) {
         UserData userData = getUserDataById(userId);
 
-        if (emailUpdateFormValidationService.isNewEmailFormValid(newEmailForm, userId)) {
+        if (newEmailFormValidationService.isNewEmailFormValid(newEmailForm, userId)) {
             userData.setEmail(newEmailForm.getNewEmail());
             userDataRepository.save(userData);
+        }
+    }
+
+    @Override
+    public void updateUserPassword(NewPasswordDto newPasswordDto) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (newPasswordFormValidationService.isNewPasswordFormValid(newPasswordDto)) {
+            user.setPassword(bCryptPasswordEncoder.encode(newPasswordDto.getNewPassword()));
+            userRepository.save(user);
         }
     }
 

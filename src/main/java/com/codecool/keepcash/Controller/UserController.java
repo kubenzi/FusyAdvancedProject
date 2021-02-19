@@ -1,6 +1,7 @@
 package com.codecool.keepcash.Controller;
 
 import com.codecool.keepcash.Dto.User.NewEmailDto;
+import com.codecool.keepcash.Dto.User.NewPasswordDto;
 import com.codecool.keepcash.Dto.User.UserDataDto;
 import com.codecool.keepcash.Service.User.UserService;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +16,7 @@ import static org.springframework.http.HttpStatus.*;
 @RequestMapping("/api/v1")
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -23,13 +24,13 @@ public class UserController {
 
     @GetMapping("/users/{id}")
     @ResponseStatus(OK)
-    public UserDataDto getUserData(@PathVariable Long id){
+    public UserDataDto getUserData(@PathVariable Long id) {
         return userService.getUserDataDtoById(id);
     }
 
     @DeleteMapping("/users/{id}")
     @ResponseStatus(NO_CONTENT)
-    public void deleteUser(@PathVariable Long id){
+    public void deleteUser(@PathVariable Long id) {
         userService.deleteUserById(id);
     }
 
@@ -37,6 +38,12 @@ public class UserController {
     @ResponseStatus(CREATED)
     public void updateUserEmail(@PathVariable Long id, @RequestBody NewEmailDto newEmailDto) {
         userService.updateUserEmail(id, newEmailDto);
+    }
+
+    @PostMapping("/users/{id}/update-password")
+    @ResponseStatus(CREATED)
+    public void updateUserPassword(@RequestBody NewPasswordDto newPasswordDto) {
+        userService.updateUserPassword(newPasswordDto);
     }
 
     @GetMapping("/users/{id}/get-total-balance")
