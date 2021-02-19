@@ -11,11 +11,20 @@ import java.util.Optional;
 
 public interface UserService {
     UserData getUserDataById(Long id);
+
     UserDataDto getUserDataDtoById(Long id);
+
     void deleteUserById(Long id);
+
     void saveUpdatedUserData(UserData userData);
+
     void updateUserEmail(Long userId, NewEmailDto newEmailDto);
+
+    User findById(Long userId);
+
     Optional<User> findByUserName(String username);
+
     Optional<UserData> findByEmail(String email);
+
     Double calculateTotalBalanceInPLN(Long userId) throws InterruptedException, IOException, URISyntaxException;
 }

@@ -46,7 +46,8 @@ public class NewUserValidationService {
                     .getErrors());
         }
 
-        return listsOfErrors.stream().flatMap(errors -> errors.stream()).collect(Collectors.toList());
+        return listsOfErrors.stream()
+                .flatMap(errors -> errors.stream()).collect(Collectors.toList());
     }
 
     private Validator registrationDtoNullValidation(UserRegistrationDto registrationDto) {

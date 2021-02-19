@@ -1,18 +1,19 @@
 package com.codecool.keepcash.Controller;
 
-import com.codecool.keepcash.Dto.Authentication.UserCredentialsDto;
 import com.codecool.keepcash.Dto.Authentication.LoginData;
+import com.codecool.keepcash.Dto.Authentication.UserCredentialsDto;
 import com.codecool.keepcash.Dto.Authentication.UserRegistrationDto;
 import com.codecool.keepcash.Entity.User;
 import com.codecool.keepcash.Service.Authentication.AuthenticationService;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.OK;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -51,12 +52,4 @@ public class AuthController {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
     }
-
-    @GetMapping("/hello")
-    public String hello(@CurrentSecurityContext(expression = "authentication?.username")
-                                String username) {
-        return "Hello, " + username + "!";
-    }
-
-
 }

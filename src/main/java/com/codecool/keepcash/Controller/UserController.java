@@ -33,7 +33,7 @@ public class UserController {
         userService.deleteUserById(id);
     }
 
-    @PutMapping("/users/{id}")
+    @PostMapping("/users/{id}/update-email")
     @ResponseStatus(CREATED)
     public void updateUserEmail(@PathVariable Long id, @RequestBody NewEmailDto newEmailDto) {
         userService.updateUserEmail(id, newEmailDto);

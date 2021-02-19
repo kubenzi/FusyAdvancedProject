@@ -9,7 +9,9 @@ import com.codecool.keepcash.ExternalApis.Client.ExchangeRatesClient;
 import com.codecool.keepcash.ExternalApis.Dto.Rates;
 import com.codecool.keepcash.Repository.UserDataRepository;
 import com.codecool.keepcash.Repository.UserRepository;
+import com.codecool.keepcash.Service.Validation.EmailUpdateFormValidationService;
 import com.codecool.keepcash.util.converters.user.UserDataToUserDataDtoConverter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -21,9 +23,12 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements UserService {
 
-    private UserRepository userRepository;
-    private UserDataRepository userDataRepository;
-    private ExchangeRatesClient exchangeRatesClient;
+    @Autowired
+    private EmailUpdateFormValidationService emailUpdateFormValidationService;
+
+    private final UserRepository userRepository;
+    private final UserDataRepository userDataRepository;
+    private final ExchangeRatesClient exchangeRatesClient;
 
     public UserServiceImpl(UserRepository userRepository,
                            UserDataRepository userDataRepository,
@@ -65,14 +70,23 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void updateUserEmail(Long userId, NewEmailDto newEmailDto) {
+    public void updateUserEmail(Long userId, NewEmailDto newEmailForm) {
         UserData userData = getUserDataById(userId);
 
-        if (!newEmailDto.getNewEmail().isEmpty() &&
-                newEmailDto.getOldEmail().trim().equals(userData.getEmail().trim()) &&
-                !newEmailDto.getNewEmail().trim().equals(userData.getEmail().trim())) {
-            userData.setEmail(newEmailDto.getNewEmail().trim());
+        if (emailUpdateFormValidationService.isNewEmailFormValid(newEmailForm, userId)) {
+            userData.setEmail(newEmailForm.getNewEmail());
             userDataRepository.save(userData);
+        }
+    }
+
+    @Override
+    public User findById(Long userId) {
+        Optional<User> maybeUser = userRepository.findById(userId);
+
+        if (maybeUser.isPresent()) {
+            return maybeUser.get();
+        } else {
+            throw new IdNotFoundException(userId, User.class.getSimpleName());
         }
     }
 
