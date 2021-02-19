@@ -52,8 +52,8 @@ public class AccountTypeServiceImpl implements AccountTypeService {
                     .sorted((account1, account2) -> account1.getName().compareTo(account2.getName()))
                     .collect(Collectors.toList());
         }
-        return allAccountTypes;
 
+        return allAccountTypes;
     }
 
     @Override

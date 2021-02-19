@@ -29,8 +29,8 @@ public class NewEmailFormValidationService {
     public NewEmailFormValidationService() {
     }
 
-    public boolean isNewEmailFormValid(NewEmailDto newEmailForm, Long userId) {
-        List<ValidationError> validationErrors = validateNewEmailForm(newEmailForm, userId);
+    public boolean isNewEmailFormValid(NewEmailDto newEmailDto, Long userId) {
+        List<ValidationError> validationErrors = validateNewEmailForm(newEmailDto, userId);
 
         if (validationErrors.size() != 0) {
             throw new InvalidNewEmailDtoException(
@@ -42,23 +42,23 @@ public class NewEmailFormValidationService {
         return true;
     }
 
-    private List<ValidationError> validateNewEmailForm(NewEmailDto newEmailForm, Long userId) {
+    private List<ValidationError> validateNewEmailForm(NewEmailDto newEmailDto, Long userId) {
         List<List<ValidationError>> listOfErrors = new ArrayList<>();
 
-        listOfErrors.add(checkNewEmailFormForNullFields(newEmailForm).getErrors());
+        listOfErrors.add(checkNewEmailFormForNullFields(newEmailDto).getErrors());
         List<ValidationError> nullErrors = listOfErrors.get(0);
 
         if (nullErrors.size() == 0) {
-            listOfErrors.add(checkNewEmailFormData(newEmailForm, userId).getErrors());
-            listOfErrors.add(checkIfNewEmailAlreadyInDatabase(newEmailForm).getErrors());
+            listOfErrors.add(checkNewEmailFormData(newEmailDto, userId).getErrors());
+            listOfErrors.add(checkIfNewEmailAlreadyInDatabase(newEmailDto).getErrors());
         }
 
         return listOfErrors.stream()
                 .flatMap(errors -> errors.stream()).collect(Collectors.toList());
     }
 
-    private Validator checkNewEmailFormForNullFields(NewEmailDto newEmailForm) {
-        return Validator.of(newEmailForm)
+    private Validator checkNewEmailFormForNullFields(NewEmailDto newEmailDto) {
+        return Validator.of(newEmailDto)
                 .validate(form -> form.getOldEmail() != null && !form.getOldEmail().equalsIgnoreCase("null"),
                         AT_LEAST_ONE_VALUE_IS_NULL)
                 .validate(form -> form.getOldEmail() != null && !form.getOldEmail().equalsIgnoreCase("null"),
@@ -69,14 +69,14 @@ public class NewEmailFormValidationService {
                         AT_LEAST_ONE_VALUE_IS_NULL);
     }
 
-    private Validator checkNewEmailFormData(NewEmailDto newEmailForm, Long userId) {
+    private Validator checkNewEmailFormData(NewEmailDto newEmailDto, Long userId) {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
         String password = userDetails.getPassword();
 
         UserData userData = userService.getUserDataById(userId);
 
-        return Validator.of(newEmailForm)
+        return Validator.of(newEmailDto)
                 .validate(form -> form.getOldEmail().equals(userData.getEmail()),
                         OLD_EMAIL_DOESNT_MATCH)
                 .validate(form -> Pattern.matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,6}$",
@@ -87,9 +87,9 @@ public class NewEmailFormValidationService {
                         WRONG_PASSWORD_FOR_GIVEN_USER);
     }
 
-    private Validator checkIfNewEmailAlreadyInDatabase(NewEmailDto newEmailForm) {
+    private Validator checkIfNewEmailAlreadyInDatabase(NewEmailDto newEmailDto) {
 
-        return Validator.of(newEmailForm)
+        return Validator.of(newEmailDto)
                 .validate(form -> !userService.findByEmail(form.getNewEmail()).isPresent(),
                         EMAIL_ALREADY_IN_DB)
                 .validate(form -> !form.getOldEmail().equals(form.getNewEmail()),

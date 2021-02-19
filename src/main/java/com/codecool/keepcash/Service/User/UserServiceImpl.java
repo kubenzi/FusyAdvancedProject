@@ -127,10 +127,10 @@ public class UserServiceImpl implements UserService {
 
         DecimalFormat balanceFormat = new DecimalFormat("#.##");
 
-        Double reduce = currentUser.getAccounts().stream()
+        Double reducedBalance = currentUser.getAccounts().stream()
                 .map(account -> account.getBalance() / (rates.createMapOfRates().get(account.getCurrency().getSignature())))
                 .reduce(0.0, (a, b) -> a + b);
 
-        return Double.valueOf(balanceFormat.format(reduce));
+        return Double.valueOf(balanceFormat.format(reducedBalance));
     }
 }
