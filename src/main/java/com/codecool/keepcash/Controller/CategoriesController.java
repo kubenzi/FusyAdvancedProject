@@ -50,7 +50,9 @@ public class CategoriesController {
 
     @DeleteMapping("/users/{userId}/categories/{categoryId}")
     @ResponseStatus(NO_CONTENT)
-    public void deleteCategoryById(@PathVariable Long categoryId) {
-        categoryService.deleteCategoryById(categoryId);
+    public void deleteCategoryById(@PathVariable Long categoryId,
+                                   @PathVariable Long userId) {
+
+        categoryService.deleteCategoryById(categoryId, userId);
     }
 }

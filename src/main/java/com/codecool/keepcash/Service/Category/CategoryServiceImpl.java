@@ -2,9 +2,10 @@ package com.codecool.keepcash.Service.Category;
 
 import com.codecool.keepcash.Dto.Category.CategoryDto;
 import com.codecool.keepcash.Dto.Category.NewCategoryDto;
-import com.codecool.keepcash.Entity.Account;
 import com.codecool.keepcash.Entity.Category;
+import com.codecool.keepcash.Entity.Operation;
 import com.codecool.keepcash.Entity.UserData;
+import com.codecool.keepcash.Exception.BuildCategoryDeleteException;
 import com.codecool.keepcash.Exception.IdNotFoundException;
 import com.codecool.keepcash.Repository.CategoryRepository;
 import com.codecool.keepcash.Service.User.UserService;
@@ -39,6 +40,7 @@ public class CategoryServiceImpl implements CategoryService {
         } else {
             throw new IdNotFoundException(id, Category.class.getSimpleName());
         }
+
     }
 
     @Override
@@ -91,11 +93,34 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public void deleteCategoryById(Long id) {
+    public void deleteCategoryById(Long id, Long userId) {
+
+        Optional<Category> maybeCategory = categoryRepository.findById(id);
+
+        if (maybeCategory.isPresent()) {
+            if (maybeCategory.get().isBuiltin()) {
+                throw new BuildCategoryDeleteException(id);
+            }
+        } else {
+            throw new IdNotFoundException(id, Category.class.getSimpleName());
+        }
+
         try {
+            setUpOperationFromDeletedCategory(id, userId);
             categoryRepository.deleteById(id);
         } catch (EmptyResultDataAccessException e) {
             throw new IdNotFoundException(id, Category.class.getSimpleName());
         }
+    }
+
+    private void setUpOperationFromDeletedCategory(Long categoryId, Long userId) {
+        final String CATEGORY_NAME = "UNASSIGNED";
+
+        List<Operation> removalOperations = getCategoryById(categoryId).getOperations();
+        Category unassignedCategory = getCategoryByNameAndUserId(CATEGORY_NAME, userId);
+        unassignedCategory.getOperations().addAll(removalOperations);
+
+        categoryRepository.save(unassignedCategory);
+
     }
 }

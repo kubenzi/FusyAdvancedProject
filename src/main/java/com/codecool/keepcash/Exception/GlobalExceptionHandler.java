@@ -4,8 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import static org.springframework.http.HttpStatus.NOT_ACCEPTABLE;
-import static org.springframework.http.HttpStatus.NOT_FOUND;
+import static org.springframework.http.HttpStatus.*;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -28,6 +27,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({NewCategoryValidationException.class})
     public ResponseEntity<String> wrongNewCategoryData(NewCategoryValidationException exception) {
         return new ResponseEntity<>(exception.getMessage(), NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler({BuildCategoryDeleteException.class})
+    public ResponseEntity<String> wrongCategoryToDelete(BuildCategoryDeleteException exception) {
+        return new ResponseEntity<>(exception.getMessage(), METHOD_NOT_ALLOWED);
     }
 
 }
