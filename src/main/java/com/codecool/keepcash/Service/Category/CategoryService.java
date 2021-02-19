@@ -16,7 +16,7 @@ public interface CategoryService {
 
     List<CategoryDto> getCategoriesDtoByUserId(Long userId);
 
-    List<Category> createBuiltinCategories();
+    List<Category> createStartingCategories();
 
     void addCategory(Long userId, NewCategoryDto newCategoryDto, boolean isBuiltin);
 

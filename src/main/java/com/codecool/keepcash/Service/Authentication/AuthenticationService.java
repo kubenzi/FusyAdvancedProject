@@ -83,7 +83,7 @@ public class AuthenticationService implements UserDetailsService {
                 userRegistrationDto.getEmail(),
                 user);
 
-        List<Category> inbuiltCategories = categoryService.createBuiltinCategories();
+        List<Category> inbuiltCategories = categoryService.createStartingCategories();
         inbuiltCategories.forEach(category -> userData.getCategories().add(category));
 
         userData.getAccounts().add(accountService.createBuiltinAccounts());

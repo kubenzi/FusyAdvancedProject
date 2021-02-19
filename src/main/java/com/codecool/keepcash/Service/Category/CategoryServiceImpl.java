@@ -65,7 +65,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
-    public List<Category> createBuiltinCategories() {
+    public List<Category> createStartingCategories() {
         Category other = new Category("OTHER", true);
         Category income = new Category("INCOME", true);
         Category unassigned = new Category("UNASSIGNED", true);
