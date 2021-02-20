@@ -102,7 +102,6 @@ export class RegisterComponent implements OnInit {
     )
       .subscribe(success => {
         if (success) {
-          console.log('kubunia rejestracja');
           this.router.navigate(['/login']);
         }
       });
