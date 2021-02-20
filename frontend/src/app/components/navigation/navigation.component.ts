@@ -23,10 +23,6 @@ export class NavigationComponent implements OnInit {
     this.userService.setUser$(this.authService.getUserId()).subscribe();
     this.user$ = this.userService.getUser$();
     console.log(this.user$);
-    // this.activatedRoute.events.pipe(first(event => !!event)).subscribe((
-    //   navigationStart: NavigationStart) => this.userService.getPieChartData(navigationStart.url));
-    // this.activatedRoute.events.pipe(first(event => !!event)).subscribe((
-    //   navigationStart: NavigationStart) => this.userService.setAddress(navigationStart.url));
     this.activatedRoute.events.pipe(
       filter(e => e instanceof NavigationStart)
     ).subscribe((e: RouterEvent) => {

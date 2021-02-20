@@ -87,7 +87,7 @@ public class OperationServiceImpl implements OperationService {
         for (Operation operation : csvOperations) {
             account.getOperations().add(operation);
 
-            if(account.getCreationDate().compareTo(operation.getDate()) < 0) {
+            if (account.getCreationDate().compareTo(operation.getDate()) < 0) {
                 account.setBalance(account.getBalance() + operation.getValue());
             }
 
@@ -124,9 +124,15 @@ public class OperationServiceImpl implements OperationService {
     }
 
     @Override
-    public List<OperationDto> findAllByAccountIdAndPeriod(Long accountId, Integer period){
+    public List<OperationDto> findAllByAccountIdAndPeriod(Long accountId, Integer period) {
 
         return OperationToOperationDtoConverter.convertListToDto(
                 operationRepository.findAllByAccountAndPeriod(accountId, LocalDate.now().minusDays(period)));
+    }
+
+    @Override
+    public List<OperationDto> getLastOperation(Long userId, Integer lastOperation) {
+        return OperationToOperationDtoConverter.convertListToDto(
+                operationRepository.findLastByUserId(userId, lastOperation));
     }
 }

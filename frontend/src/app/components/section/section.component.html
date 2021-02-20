@@ -9,36 +9,20 @@
     <button type="button" mat-raised-button color="primary" (click)="logout()">Logout</button>
   </div>
 
-  <h2>Total balance:  PLN</h2>
+  <h2>Total balance: {{totalBalance}}  PLN</h2>
 
   <br>
-
 </section>
 
 <app-pie-chart>
 
 </app-pie-chart>
 
-<table style="width:100%; margin-top: 10px; height: 40%; border-color: black; border-style: dashed" *ngFor="">
-<!--  <tr>-->
-<!--    <th>COL 1 </th>-->
-<!--    <th>COL 2 </th>-->
-<!--  </tr>-->
-  <tr>
-    <th>test </th>
-    <th>test </th>
-  </tr>
-  <tr>
-    <th>test </th>
-    <th>test </th>
-  </tr>
-  <tr>
-    <th>test </th>
-    <th>test </th>
-  </tr>
-  <tr>
-    <th>test </th>
-    <th>test </th>
-  </tr>
+<span *ngFor="let operation of lastOperations">
+  {{operation.id}}
+  {{operation.description}}
+  {{operation.date}}
+  {{operation.value}}
+  <br>
 
-</table>
+</span>

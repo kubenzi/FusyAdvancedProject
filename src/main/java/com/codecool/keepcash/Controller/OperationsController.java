@@ -29,9 +29,14 @@ public class OperationsController {
     @GetMapping("/users/{userId}/operations")
     public List<OperationDto> getOperationsByGivenParameter(@PathVariable Long userId,
                                                             @RequestParam(required = false) Long categoryId,
-                                                            @RequestParam(required = false) Long accountId) {
-        if (categoryId == null && accountId == null) {
+                                                            @RequestParam(required = false) Long accountId,
+                                                            @RequestParam(required = false) Integer lastOperation) {
+
+        if (categoryId == null && accountId == null && lastOperation == null) {
             return operationService.getAllOperationsByUserId(userId);
+        }
+        if (lastOperation != null) {
+            return operationService.getLastOperation(userId, lastOperation);
         }
         return categoryId != null ?
                 operationService.getAllOperationByCategoryId(categoryId) :
@@ -49,9 +54,9 @@ public class OperationsController {
     public void createNewOperation(@RequestBody NewOperationDto operationDto, @PathVariable Long userId) {
 
         List<ValidationError> validationErrors = newOperationDtoService.validateNewOperationDto(operationDto);
-        if(validationErrors.isEmpty()){
+        if (validationErrors.isEmpty()) {
             operationService.addTransaction(operationDto, userId);
-        }else {
+        } else {
             throw new NewOperationDtoValidationException(
                     validationErrors.toString()
             );

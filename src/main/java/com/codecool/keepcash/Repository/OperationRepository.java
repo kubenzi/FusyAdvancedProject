@@ -30,4 +30,8 @@ public interface OperationRepository extends CrudRepository<Operation, Long> {
 
     @Query(value = "select * from operations where account_id=?1 and operations.date > ?2", nativeQuery = true)
     List<Operation> findAllByAccountAndPeriod(Long accountId, LocalDate minusDays);
+
+    @Query(value = "select * from operations inner join accounts a on a.id = operations.account_id inner join " +
+            "user_data ud on ud.user_id = a.user_id where a.user_id = ?1 order by operations.id DESC limit ?2", nativeQuery = true)
+    List<Operation> findLastByUserId(Long userId, Integer lastOperation);
 }

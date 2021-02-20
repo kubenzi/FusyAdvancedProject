@@ -31,7 +31,7 @@ export class PieChartComponent implements OnInit {
     domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
 
-  constructor(private userService: UserService, private activatedRoute: Router) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit(): void {
@@ -39,7 +39,6 @@ export class PieChartComponent implements OnInit {
       .subscribe((user: User) => {
         this.userId = user.id;
       });
-    console.log(this.userId);
     this.userService.getAddressChange$().subscribe(() => {
       this.userService.getPieChartDataStartForPeriod(this.userService.address, 30).subscribe(
         value => this.pieChartData = value);

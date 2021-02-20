@@ -38,10 +38,11 @@ export class UserService {
     return this.user$.asObservable();
   }
 
-  getLineChartDataForInit30(): Observable<Data[]> {
-    const url = 'http://localhost:8080/api/v1/users/' + +'/line-chart/' + 30;
-    return this.http.get<Data[]>(url);
+  getTotalBalance(): Observable<number> {
+    const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/get-total-balance';
+    return this.http.get<number>(url);
   }
+
 
   getLineChartDataForPeriod(addressUrl: string, period: number): Observable<Data[]> {
     if (addressUrl === undefined) {
