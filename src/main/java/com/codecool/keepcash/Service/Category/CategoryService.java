@@ -22,5 +22,5 @@ public interface CategoryService {
 
     void saveUpdatedCategory(Category category);
 
-    void deleteCategoryById(Long id);
+    void deleteCategoryById(Long id, Long userId);
 }
