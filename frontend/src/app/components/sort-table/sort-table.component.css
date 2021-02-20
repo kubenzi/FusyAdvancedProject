@@ -16,3 +16,7 @@ th{
   position: sticky;
 }
 
+.delete-button {
+  background-color: white;
+}
+

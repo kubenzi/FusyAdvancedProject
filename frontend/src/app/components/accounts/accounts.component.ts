@@ -1,11 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from 'rxjs';
-import {User, Account, Operation, Category, Bank} from '../../models/models';
+import {Account, Category, User} from '../../models/models';
 import {UserService} from '../../services/user-service';
 import {ActivatedRoute} from '@angular/router';
 import {filter, switchMap} from 'rxjs/operators';
 import {AuthService} from '../../authentication/services/auth.service';
-import {FileUploadService} from '../file-upload/file-upload.service';
 import {HttpClient} from '@angular/common/http';
 
 @Component({
@@ -20,7 +19,10 @@ export class AccountsComponent implements OnInit {
   account: Observable<Account>;
   accountId: number;
 
-  constructor(private route: ActivatedRoute, private userService: UserService, private authService: AuthService, private http: HttpClient) {
+  constructor(private route: ActivatedRoute,
+              private userService: UserService,
+              private authService: AuthService,
+              private http: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -32,11 +34,11 @@ export class AccountsComponent implements OnInit {
       switchMap(
         user$ => this.userService.getAccountInfo(user$.id, this.accountId)
       )
-    )
+    );
   }
 
-  setCategories$(): void{
-    const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + "/categories";
+  setCategories$(): void {
+    const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/categories';
     this.http.get<Category[]>(url).subscribe(value => this.categories$ = value);
   }
 

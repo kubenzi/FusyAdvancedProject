@@ -106,8 +106,8 @@ export class UserService {
     return this.http.get<Category>('http://localhost:8080/api/v1/users/' + userId + '/categories/' + categoryId);
   }
 
-  // getAddress(): string {
-  //   console.log(this.address + 'test of user service');
-  //   return this.address;
-  // }
+  deleteOperation(userId: number, operationId: number) {
+    return this.http.delete('http://localhost:8080/api/v1/users/' + userId + '/operations/' + operationId)
+      .subscribe(() => console.log("operation deleted"));
+  }
 }

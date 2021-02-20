@@ -121,6 +121,5 @@ public class CategoryServiceImpl implements CategoryService {
         unassignedCategory.getOperations().addAll(removalOperations);
 
         categoryRepository.save(unassignedCategory);
-
     }
 }
