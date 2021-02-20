@@ -20,6 +20,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.util.Optional;
@@ -125,12 +127,18 @@ public class UserServiceImpl implements UserService {
         UserData currentUser = getUserDataById(userId);
         Rates rates = exchangeRatesClient.getCurrencies().getRates();
 
-        DecimalFormat balanceFormat = new DecimalFormat("#.##");
-
         Double reducedBalance = currentUser.getAccounts().stream()
                 .map(account -> account.getBalance() / (rates.createMapOfRates().get(account.getCurrency().getSignature())))
                 .reduce(0.0, (a, b) -> a + b);
 
-        return Double.valueOf(balanceFormat.format(reducedBalance));
+        return round(reducedBalance, 2);
+    }
+
+    private double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
     }
 }

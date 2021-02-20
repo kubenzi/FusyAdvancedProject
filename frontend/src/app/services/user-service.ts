@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
-import {switchMap, tap} from 'rxjs/operators';
-import {Data, Series, User, Account, Category} from '../models/models';
+import {mapTo, switchMap, tap} from 'rxjs/operators';
+import {Data, Series, User, Account, Category, AccountType, Currency, AccountDto} from '../models/models';
 import {AuthService} from '../authentication/services/auth.service';
+import {environment} from '../../environments/environment';
 
 
 @Injectable({
@@ -106,6 +107,11 @@ export class UserService {
   getCategoryInfo(userId: number, categoryId: number): Observable<Category>{
     return this.http.get<Category>('http://localhost:8080/api/v1/users/' + userId + '/categories/' + categoryId);
   }
+
+  addAccount(account: {name: string; balance: number; accountNumber: string; accountTypeId: number; currencyId: number}): Observable<AccountDto>{
+    return this.http.post<any>(`http://localhost:8080/api/v1/users/`+ this.authService.getUserId() +`/accounts`, account);
+  }
+
 
   deleteOperation(userId: number, operationId: number) {
     return this.http.delete('http://localhost:8080/api/v1/users/' + userId + '/operations/' + operationId)

@@ -20,7 +20,7 @@
 
 <div class="accounts-header">
   <h2>Account</h2>
-  <button type="button" mat-raised-button color="primary"><mat-icon>add_circle</mat-icon> Add account</button>
+  <button type="button" mat-raised-button (click)="openDialog()"><mat-icon>add_circle</mat-icon> Add account</button>
 </div>
 
 <div class="account-container">
@@ -38,11 +38,6 @@
     </a>
   </li>
 </div>
-
-<br>
-<br>
-<br>
-<br>
 
 <app-line-chart>
 

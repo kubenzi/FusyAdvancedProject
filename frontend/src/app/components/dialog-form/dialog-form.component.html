@@ -1,0 +1,42 @@
+<div class="dialog-form-test">
+  <h1 mat-dialog-title>Add account</h1>
+  <form [formGroup]="addForm">
+    <div mat-dialog-content>
+
+      <mat-form-field [appearance]="form">
+        <input matInput [formControl]="name" placeholder="NAME">
+      </mat-form-field>
+      <mat-form-field [appearance]="form">
+        <input matInput [formControl]="balance" placeholder="BALANCE">
+      </mat-form-field>
+      <mat-form-field [appearance]="form">
+        <input matInput [formControl]="accountNumber" placeholder="NUMBER">
+      </mat-form-field>
+
+      <div>
+        <select class="selected-account-type" [formControl]="currencyId">
+          <option> Currency </option>
+          <option *ngFor="let currency of currencies$" [value]="currency.id">
+            {{currency.signature}}
+          </option>
+        </select>
+      </div>
+
+      <div>
+        <select class="selected-account-type" [formControl]="accountTypeId">
+          <option> Account Type </option>
+          <option  *ngFor="let accountType of accountTypes$" [value]="accountType.id">
+            {{accountType.name}}
+          </option>
+        </select>
+      </div>
+
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button (click)="addAccount()" class="btn btn-success">Confirm</button>
+    </div>
+  </form>
+
+</div>
+

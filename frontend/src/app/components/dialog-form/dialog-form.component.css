@@ -1,0 +1,9 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+.dialog-form-test{
+  background-color: #b5e7a0;
+  position: absolute;
+  margin-top: 300px;
+  margin-left: 700px;
+  padding: 100px 100px 100px 100px;
+}

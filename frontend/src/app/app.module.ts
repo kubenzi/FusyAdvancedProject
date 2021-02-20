@@ -9,7 +9,7 @@ import {SectionComponent} from './components/section/section.component';
 import {NavigationComponent} from './components/navigation/navigation.component';
 import {AppRoutingModule} from './app-routing.module';
 import {LineChartComponent} from './components/line-chart/line-chart.component';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgxChartsModule} from '@swimlane/ngx-charts';
 import {PieChartComponent} from './components/pie-chart/pie-chart.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
@@ -28,6 +28,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatTableModule} from "@angular/material/table";
 import {MatSortModule} from "@angular/material/sort";
 import { SortTableComponent } from './components/sort-table/sort-table.component';
+import { DialogFormComponent } from './components/dialog-form/dialog-form.component';
+import {MatDialogModule} from '@angular/material/dialog';
 
 
 @NgModule({
@@ -44,23 +46,28 @@ import { SortTableComponent } from './components/sort-table/sort-table.component
     AccountsComponent,
     FileUploadComponent,
     SortTableComponent,
+    DialogFormComponent,
   ],
-  imports: [
-    BrowserModule,
-    HttpClientModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    NgxChartsModule,
-    FormsModule,
-    BrowserAnimationsModule,
-    AuthModule,
-    MatButtonModule,
-    MatIconModule,
-    MatTableModule,
-    MatSortModule
+    imports: [
+        BrowserModule,
+        HttpClientModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule,
+        NgxChartsModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        AuthModule,
+        MatButtonModule,
+        MatIconModule,
+        MatTableModule,
+        MatSortModule,
+        MatFormFieldModule,
+        MatDialogModule,
+        MatInputModule,
+        ReactiveFormsModule
 
-  ],
+    ],
   providers: [CookieService, MatInputModule,
     MatTableModule,
     MatSortModule, MatFormFieldModule,

@@ -13,6 +13,14 @@ export interface OperationDto{
   accountId: number;
 }
 
+export interface AccountDto{
+  name: string;
+  balance: number;
+  accountNumber: string;
+  accountTypeId: number;
+  currencyId: number;
+}
+
 export interface Category {
   id: number;
   name: string;
@@ -70,9 +78,9 @@ export interface Bank {
   name: string
 }
 
-export interface ExchangeRate {
-  eur: number,
-  usd: number,
-  gbp: number
+
+export interface DialogData {
+  animal: string;
+  name: string;
 }
 
