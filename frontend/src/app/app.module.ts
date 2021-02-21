@@ -32,6 +32,7 @@ import { DialogFormComponent } from './components/dialog-form/dialog-form.compon
 import {MatDialogModule} from '@angular/material/dialog';
 import { DialogFormCategoryComponent } from './components/dialog-form-category/dialog-form-category.component';
 import { DialogFormNewOperationComponent } from './components/dialog-form-new-operation/dialog-form-new-operation.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import { DialogFormNewOperationComponent } from './components/dialog-form-new-op
     DialogFormComponent,
     DialogFormCategoryComponent,
     DialogFormNewOperationComponent,
+    ContactComponent,
   ],
     imports: [
         BrowserModule,

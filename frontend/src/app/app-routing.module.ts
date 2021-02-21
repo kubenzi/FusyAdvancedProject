@@ -8,11 +8,13 @@ import {LoginComponent} from './components/login/login.component';
 import {AuthGuard} from './authentication/guards/auth.guard';
 import {RegisterComponent} from './components/register/register.component';
 import {AccountsComponent} from './components/accounts/accounts.component';
+import {ContactComponent} from "./components/contact/contact.component";
 
 const routes: Routes = [
   {path: 'dashboard', component: MenuComponent},
   {path: 'navigation', component: SectionComponent, outlet: 'nav'},
   {path: 'scheduled', component: ScheduledComponent},
+  {path: 'contact', component: ContactComponent},
   {path: 'categories/:id', component: CategoriesComponent},
   {path: 'accounts/:id', component: AccountsComponent},
   {path: '', pathMatch: 'full', redirectTo: '/login' },

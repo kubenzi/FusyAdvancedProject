@@ -82,6 +82,10 @@ export class UserService {
       const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/pie-chart/' + period;
       return this.http.get<Series[]>(url);
     }
+    if (addressUrl === 'contact') {
+      const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/pie-chart/' + period;
+      return this.http.get<Series[]>(url);
+    }
     if (addressUrl === '/dashboard') {
       const url = 'http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/pie-chart/' + period;
       return this.http.get<Series[]>(url);
