@@ -1,8 +1,9 @@
 import {AfterViewInit, Component, Input, ViewChild} from '@angular/core';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
-import {Operation, User} from '../../models/models';
+import {Category, Operation, User} from '../../models/models';
 import {UserService} from '../../services/user-service';
+import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-sort-table',
@@ -11,30 +12,40 @@ import {UserService} from '../../services/user-service';
 })
 export class SortTableComponent implements AfterViewInit {
 
-
-  // operationList: Operation[] = [{id: 1, description: "xdddddd", value: -20, date: "2021-05-01"},
-  //   {id: 2, description: "dsc 2", value: 20, date: "2020-02-04"},
-  //   {id: 2, description: "dsc 2", value: 20, date: "2021-01-10"},
-  //   {id: 2, description: "dsc 2", value: 20, date: "2021-05-10"}];
   _operationList: Operation[];
   dataSource: MatTableDataSource<Operation>;
-  displayedColumns: string[] = ['id', 'description', 'value', 'date', 'action'];
+  displayedColumns: string[] = ['id', 'description', 'value', 'date', 'category-change', 'action'];
   userId: number;
 
-  constructor(private userService: UserService) {
+
+  changeCategoryFormGroup: FormGroup;
+  id = new FormControl('');
+  name = new FormControl('');
+
+  constructor(private userService: UserService,
+              private formBuilder: FormBuilder) {
   }
+
 
   ngOnInit(): void {
     this.userService.getUser$()
       .subscribe((user: User) => {
         this.userId = user.id;
-      });
+        });
+    this.changeCategoryFormGroup = this.formBuilder.group({
+      name: this.name,
+      id: this.id
+      })
   }
+
+  @Input() categoryList: Category[];
 
   @Input() set operationList(operationList: Operation[]) {
     this._operationList = operationList;
     this.dataSource = new MatTableDataSource(this._operationList);
   }
+
+  get form() { return this.changeCategoryFormGroup.controls; }
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -47,5 +58,18 @@ export class SortTableComponent implements AfterViewInit {
 
     this.userService.reEmitUser();
     this.userService.flag.next(true);
+  }
+
+  updateOperationCategory(operationId: number) {
+    console.log(operationId);
+    this.userService.updateOperationCategory(
+      {
+        categoryId: this.form.categoryId.value
+      }, operationId
+    )
+      .subscribe((operation) => {
+
+        console.log('operation updated')
+      })
   }
 }

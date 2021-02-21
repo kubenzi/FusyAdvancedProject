@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {Category, Operation, User} from '../../models/models';
 import {ActivatedRoute} from "@angular/router";
 import {UserService} from "../../services/user-service";
 import {filter, switchMap} from 'rxjs/operators';
+import {Category, Operation, User} from '../../models/models';
 
 @Component({
   selector: 'app-categories',
@@ -15,6 +15,7 @@ export class CategoriesComponent implements OnInit {
   user$: Observable<User>;
   category: Observable<Category>;
   categoryId: number;
+  categoryList: Category[] = [];
 
   constructor(private route: ActivatedRoute, private userService: UserService) {
   }
@@ -28,6 +29,6 @@ export class CategoriesComponent implements OnInit {
         user$ => this.userService.getCategoryInfo(user$.id, this.categoryId)
       )
     )
-    // this.category.subscribe(value => console.log(value))
+    this.user$.subscribe(value => this.categoryList = value.categories);
   }
 }

@@ -1,18 +1,22 @@
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
   <ng-container matColumnDef="id">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
   </ng-container>
 
   <ng-container matColumnDef="description">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
   </ng-container>
 
   <ng-container matColumnDef="value">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Value</th>
   </ng-container>
 
   <ng-container matColumnDef="date">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header> Date</th>
+  </ng-container>
+
+  <ng-container matColumnDef="category-change">
+    <th mat-header-cell *matHeaderCellDef> Change category</th>
   </ng-container>
 
   <ng-container matColumnDef="action">
@@ -23,32 +27,50 @@
 </table>
 
 
-
 <div class="test">
   <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
 
     <!-- Id Column -->
     <ng-container matColumnDef="id">
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>-->
+      <!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> ID. </th>-->
       <td mat-cell *matCellDef="let element"> {{element.id}} </td>
     </ng-container>
 
     <!-- Description Column -->
     <ng-container matColumnDef="description">
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>-->
+      <!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Description </th>-->
       <td mat-cell *matCellDef="let element"> {{element.description}} </td>
     </ng-container>
 
     <!-- Value Column -->
     <ng-container matColumnDef="value">
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>-->
+      <!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Value </th>-->
       <td mat-cell *matCellDef="let element"> {{element.value}} </td>
     </ng-container>
 
     <!-- Date Column -->
     <ng-container matColumnDef="date">
-<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>-->
+      <!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>-->
       <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="category-change">
+      <td mat-cell *matCellDef="let element">
+        <form [formGroup]="changeCategoryFormGroup">
+
+          <select class="selected-account-type">
+            <option *ngFor="let cat of categoryList" [value]="cat.id"> {{cat.name}}
+            </option>
+          </select>
+
+          <button mat-button class="cat-update-button" (click)="updateOperationCategory(element.id)">
+                <span class="material-icons">
+                  check
+                </span>
+          </button>
+
+        </form>
+      </td>
     </ng-container>
 
     <!-- Delete Column -->
@@ -58,16 +80,13 @@
           <span class="material-icons">
             delete
           </span>
-
         </button>
       </td>
     </ng-container>
 
-<!--    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
+    <!--    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>-->
     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
   </table>
 </div>
-
-
 

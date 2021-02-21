@@ -112,6 +112,12 @@ export class UserService {
     return this.http.post<any>(`http://localhost:8080/api/v1/users/`+ this.authService.getUserId() +`/accounts`, account);
   }
 
+  updateOperationCategory(operation: {categoryId: number}, operationId: number){
+    console.log(operation.categoryId + "test");
+    console.log(operationId + "test");
+    return this.http.put<any>('http://localhost:8080/api/v1/users/' + this.authService.getUserId() +'/operations/'
+      + operationId, operation);
+  }
 
   deleteOperation(userId: number, operationId: number) {
     return this.http.delete('http://localhost:8080/api/v1/users/' + userId + '/operations/' + operationId)
