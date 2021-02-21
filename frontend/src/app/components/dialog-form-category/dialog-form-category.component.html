@@ -1,16 +1,16 @@
 <div class="dialog-form-test">
-  <h1 mat-dialog-title>Add category</h1>
+  <h1 class="header" mat-dialog-title>Add category</h1>
   <form [formGroup]="addCategoryForm">
     <div mat-dialog-content>
 
       <mat-form-field [appearance]="form">
-        <input matInput [formControl]="categoryName" placeholder="NAME">
+        <input class="input-field" matInput [formControl]="categoryName" placeholder="NAME">
       </mat-form-field>
 
     </div>
-    <div mat-dialog-actions>
-      <button mat-button (click)="onNoClick()">Cancel</button>
-      <button (click)="addCategory()" class="btn btn-success">Confirm</button>
+    <div mat-dialog-actions class="buttons">
+      <button class="dialog-button-cancel" mat-button (click)="onNoClick()">Cancel</button>
+      <button class="dialog-button-confirm" mat-button (click)="addCategory()" >Confirm</button>
     </div>
   </form>
 

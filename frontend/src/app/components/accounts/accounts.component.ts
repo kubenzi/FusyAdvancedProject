@@ -21,6 +21,7 @@ export class AccountsComponent implements OnInit {
   categories$: Category[];
   account: Observable<Account>;
   accountId: number;
+  categoryList: Category[] = [];
 
   constructor(private route: ActivatedRoute,
               private userService: UserService,
@@ -38,7 +39,8 @@ export class AccountsComponent implements OnInit {
       switchMap(
         user$ => this.userService.getAccountInfo(user$.id, this.accountId)
       )
-    );
+    )
+    this.user$.subscribe(value => this.categoryList = value.categories);
   }
 
   setCategories$(): void {

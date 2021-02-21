@@ -1,20 +1,20 @@
 <div class="dialog-form-test">
-  <h1 mat-dialog-title>Add new single operation</h1>
+  <h1 class="header" mat-dialog-title>Add new single operation</h1>
   <form [formGroup]="addSingleTransactionForm">
     <div mat-dialog-content>
 
-      <mat-form-field [appearance]="form">
+      <mat-form-field class="input-field" [appearance]="form">
         <input matInput [formControl]="description" placeholder="DESCRIPTION">
       </mat-form-field>
-      <mat-form-field [appearance]="form">
+      <mat-form-field class="input-field" [appearance]="form">
         <input matInput [formControl]="value" placeholder="VALUE">
       </mat-form-field>
-      <mat-form-field [appearance]="form">
+      <mat-form-field class="input-field" [appearance]="form">
         <input matInput [formControl]="date" type="date" placeholder="dd-mm-yyyy" value="" min="1997-01-01" max="2030-12-31">
       </mat-form-field>
 
-      <div>
-        <select class="selected-category" [formControl]="categoryId">
+      <div class="input-field">
+        <select class="selected" [formControl]="categoryId">
           <option> Category </option>
           <option *ngFor="let category of categories$" [value]="category.id">
             {{category.name}}
@@ -23,9 +23,9 @@
       </div>
 
     </div>
-    <div mat-dialog-actions>
-      <button mat-button (click)="onNoClick()">Cancel</button>
-      <button (click)="addSingleTransaction()" class="btn btn-success">Confirm</button>
+    <div mat-dialog-actions class="buttons">
+      <button  class="dialog-button-cancel" mat-button (click)="onNoClick()">Cancel</button>
+      <button class="dialog-button-confirm" mat-button (click)="addSingleTransaction()">Confirm</button>
     </div>
   </form>
 

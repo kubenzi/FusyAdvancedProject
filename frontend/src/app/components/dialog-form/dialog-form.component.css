@@ -1,9 +1,78 @@
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 .dialog-form-test{
-  background-color: #b5e7a0;
+  background-color: lightyellow;
   position: absolute;
   margin-top: 300px;
   margin-left: 700px;
-  padding: 100px 100px 100px 100px;
+  padding: 50px 50px 100px 50px;
+
+  border-radius: 30px 30px 30px 30px;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 1);
 }
+
+.header{
+  padding: 5px;
+  font-family: Verdana;
+  font-size: 30px;
+  font-weight: bold;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 1);
+  background-color: #d6d6d6;
+
+}
+
+.input-field{
+  margin-top: 10px;
+  margin-left: 10px;
+  padding: 10px;
+  flex: 1;
+  background-color: #d6d6d6;
+  border-radius: 30px 30px 30px 30px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  height: 30px;
+  font-family: Verdana;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.selected{
+  background-color: #d6d6d6;
+  font-family: Verdana;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.buttons{
+  display: flex;
+  flex-direction: column;
+}
+
+.dialog-button-cancel, .dialog-button-confirm{
+  background-color: darkgray;
+  padding: 10px;
+  margin-top: 25px;
+  margin-bottom: 25px;
+  font-weight: bold;
+  color: white;
+  text-transform: uppercase;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.15);
+  border-radius: 30px;
+  flex: 1;
+  font-size: 16px;
+  width: 150px;
+}
+
+.dialog-button-cancel:hover {
+  background-color: palevioletred;
+  transition: background-color, 1s;
+  cursor: pointer;
+}
+
+.dialog-button-confirm:hover{
+  background-color: lightgreen;
+  transition: background-color, 1s;
+  cursor: pointer;
+}
+

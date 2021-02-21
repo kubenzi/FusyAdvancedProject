@@ -1,25 +1,25 @@
 <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-  <ng-container matColumnDef="id">
+  <ng-container class="id" matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> ID</th>
   </ng-container>
 
   <ng-container matColumnDef="description">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
+    <th class="description" mat-header-cell *matHeaderCellDef mat-sort-header> Description</th>
   </ng-container>
 
-  <ng-container matColumnDef="value">
+  <ng-container class="value" matColumnDef="value">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Value</th>
   </ng-container>
 
-  <ng-container matColumnDef="date">
+  <ng-container class="date" matColumnDef="date">
     <th mat-header-cell *matHeaderCellDef mat-sort-header> Date</th>
   </ng-container>
 
-  <ng-container matColumnDef="category-change">
+  <ng-container class="category-change" matColumnDef="category-change">
     <th mat-header-cell *matHeaderCellDef> Change category</th>
   </ng-container>
 
-  <ng-container matColumnDef="action">
+  <ng-container class="action" matColumnDef="action">
     <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
   </ng-container>
 
