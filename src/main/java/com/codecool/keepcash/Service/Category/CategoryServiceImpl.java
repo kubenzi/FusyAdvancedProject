@@ -122,4 +122,9 @@ public class CategoryServiceImpl implements CategoryService {
 
         categoryRepository.save(unassignedCategory);
     }
+
+    @Override
+    public Long getCategoryIdByOperationId(Long operationId) {
+        return categoryRepository.findCategoryIdByOperationId(operationId);
+    }
 }

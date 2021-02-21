@@ -135,4 +135,19 @@ public class OperationServiceImpl implements OperationService {
         return OperationToOperationDtoConverter.convertListToDto(
                 operationRepository.findLastByUserId(userId, lastOperation));
     }
+
+    @Override
+    public void updateOperationsCategory(Long operationId, Long categoryId) {
+        Operation operation = operationRepository.findById(operationId).get();
+
+        Category currentCategory =
+                categoryService.getCategoryById(categoryService.getCategoryIdByOperationId(operationId));
+        Category newCategory = categoryService.getCategoryById(categoryId);
+
+        currentCategory.getOperations().remove(operation);
+        newCategory.getOperations().add(operation);
+
+        categoryService.saveUpdatedCategory(currentCategory);
+        categoryService.saveUpdatedCategory(newCategory);
+    }
 }

@@ -17,15 +17,12 @@ export class SortTableComponent implements AfterViewInit {
   displayedColumns: string[] = ['id', 'description', 'value', 'date', 'category-change', 'action'];
   userId: number;
 
-
   changeCategoryFormGroup: FormGroup;
   id = new FormControl('');
-  name = new FormControl('');
 
   constructor(private userService: UserService,
               private formBuilder: FormBuilder) {
   }
-
 
   ngOnInit(): void {
     this.userService.getUser$()
@@ -33,7 +30,6 @@ export class SortTableComponent implements AfterViewInit {
         this.userId = user.id;
         });
     this.changeCategoryFormGroup = this.formBuilder.group({
-      name: this.name,
       id: this.id
       })
   }
@@ -61,15 +57,14 @@ export class SortTableComponent implements AfterViewInit {
   }
 
   updateOperationCategory(operationId: number) {
-    console.log(operationId);
-    this.userService.updateOperationCategory(
+    this.userService.updateOperationCategory (
       {
-        categoryId: this.form.categoryId.value
+        categoryId: this.form.id.value
       }, operationId
     )
       .subscribe((operation) => {
-
         console.log('operation updated')
       })
+    window.location.reload();
   }
 }

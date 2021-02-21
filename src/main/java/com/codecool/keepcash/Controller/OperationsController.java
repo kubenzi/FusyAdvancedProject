@@ -2,6 +2,7 @@ package com.codecool.keepcash.Controller;
 
 import com.codecool.keepcash.Dto.Operation.NewOperationDto;
 import com.codecool.keepcash.Dto.Operation.OperationDto;
+import com.codecool.keepcash.Dto.Operation.OperationUpdateDto;
 import com.codecool.keepcash.Exception.NewOperationDtoValidationException;
 import com.codecool.keepcash.Service.Operation.OperationService;
 import com.codecool.keepcash.Service.Validation.NewOperationValidation.NewOperationDtoService;
@@ -61,8 +62,13 @@ public class OperationsController {
                     validationErrors.toString()
             );
         }
+    }
 
-
+    @PutMapping("/users/{userId}/operations/{operationId}")
+    @ResponseStatus(CREATED)
+    public void updateOperationsCategory(@RequestBody OperationUpdateDto operationUpdateDto,
+                                         @PathVariable Long operationId) {
+        operationService.updateOperationsCategory(operationId, Long.valueOf(operationUpdateDto.getCategoryId()));
     }
 
 }

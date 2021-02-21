@@ -13,5 +13,8 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
     @Query(value = "SELECT * FROM categories WHERE name = ?1 AND user_id = ?2 AND builtin = true", nativeQuery = true)
     Optional<Category> findByNameAndUserId(String name, Long userId);
 
+    @Query(value = "SELECT category_id FROM categories JOIN operations o on categories.id = o.category_id WHERE o.id = ?1", nativeQuery = true)
+    Long findCategoryIdByOperationId(Long operationId);
+
 
 }
