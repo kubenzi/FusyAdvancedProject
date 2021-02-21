@@ -2,7 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import {mapTo, switchMap, tap} from 'rxjs/operators';
-import {Data, Series, User, Account, Category, AccountType, Currency, AccountDto} from '../models/models';
+import {Data, Series, User, Account, Category, AccountType, Currency, AccountDto, CategoryDto, OperationDto} from '../models/models';
 import {AuthService} from '../authentication/services/auth.service';
 import {environment} from '../../environments/environment';
 
@@ -110,6 +110,14 @@ export class UserService {
 
   addAccount(account: {name: string; balance: number; accountNumber: string; accountTypeId: number; currencyId: number}): Observable<AccountDto>{
     return this.http.post<any>(`http://localhost:8080/api/v1/users/`+ this.authService.getUserId() +`/accounts`, account);
+  }
+
+  addCategory(category: {name: string}): Observable<CategoryDto>{
+    return this.http.post<any>(`http://localhost:8080/api/v1/users/` + this.authService.getUserId() + '/categories', category);
+  }
+
+  addSingleTransaction(operation: {description: string; value: number; date: string; categoryId: number, accountId: number;}): Observable<OperationDto>{
+    return this.http.post<any>('http://localhost:8080/api/v1/users/' + this.authService.getUserId() + '/operations', operation);
   }
 
   updateOperationCategory(operation: {categoryId: number}, operationId: number){

@@ -21,6 +21,10 @@ export interface AccountDto{
   currencyId: number;
 }
 
+export interface CategoryDto{
+  name: string;
+}
+
 export interface Category {
   id: number;
   name: string;
@@ -78,9 +82,10 @@ export interface Bank {
   name: string
 }
 
-
-export interface DialogData {
-  animal: string;
-  name: string;
+export interface DialogData{
+  accountId: number;
 }
+
+
+
 

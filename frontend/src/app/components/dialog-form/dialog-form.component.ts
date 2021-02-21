@@ -20,6 +20,7 @@ export class DialogFormComponent {
   accountNumberPattern = '';
   accountTypeIdPattern = '';
   currencyIdPattern = '';
+
   name = new FormControl('', [Validators.required, Validators.pattern(this.accountNamePattern)]);
   balance = new FormControl('', [Validators.required, Validators.pattern(this.balancePattern)]);
   accountNumber = new FormControl('', [Validators.required, Validators.pattern(this.accountNumberPattern)]);
@@ -86,6 +87,7 @@ export class DialogFormComponent {
         console.log(this.accountTypeId);
       })
     this.dialogRef.close();
+    window.location.reload();
   }
 
 }

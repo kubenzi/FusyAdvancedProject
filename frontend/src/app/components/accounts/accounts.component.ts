@@ -6,6 +6,9 @@ import {ActivatedRoute} from '@angular/router';
 import {filter, switchMap} from 'rxjs/operators';
 import {AuthService} from '../../authentication/services/auth.service';
 import {HttpClient} from '@angular/common/http';
+import {DialogFormCategoryComponent} from '../dialog-form-category/dialog-form-category.component';
+import {MatDialog} from '@angular/material/dialog';
+import {DialogFormNewOperationComponent} from '../dialog-form-new-operation/dialog-form-new-operation.component';
 
 @Component({
   selector: 'app-accounts',
@@ -22,7 +25,8 @@ export class AccountsComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private userService: UserService,
               private authService: AuthService,
-              private http: HttpClient) {
+              private http: HttpClient,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -42,4 +46,17 @@ export class AccountsComponent implements OnInit {
     this.http.get<Category[]>(url).subscribe(value => this.categories$ = value);
   }
 
+
+  openDialogOperation(): void {
+    const dialogRef = this.dialog.open(DialogFormNewOperationComponent, {
+      width: '250px', data: {
+        accountId: this.accountId
+      }
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      // this.userService.reEmitUser();
+      // this.userService.flag.next(true);
+    });
+  }
 }

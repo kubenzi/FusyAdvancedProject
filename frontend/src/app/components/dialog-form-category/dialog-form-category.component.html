@@ -1,0 +1,17 @@
+<div class="dialog-form-test">
+  <h1 mat-dialog-title>Add category</h1>
+  <form [formGroup]="addCategoryForm">
+    <div mat-dialog-content>
+
+      <mat-form-field [appearance]="form">
+        <input matInput [formControl]="categoryName" placeholder="NAME">
+      </mat-form-field>
+
+    </div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onNoClick()">Cancel</button>
+      <button (click)="addCategory()" class="btn btn-success">Confirm</button>
+    </div>
+  </form>
+
+</div>

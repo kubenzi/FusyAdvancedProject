@@ -1,54 +1,36 @@
 <div class="account-container">
   <div class="account-view">
     <div class="account-details">
-      <div class="account-type-name">
-        <h3>{{(account | async)?.accountType.name}}</h3>
-      </div>
-      <div class="account-balance">
-        <h3>{{(account | async)?.balance}} PLN</h3>
-      </div>
-      <div class="account-name">
-        <h3>{{(account | async)?.name}}</h3>
-      </div>
-      <div class="account-number">
-        <h3>{{(account | async)?.accountNumber}}</h3>
-      </div>
-    </div>
-    <div class="row">
-      <div class="new-transaction">
-        <h2>New single transaction</h2>
-        <div class="form-transaction">
-          <div class="form-left">
-            <input type="text" placeholder="Description">
-            <input type="number" placeholder="Value">
-            <input type="date" name="begin"
-                   placeholder="dd-mm-yyyy" value=""
-                   min="1997-01-01" max="2030-12-31">
-          </div>
-          <div class="form-right">
-            <select class="selected-account-type">
-              <option> --- </option>
-              <option *ngFor="let category of categories$">
-                {{category.name}}
-              </option>
-            </select>
-            <select class="selected-transaction-type">
-              <option> --- </option>
-              <option> Outgo </option>
-              <option> Income </option>
-            </select>
-          </div>
+      <div class="row">
+        <div class="account-type-name">
+          <h3><mat-icon>account_balance</mat-icon>{{(account | async)?.accountType.name}}</h3>
+        </div>
+        <div class="account-balance">
+          <h3><mat-icon>monetization_on</mat-icon>{{(account | async)?.balance}} PLN</h3>
         </div>
       </div>
+      <div class="row">
+        <div class="account-name">
+          <h3><mat-icon>drive_file_rename_outline</mat-icon> {{(account | async)?.name}}</h3>
+        </div>
+        <div class="account-number">
+          <h3><mat-icon>credit_card</mat-icon>{{(account | async)?.accountNumber}}</h3>
+        </div>
+      </div>
+      <button class="button" type="button" mat-raised-button (click)="openDialogOperation()"><mat-icon>add_circle</mat-icon> Add single transaction</button>
+    </div>
       <div class="file-upload">
         <app-file-upload></app-file-upload>
       </div>
-    </div>
+<!--    </div>-->
   </div>
 </div>
 <app-sort-table [operationList]="(account | async).operations">
 
 </app-sort-table>
+<br>
+<br>
+<br>
 
 
 <app-line-chart></app-line-chart>

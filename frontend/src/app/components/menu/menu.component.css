@@ -41,18 +41,21 @@
 
 .button{
   flex: 1;
-  width: 150px
+  width: 120px;
 }
 
 h2{
   flex: 1;
-  width: 150px
+  width: 150px;
+  font-family: Verdana;
+  font-weight: bold;
 }
 
 #category-container, #account-container, #diagram-container {
   width: 95%;
   display: flex;
   flex-direction: row;
+
 }
 
 .subcomponent-headline {
@@ -63,7 +66,7 @@ h2{
 .category-container, .account-container{
   display: flex;
   text-align: center;
-  background: lightgray;
+  background: white;
   margin-left: 40px;
   margin-right: 40px;
   border-width: 1px;
@@ -71,7 +74,11 @@ h2{
   border-radius: 30px 30px 30px 30px;
   list-style-type: none;
   overflow: scroll;
-  width: 1000px;
+  width: 950px;
+}
+
+.account-container{
+  margin-bottom: 100px;
 }
 
 /*.category-list, .account-list{*/
@@ -88,12 +95,12 @@ h2{
 
 .category, .account {
   display: inline-block;
-  font-weight: 400;
-  font-size: 15px;
-  color: white;
-  height: 100px;
-  width: 100px;
-  background-color:yellowgreen;
+  color: black;
+  height: 120px;
+  width: 150px;
+  font-family: Verdana;
+  font-size: 12px;
+  font-weight: bold;
   line-height: 1em;
   position: relative;
   /*left: -1px;*/
@@ -102,14 +109,23 @@ h2{
   border-radius: 8px 8px 8px 8px;
   padding: 10px;
   text-decoration: none;
+  box-shadow: 0px 5px 5px rgba(0, 0, 0, 1);
 }
 .category{
   margin: 1.5em .8em .8em .8em;
+  padding-top: 20px;
+  background-color: lightblue;
+  color: black;
+  font-family: Verdana;
+  font-size: 20px;
+  font-weight: bold;
+  line-height: 2em;
 }
 
 .account {
   width: 200px;
   font-size: 20px;
+  background-color: lightpink;
 }
 
 .horizontal-separator {

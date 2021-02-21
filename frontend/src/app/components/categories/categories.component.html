@@ -1,6 +1,10 @@
 <!--<h3>{{(category | async)?.operations[0].description}}</h3>-->
 <!--<h3>{{(category | async)?.operations[1].description}}</h3>-->
 
+<div class="header">
+  <h1> Category <mat-icon>arrow_right_alt</mat-icon> {{(category | async)?.name}}</h1>
+</div>
+
 <app-sort-table [operationList]="(category | async).operations" [categoryList]="categoryList">
 
 </app-sort-table>

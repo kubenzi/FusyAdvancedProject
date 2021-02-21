@@ -30,6 +30,8 @@ import {MatSortModule} from "@angular/material/sort";
 import { SortTableComponent } from './components/sort-table/sort-table.component';
 import { DialogFormComponent } from './components/dialog-form/dialog-form.component';
 import {MatDialogModule} from '@angular/material/dialog';
+import { DialogFormCategoryComponent } from './components/dialog-form-category/dialog-form-category.component';
+import { DialogFormNewOperationComponent } from './components/dialog-form-new-operation/dialog-form-new-operation.component';
 
 
 @NgModule({
@@ -47,6 +49,8 @@ import {MatDialogModule} from '@angular/material/dialog';
     FileUploadComponent,
     SortTableComponent,
     DialogFormComponent,
+    DialogFormCategoryComponent,
+    DialogFormNewOperationComponent,
   ],
     imports: [
         BrowserModule,

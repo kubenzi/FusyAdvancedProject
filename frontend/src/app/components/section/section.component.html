@@ -9,7 +9,7 @@
     <button type="button" mat-raised-button color="primary" (click)="logout()">Logout</button>
   </div>
 
-  <h2>Total balance: {{totalBalance}}  PLN</h2>
+  <h2 class="total-balance"><mat-icon>account_balance_wallet</mat-icon>   Total balance:   {{totalBalance}}  PLN</h2>
 
   <br>
 </section>
@@ -18,9 +18,18 @@
 
 </app-pie-chart>
 
-<span *ngFor="let operation of lastOperations">
-  {{operation.id}}
-  {{operation.description}}
-  {{operation.date}}
-  {{operation.value}}
+<div class="last-transactions-container">
+  <span class="header">LATEST      <mat-icon>history</mat-icon></span>
+  <br>
+  <span class="last-transactions" *ngFor="let operation of lastOperations">
+  <br>
+  ID: {{operation.id}}
+    Description: {{operation.description}}
+    <br>
+  Date: {{operation.date}}
+    Value: {{operation.value}}
+    <br>
 </span>
+</div>
+
+
